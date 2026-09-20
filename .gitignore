@@ -7,9 +7,11 @@ backend/instance/
 
 # Frontend (Node/Vite)
 frontend/node_modules/
-frontend/dist/
 frontend/public/pyodide/
 frontend/.vite/
+
+# frontend/dist/ is intentionally committed: PythonAnywhere's free tier has
+# no usable Node.js, so we build locally and ship the built output instead.
 
 # Editors / OS
 .DS_Store

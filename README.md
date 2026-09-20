@@ -69,14 +69,26 @@ Visit `http://127.0.0.1:5000` — it now serves both the API and the app.
 SQLite needs **persistent disk**, which most free hosts wipe on restart — PythonAnywhere's free
 tier persists your files, so it's a good fit here.
 
+PythonAnywhere's free tier has no usable Node.js (outbound network is restricted to a
+whitelist that doesn't include npm's registry), so **`frontend/dist` is built locally and
+committed to the repo** — PythonAnywhere never needs to run `npm` at all. Whenever you change
+anything under `frontend/src`, rebuild and commit before deploying:
+
+```bash
+cd frontend
+npm run build
+git add dist
+git commit -m "Rebuild frontend"
+git push
+```
+
+Then deploy:
+
 1. Push this repo to GitHub (see below).
 2. On PythonAnywhere: **Consoles → Bash**, then `git clone` your repo.
-3. `cd PyQuest/frontend && npm install && npm run build` (PythonAnywhere consoles have Node
-   available; if not, build locally and `git push` the `frontend/dist` folder instead — you'll
-   need to remove `frontend/dist` from `.gitignore` if you go that route).
-4. `cd ../backend && pip install --user -r requirements.txt`
-5. **Web** tab → **Add a new web app** → Manual configuration → Python 3.10+.
-6. Set the **Source code** directory to `.../PyQuest/backend` and edit the **WSGI configuration
+3. `cd PyQuest/backend && pip install --user -r requirements.txt`
+4. **Web** tab → **Add a new web app** → Manual configuration → Python 3.10+.
+5. Set the **Source code** directory to `.../PyQuest/backend` and edit the **WSGI configuration
    file** it gives you so it imports your app:
    ```python
    import sys

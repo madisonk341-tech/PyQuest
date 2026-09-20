@@ -8,9 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# dist is intentionally committed (see root README) — PythonAnywhere free
+# tier has no usable Node, so we ship the pre-built output instead.
 dist-ssr
 *.local
+public/pyodide
 
 # Editor directories and files
 .vscode/*
