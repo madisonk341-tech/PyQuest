@@ -74,12 +74,12 @@ export default function Practice() {
   const contentModules = modules.filter((m) => m.hasContent)
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] pb-24">
+    <div className="min-h-screen bg-[#08090a] pb-24">
       <TopBar title="Practice" />
 
       <div className="max-w-md mx-auto px-4 pt-4">
         {error && (
-          <div className="bg-[#fff1f1] border-2 border-[#ff4b4b] text-[#b91c1c] rounded-xl p-3 mb-4 text-sm font-semibold">
+          <div className="bg-[#2a1010] border-2 border-[#ff3b3b] text-[#ff8080] rounded-xl p-3 mb-4 text-sm font-semibold">
             {error}
           </div>
         )}
@@ -98,7 +98,7 @@ export default function Practice() {
             </Section>
 
             <Section title="Struggling Topics">
-              <p className="text-xs text-gray-500 mb-2">
+              <p className="text-xs text-[#7d8a80] mb-2">
                 A quiz built from questions like the ones you've missed in Learning.
               </p>
               <button onClick={startWeak} disabled={busy} className="pq-btn pq-btn-outline w-full py-3 text-xs">
@@ -107,33 +107,33 @@ export default function Practice() {
             </Section>
 
             <Section title="Custom Quiz">
-              <p className="text-xs text-gray-500 mb-2">Pick one or more modules to mix questions from.</p>
+              <p className="text-xs text-[#7d8a80] mb-2">Pick one or more modules to mix questions from.</p>
               <div className="flex flex-col gap-2 mb-3">
                 {contentModules.map((m) => (
                   <label
                     key={m.id}
                     className={`flex items-center gap-2 px-3 py-2 rounded-xl border-2 text-sm font-semibold cursor-pointer ${
-                      selected.includes(m.id) ? 'border-[#1cb0f6] bg-[#ddf4ff]' : 'border-gray-200 bg-white'
+                      selected.includes(m.id) ? 'border-[#39ff14] bg-[#0f2408] text-[#eafff0]' : 'border-[#2a2c2f] bg-[#0c0d0f] text-[#d9f2d9]'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={selected.includes(m.id)}
                       onChange={() => toggle(m.id)}
-                      className="accent-[#1cb0f6]"
+                      className="accent-[#39ff14]"
                     />
                     <span>{m.icon}</span>
                     {m.title}
                   </label>
                 ))}
-                {!contentModules.length && <p className="text-xs text-gray-400">Loading modules…</p>}
+                {!contentModules.length && <p className="text-xs text-[#7d8a80]">Loading modules…</p>}
               </div>
-              <label className="text-xs font-bold text-gray-500 uppercase flex items-center gap-2 mb-3">
+              <label className="text-xs font-bold text-[#7d8a80] uppercase flex items-center gap-2 mb-3">
                 Questions:
                 <select
                   value={count}
                   onChange={(e) => setCount(Number(e.target.value))}
-                  className="border-2 border-gray-200 rounded-lg px-2 py-1 font-semibold text-gray-700"
+                  className="border-2 border-[#2a2c2f] bg-[#0c0d0f] text-[#d9f2d9] rounded-lg px-2 py-1 font-semibold"
                 >
                   {[5, 10, 15, 20].map((n) => (
                     <option key={n} value={n}>
@@ -155,13 +155,13 @@ export default function Practice() {
 
         {attempt && !result && (
           <div>
-            <h2 className="text-xl font-black text-gray-800 mb-4">
+            <h2 className="text-xl font-black text-[#39ff14] pq-glow mb-4">
               {attempt.kind === 'exam1' ? 'Exam 1' : attempt.kind === 'exam2' ? 'Exam 2' : attempt.kind === 'weak' ? 'Weak Areas Quiz' : 'Practice Quiz'}
             </h2>
             <div className="flex flex-col gap-6">
               {attempt.questions.map((q, i) => (
                 <div key={q.id}>
-                  <p className="font-bold text-gray-800 mb-2">
+                  <p className="font-bold text-[#eafff0] mb-2 whitespace-pre-line">
                     {i + 1}. {q.question}
                   </p>
                   <ChoiceList
@@ -190,17 +190,17 @@ export default function Practice() {
         {result && (
           <div className="text-center">
             <span className="text-6xl">{result.correct / result.total >= 0.7 ? '🎉' : '💪'}</span>
-            <h2 className="text-2xl font-black text-gray-800 mt-2">
+            <h2 className="text-2xl font-black text-[#eafff0] mt-2">
               {result.correct} / {result.total} correct ({result.score}%)
             </h2>
             <div className="text-left mt-6 flex flex-col gap-3">
               {result.results.map((r) => (
-                <div key={r.id} className={`rounded-xl border-2 p-3 ${r.correct ? 'border-[#58cc02] bg-[#f2ffe6]' : 'border-[#ff4b4b] bg-[#fff1f1]'}`}>
-                  <p className="font-bold text-sm text-gray-700">{r.question}</p>
+                <div key={r.id} className={`rounded-xl border-2 p-3 ${r.correct ? 'border-[#39ff14] bg-[#0f2408]' : 'border-[#ff3b3b] bg-[#2a1010]'}`}>
+                  <p className="font-bold text-sm text-[#eafff0] whitespace-pre-line">{r.question}</p>
                   {!r.correct && r.choices && (
-                    <p className="text-xs font-bold text-[#58cc02] mt-1">Correct answer: {r.choices[r.correctAnswer]}</p>
+                    <p className="text-xs font-bold text-[#39ff14] mt-1">Correct answer: {r.choices[r.correctAnswer]}</p>
                   )}
-                  <p className="text-xs text-gray-500 mt-1">{r.explanation}</p>
+                  <p className="text-xs text-[#a0aca0] mt-1">{r.explanation}</p>
                 </div>
               ))}
             </div>
@@ -218,8 +218,8 @@ export default function Practice() {
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4">
-      <h3 className="font-black text-gray-800 mb-2">{title}</h3>
+    <div className="bg-[#101113] rounded-2xl border border-[#2a2c2f] p-4 mb-4">
+      <h3 className="font-black text-[#eafff0] mb-2">{title}</h3>
       {children}
     </div>
   )

@@ -1,18 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --pq-green: #58cc02;
-  --pq-green-dark: #46a302;
-  --pq-blue: #1cb0f6;
-  --pq-blue-dark: #1899d6;
-  --pq-gold: #ffc800;
-  --pq-red: #ff4b4b;
-  --pq-purple: #ce82ff;
-  --pq-bg: #131f24;
-  --pq-card: #ffffff;
-  --pq-ink: #3c3c3c;
-  --pq-muted: #777777;
-  --pq-locked: #e5e5e5;
+  /* TAMU Aggie Maroon */
+  --pq-maroon: #500000;
+  --pq-maroon-light: #7a1f1f;
+  --pq-maroon-dark: #300000;
+
+  /* Terminal / "movie hacker" green */
+  --pq-green: #39ff14;
+  --pq-green-dim: #1f8f0a;
+  --pq-green-glow: rgba(57, 255, 20, 0.35);
+
+  --pq-gold: #ffd200;
+  --pq-red: #ff3b3b;
+  --pq-red-dim: #4a1414;
+
+  --pq-bg: #08090a;
+  --pq-card: #101113;
+  --pq-card-alt: #17181b;
+  --pq-border: #2a2c2f;
+  --pq-locked: #1c1d20;
+
+  --pq-ink: #d9f2d9;
+  --pq-ink-bright: #eafff0;
+  --pq-muted: #7d8a80;
 }
 
 * {
@@ -27,9 +38,9 @@ body,
 
 body {
   margin: 0;
-  font-family: "Baloo 2", "Segoe UI", system-ui, sans-serif;
+  font-family: ui-monospace, "Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, "Courier New", monospace;
   color: var(--pq-ink);
-  background: #f7f7f7;
+  background: var(--pq-bg);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -41,13 +52,20 @@ button {
   width: 10px;
   height: 10px;
 }
+::-webkit-scrollbar-track {
+  background: var(--pq-bg);
+}
 ::-webkit-scrollbar-thumb {
-  background: #d8d8d8;
+  background: var(--pq-border);
   border-radius: 8px;
 }
 
+.pq-glow {
+  text-shadow: 0 0 6px var(--pq-green-glow), 0 0 16px rgba(57, 255, 20, 0.15);
+}
+
 .pq-btn {
-  border-radius: 16px;
+  border-radius: 10px;
   border-bottom-width: 4px;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -61,26 +79,27 @@ button {
 }
 .pq-btn:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .pq-btn-green {
   background: var(--pq-green);
-  border-color: var(--pq-green-dark);
-  border-bottom-color: var(--pq-green-dark);
-  color: white;
+  border-color: var(--pq-green-dim);
+  border-bottom-color: var(--pq-green-dim);
+  color: #05100a;
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.25);
 }
 .pq-btn-blue {
-  background: var(--pq-blue);
-  border-bottom-color: var(--pq-blue-dark);
-  color: white;
+  background: var(--pq-maroon);
+  border-bottom-color: var(--pq-maroon-dark);
+  color: var(--pq-ink-bright);
 }
 .pq-btn-outline {
-  background: white;
-  border: 2px solid #e5e5e5;
+  background: var(--pq-card);
+  border: 2px solid var(--pq-border);
   border-bottom-width: 4px;
-  border-bottom-color: #e5e5e5;
-  color: var(--pq-blue);
+  border-bottom-color: var(--pq-border);
+  color: var(--pq-green);
 }
 
 @keyframes floaty {
@@ -89,4 +108,14 @@ button {
 }
 .pq-float {
   animation: floaty 4s ease-in-out infinite;
+}
+
+@keyframes pq-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.4; }
+  94% { opacity: 1; }
+}
+.pq-flicker {
+  animation: pq-flicker 6s linear infinite;
 }

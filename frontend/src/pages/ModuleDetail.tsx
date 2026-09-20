@@ -53,7 +53,7 @@ export default function ModuleDetailPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center">
         <span className="text-5xl">🚧</span>
-        <p className="font-bold text-gray-600">{error}</p>
+        <p className="font-bold text-[#d9f2d9]">{error}</p>
         <button onClick={() => navigate('/learning')} className="pq-btn pq-btn-blue px-6 py-2 text-sm">
           Back to Learning
         </button>
@@ -62,7 +62,7 @@ export default function ModuleDetailPage() {
   }
 
   if (!module) {
-    return <div className="min-h-screen flex items-center justify-center text-gray-400">Loading…</div>
+    return <div className="min-h-screen flex items-center justify-center text-[#7d8a80] bg-[#08090a]">Loading…</div>
   }
 
   const step = steps[stepIndex]
@@ -101,13 +101,13 @@ export default function ModuleDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] pb-10">
-      <header className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3">
-        <button onClick={() => navigate('/learning')} className="text-xl text-gray-400" aria-label="Close">
+    <div className="min-h-screen bg-[#08090a] pb-10">
+      <header className="sticky top-0 z-20 bg-[#0c0d0f] border-b border-[#2a2c2f] px-4 py-3 flex items-center gap-3">
+        <button onClick={() => navigate('/learning')} className="text-xl text-[#7d8a80]" aria-label="Close">
           ✕
         </button>
-        <div className="flex-1 bg-gray-100 rounded-full h-3">
-          <div className="h-3 rounded-full bg-[#58cc02] transition-all" style={{ width: `${progressPct}%` }} />
+        <div className="flex-1 bg-[#2a2c2f] rounded-full h-3">
+          <div className="h-3 rounded-full bg-[#39ff14] transition-all" style={{ width: `${progressPct}%` }} />
         </div>
       </header>
 
@@ -150,9 +150,9 @@ export default function ModuleDetailPage() {
 function LessonStep({ component, onContinue }: { component: LessonComponent; onContinue: () => void }) {
   return (
     <div>
-      <h2 className="text-2xl font-black text-gray-800 mb-3">{component.title}</h2>
+      <h2 className="text-2xl font-black text-[#39ff14] pq-glow mb-3">{component.title}</h2>
       {component.explanation.split('\n\n').map((para, i) => (
-        <p key={i} className="text-gray-600 leading-relaxed mb-3 whitespace-pre-line">
+        <p key={i} className="text-[#c9d9c9] leading-relaxed mb-3 whitespace-pre-line">
           {para}
         </p>
       ))}
@@ -194,8 +194,8 @@ function PracticeStep({
 
   return (
     <div>
-      <p className="text-xs font-bold text-[#1cb0f6] uppercase tracking-wide mb-2">Quick check</p>
-      <h2 className="text-xl font-black text-gray-800 mb-4">{question.question}</h2>
+      <p className="text-xs font-bold text-[#7a1f1f] uppercase tracking-wide mb-2">Quick check</p>
+      <h2 className="text-xl font-black text-[#eafff0] mb-4 whitespace-pre-line">{question.question}</h2>
       <ChoiceList
         choices={question.choices}
         selected={selected}
@@ -204,7 +204,7 @@ function PracticeStep({
         onSelect={onSelect}
       />
       {revealed && (
-        <p className={`mt-3 text-sm font-semibold ${isCorrect ? 'text-[#58cc02]' : 'text-[#ff4b4b]'}`}>
+        <p className={`mt-3 text-sm font-semibold ${isCorrect ? 'text-[#39ff14]' : 'text-[#ff3b3b]'}`}>
           {isCorrect ? 'Correct! ' : 'Not quite. '}
           {question.explanation}
         </p>
@@ -250,23 +250,23 @@ function QuizStep({
     return (
       <div className="text-center">
         <span className="text-6xl">{passed ? '🎉' : '💪'}</span>
-        <h2 className="text-2xl font-black text-gray-800 mt-2">
+        <h2 className="text-2xl font-black text-[#eafff0] mt-2">
           {result.correct} / {result.total} correct
         </h2>
-        <p className={`font-bold mt-1 ${passed ? 'text-[#58cc02]' : 'text-[#ff9600]'}`}>
+        <p className={`font-bold mt-1 ${passed ? 'text-[#39ff14]' : 'text-[#ffd200]'}`}>
           {passed ? 'Module complete!' : 'Keep practicing — 70% needed to pass.'}
         </p>
 
         <div className="text-left mt-6 flex flex-col gap-3">
           {result.results.map((r, i) => (
-            <div key={r.id} className={`rounded-xl border-2 p-3 ${r.correct ? 'border-[#58cc02] bg-[#f2ffe6]' : 'border-[#ff4b4b] bg-[#fff1f1]'}`}>
-              <p className="font-bold text-sm text-gray-700">{module.quiz[i]?.question}</p>
+            <div key={r.id} className={`rounded-xl border-2 p-3 ${r.correct ? 'border-[#39ff14] bg-[#0f2408]' : 'border-[#ff3b3b] bg-[#2a1010]'}`}>
+              <p className="font-bold text-sm text-[#eafff0] whitespace-pre-line">{module.quiz[i]?.question}</p>
               {!r.correct && module.quiz[i] && (
-                <p className="text-xs font-bold text-[#58cc02] mt-1">
+                <p className="text-xs font-bold text-[#39ff14] mt-1">
                   Correct answer: {module.quiz[i].choices[r.correctAnswer]}
                 </p>
               )}
-              <p className="text-xs text-gray-500 mt-1">{r.explanation}</p>
+              <p className="text-xs text-[#a0aca0] mt-1">{r.explanation}</p>
             </div>
           ))}
         </div>
@@ -289,12 +289,12 @@ function QuizStep({
 
   return (
     <div>
-      <h2 className="text-2xl font-black text-gray-800 mb-1">Module Quiz</h2>
-      <p className="text-gray-500 text-sm mb-4">Answer all questions, then submit. 70% or higher passes.</p>
+      <h2 className="text-2xl font-black text-[#39ff14] pq-glow mb-1">Module Quiz</h2>
+      <p className="text-[#a0aca0] text-sm mb-4">Answer all questions, then submit. 70% or higher passes.</p>
       <div className="flex flex-col gap-6">
         {module.quiz.map((q, qi) => (
           <div key={q.id}>
-            <p className="font-bold text-gray-800 mb-2">
+            <p className="font-bold text-[#eafff0] mb-2 whitespace-pre-line">
               {qi + 1}. {q.question}
             </p>
             <ChoiceList

@@ -65,17 +65,17 @@ export default function Sandbox() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] pb-24">
+    <div className="min-h-screen bg-[#08090a] pb-24">
       <TopBar title="Sandbox" />
 
       <div className="max-w-2xl mx-auto px-4 pt-4 flex flex-col gap-4">
-        <div className="bg-white rounded-2xl border border-gray-200 p-4">
-          <h3 className="font-black text-gray-800 mb-3">Coding Prompts</h3>
+        <div className="bg-[#101113] rounded-2xl border border-[#2a2c2f] p-4">
+          <h3 className="font-black text-[#eafff0] mb-3">Coding Prompts</h3>
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search prompts…"
-            className="w-full border-2 border-gray-200 rounded-xl px-3 py-2 text-sm font-medium mb-2 focus:outline-none focus:border-[#1cb0f6]"
+            placeholder="Search prompts..."
+            className="w-full border-2 border-[#2a2c2f] bg-[#0c0d0f] text-[#d9f2d9] rounded-xl px-3 py-2 text-sm font-medium mb-2 focus:outline-none focus:border-[#39ff14]"
           />
           <div className="flex gap-2 overflow-x-auto pb-1 mb-3">
             <FilterChip active={moduleFilter === ''} onClick={() => setModuleFilter('')} label="All" />
@@ -94,36 +94,36 @@ export default function Sandbox() {
                 key={p.id}
                 onClick={() => selectPrompt(p)}
                 className={`text-left px-3 py-2 rounded-xl border-2 text-sm font-semibold ${
-                  active?.id === p.id ? 'border-[#1cb0f6] bg-[#ddf4ff]' : 'border-gray-200 bg-white hover:border-gray-300'
+                  active?.id === p.id ? 'border-[#39ff14] bg-[#0f2408]' : 'border-[#2a2c2f] bg-[#0c0d0f] hover:border-[#500000]'
                 }`}
               >
-                <span className="block text-gray-800">{p.title}</span>
-                <span className="block text-xs text-gray-400 font-normal">{moduleTitle[p.module_id] || ''}</span>
+                <span className="block text-[#eafff0]">{p.title}</span>
+                <span className="block text-xs text-[#7d8a80] font-normal">{moduleTitle[p.module_id] || ''}</span>
               </button>
             ))}
-            {!prompts.length && <p className="text-xs text-gray-400 py-2">No prompts match your search.</p>}
+            {!prompts.length && <p className="text-xs text-[#7d8a80] py-2">No prompts match your search.</p>}
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-200 p-4">
+        <div className="bg-[#101113] rounded-2xl border border-[#2a2c2f] p-4">
           {active ? (
             <div className="mb-3">
               <div className="flex items-start justify-between gap-2">
-                <p className="font-bold text-gray-800">{active.title}</p>
-                <button onClick={clearPrompt} className="text-xs text-gray-400 font-semibold shrink-0">
-                  Clear ✕
+                <p className="font-bold text-[#eafff0]">{active.title}</p>
+                <button onClick={clearPrompt} className="text-xs text-[#7d8a80] font-semibold shrink-0">
+                  Clear X
                 </button>
               </div>
-              <p className="text-sm text-gray-600 mt-1">{active.prompt}</p>
+              <p className="text-sm text-[#c9d9c9] mt-1">{active.prompt}</p>
               {active.mode === 'match_output' && (
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-[#7d8a80] mt-1">
                   Write code so the output matches exactly, then hit Run.
                 </p>
               )}
             </div>
           ) : (
-            <p className="text-sm text-gray-500 mb-3">
-              Free sandbox — write any Python and hit Run to see the output. Pick a prompt above for a guided
+            <p className="text-sm text-[#a0aca0] mb-3">
+              Free sandbox -- write any Python and hit Run to see the output. Pick a prompt above for a guided
               exercise.
             </p>
           )}
@@ -132,7 +132,7 @@ export default function Sandbox() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             spellCheck={false}
-            className="w-full h-40 bg-[#1e1e2e] text-[#e2e2f0] rounded-xl p-3 font-mono text-sm resize-y focus:outline-none"
+            className="w-full h-40 bg-[#0c0d0f] text-[#d9f2d9] border border-[#2a2c2f] rounded-xl p-3 font-mono text-sm resize-y focus:outline-none focus:border-[#39ff14]"
           />
 
           <button
@@ -140,17 +140,17 @@ export default function Sandbox() {
             disabled={status !== 'idle'}
             className="pq-btn pq-btn-green w-full py-3 text-sm mt-3"
           >
-            {status === 'loading-runtime' ? 'Starting Python…' : status === 'running' ? 'Running…' : '▶ Run'}
+            {status === 'loading-runtime' ? 'Starting Python...' : status === 'running' ? 'Running...' : '> Run'}
           </button>
 
           {(output || runError) && (
-            <div className="mt-3 rounded-xl overflow-hidden border border-gray-800">
-              <div className="bg-[#111827] text-xs font-bold text-gray-400 px-3 py-1.5">Output</div>
-              <pre className="bg-[#0b0f16] text-[#7ee787] text-sm p-3 overflow-x-auto whitespace-pre-wrap min-h-8">
-                <code>{output || ' '}</code>
+            <div className="mt-3 rounded-xl overflow-hidden border border-[#2a2c2f]">
+              <div className="bg-[#0a0a0a] text-xs font-bold text-[#7d8a80] px-3 py-1.5">Output</div>
+              <pre className="bg-[#050605] text-[#39ff14] text-sm p-3 overflow-x-auto whitespace-pre-wrap min-h-8">
+                <code>{output || ' '}</code>
               </pre>
               {runError && (
-                <pre className="bg-[#1a0e0e] text-[#ff8080] text-xs p-3 overflow-x-auto whitespace-pre-wrap border-t border-gray-800">
+                <pre className="bg-[#1a0e0e] text-[#ff8080] text-xs p-3 overflow-x-auto whitespace-pre-wrap border-t border-[#2a2c2f]">
                   {runError}
                 </pre>
               )}
@@ -160,7 +160,7 @@ export default function Sandbox() {
           {matchResult && (
             <div
               className={`mt-3 rounded-xl p-3 text-sm font-bold text-center ${
-                matchResult === 'pass' ? 'bg-[#f2ffe6] text-[#2b6b00]' : 'bg-[#fff1f1] text-[#b91c1c]'
+                matchResult === 'pass' ? 'bg-[#0f2408] text-[#39ff14]' : 'bg-[#2a1010] text-[#ff8080]'
               }`}
             >
               {matchResult === 'pass' ? '✅ Output matches — nice work!' : '❌ Not quite — check your output above.'}
@@ -179,7 +179,7 @@ function FilterChip({ active, onClick, label }: { active: boolean; onClick: () =
     <button
       onClick={onClick}
       className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border-2 ${
-        active ? 'bg-[#1cb0f6] border-[#1cb0f6] text-white' : 'bg-white border-gray-200 text-gray-600'
+        active ? 'bg-[#500000] border-[#500000] text-[#eafff0]' : 'bg-[#0c0d0f] border-[#2a2c2f] text-[#a0aca0]'
       }`}
     >
       {label}

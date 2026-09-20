@@ -4,6 +4,12 @@ import ModuleNode from './ModuleNode'
 const ROW_HEIGHT = 118
 const X_PATTERN = [0, -70, -95, -70, 0, 70, 95, 70]
 
+// Deterministic pseudo-random bit so the "data trail" looks alive without
+// flickering on every re-render (no Math.random()).
+function bitAt(seed: number) {
+  return (seed * 2654435761) % 7 < 3 ? '1' : '0'
+}
+
 export default function PathMap({
   modules,
   onSelect,
@@ -21,31 +27,38 @@ export default function PathMap({
 
   return (
     <div className="relative mx-auto" style={{ width: 280, height }}>
-      {/* footprint dots between consecutive nodes */}
+      {/* bit-sequence trail connecting consecutive nodes */}
       {points.slice(1).map((p, i) => {
         const prev = points[i]
-        const steps = 5
-        const dots = []
-        for (let s = 1; s < steps; s++) {
+        const active = p.m.hasContent || prev.m.hasContent
+        // Only draw bits in the middle stretch of each segment — the ends
+        // sit right where each node's own label is centered, so bits there
+        // would overlap the module title text.
+        const steps = 8
+        const bits = []
+        for (let s = 3; s <= 5; s++) {
           const t = s / steps
           const x = prev.x + (p.x - prev.x) * t
           const y = prev.y + (p.y - prev.y) * t
-          dots.push(
+          bits.push(
             <span
               key={s}
-              className="absolute rounded-full"
+              className="absolute font-mono select-none pointer-events-none"
               style={{
-                width: 6,
-                height: 6,
-                background: '#d8d8d8',
+                fontSize: 11,
+                fontWeight: 700,
+                color: active ? '#39ff14' : '#3a3c3f',
+                textShadow: active ? '0 0 4px rgba(57,255,20,0.6)' : 'none',
                 left: `calc(50% + ${x}px)`,
                 top: y,
                 transform: 'translate(-50%, -50%)',
               }}
-            />,
+            >
+              {bitAt(i * 13 + s * 5 + p.m.id.length)}
+            </span>,
           )
         }
-        return <div key={p.m.id}>{dots}</div>
+        return <div key={p.m.id}>{bits}</div>
       })}
 
       {points.map((p, i) => (

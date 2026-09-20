@@ -8,28 +8,28 @@ export default function TopBar({ title }: { title: string }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-      <h1 className="text-lg font-black text-gray-800">{title}</h1>
+    <header className="sticky top-0 z-20 bg-[#0c0d0f] border-b border-[#2a2c2f] px-4 py-3 flex items-center justify-between">
+      <h1 className="text-lg font-black text-[#39ff14] pq-glow tracking-wide">{title}</h1>
       <div className="relative">
         <button
           onClick={() => setOpen((o) => !o)}
-          className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-xl border-2 border-gray-200"
+          className="w-10 h-10 rounded-full bg-[#17181b] flex items-center justify-center text-xl border-2 border-[#500000]"
           aria-label="Profile"
         >
           {user?.avatar || '🙂'}
         </button>
         {open && (
-          <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-2 text-sm">
-            <div className="px-3 pb-2 border-b border-gray-100">
-              <p className="font-bold text-gray-800 truncate">{user?.displayName}</p>
-              <p className="text-gray-400 text-xs">@{user?.username}</p>
+          <div className="absolute right-0 mt-2 w-44 bg-[#101113] rounded-xl shadow-lg border border-[#2a2c2f] py-2 text-sm">
+            <div className="px-3 pb-2 border-b border-[#2a2c2f]">
+              <p className="font-bold text-[#eafff0] truncate">{user?.displayName}</p>
+              <p className="text-[#7d8a80] text-xs">@{user?.username}</p>
             </div>
             <button
               onClick={async () => {
                 await logout()
                 navigate('/')
               }}
-              className="w-full text-left px-3 py-2 text-[#ff4b4b] font-semibold hover:bg-gray-50"
+              className="w-full text-left px-3 py-2 text-[#ff3b3b] font-semibold hover:bg-[#17181b]"
             >
               Log out
             </button>

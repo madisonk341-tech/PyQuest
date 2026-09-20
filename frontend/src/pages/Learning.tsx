@@ -22,26 +22,26 @@ export default function Learning() {
     : 0
 
   return (
-    <div className="min-h-screen pb-24 bg-[#f7f7f7]">
+    <div className="min-h-screen pb-24 bg-[#08090a]">
       <TopBar title="Learning" />
 
       <div className="px-4 pt-4">
-        <div className="bg-white rounded-2xl border border-gray-200 p-3 flex items-center gap-3 max-w-sm mx-auto mb-4">
+        <div className="bg-[#101113] rounded-2xl border border-[#2a2c2f] p-3 flex items-center gap-3 max-w-sm mx-auto mb-4">
           <span className="text-2xl">🔥</span>
           <div className="flex-1">
-            <p className="text-xs font-bold text-gray-400 uppercase">Overall progress</p>
-            <div className="w-full bg-gray-100 rounded-full h-2 mt-1">
+            <p className="text-xs font-bold text-[#7d8a80] uppercase">Overall progress</p>
+            <div className="w-full bg-[#2a2c2f] rounded-full h-2 mt-1">
               <div
-                className="h-2 rounded-full bg-[#58cc02] transition-all"
+                className="h-2 rounded-full bg-[#39ff14] transition-all"
                 style={{ width: `${overall}%` }}
               />
             </div>
           </div>
-          <span className="font-black text-[#58cc02]">{overall}%</span>
+          <span className="font-black text-[#39ff14]">{overall}%</span>
         </div>
       </div>
 
-      {!modules && <p className="text-center text-gray-400 mt-10">Loading modules…</p>}
+      {!modules && <p className="text-center text-[#7d8a80] mt-10">Loading modules…</p>}
 
       {modules && (
         <div className="pt-2">
