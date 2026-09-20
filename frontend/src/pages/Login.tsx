@@ -74,9 +74,6 @@ export default function Login() {
           <h1 className="text-4xl font-black text-[#39ff14] pq-glow tracking-tight">
             &gt;_ PyQuest
           </h1>
-          <p className="text-[#c9d9c9] font-semibold mt-1">
-            <span className="text-[#7a1f1f] font-black">Aggie</span>-built Python training.
-          </p>
         </div>
 
         <form

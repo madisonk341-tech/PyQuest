@@ -28,7 +28,7 @@ export default function ModuleNode({
     <button
       onClick={onClick}
       className="relative flex flex-col items-center gap-1 group"
-      style={{ width: 76 }}
+      style={{ width: 96 }}
       title={module.title}
     >
       <div
@@ -43,10 +43,10 @@ export default function ModuleNode({
         </div>
       </div>
       <span
-        className="text-[11px] font-bold text-center leading-tight px-1 py-0.5 rounded-full"
+        className="text-[10px] font-bold text-center leading-tight"
         style={{ color: locked ? '#5a5f5a' : '#d9f2d9' }}
       >
-        {module.title.length > 22 ? `Mod ${module.id}` : module.title}
+        {module.title}
       </span>
     </button>
   )

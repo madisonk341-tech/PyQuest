@@ -1,7 +1,7 @@
 import type { ModuleSummary } from '../types'
 import ModuleNode from './ModuleNode'
 
-const ROW_HEIGHT = 118
+const ROW_HEIGHT = 220
 const X_PATTERN = [0, -70, -95, -70, 0, 70, 95, 70]
 
 // Deterministic pseudo-random bit so the "data trail" looks alive without
@@ -26,7 +26,7 @@ export default function PathMap({
   const height = points.length ? points[points.length - 1].y + 70 : 200
 
   return (
-    <div className="relative mx-auto" style={{ width: 280, height }}>
+    <div className="relative mx-auto" style={{ width: 300, height }}>
       {/* bit-sequence trail connecting consecutive nodes */}
       {points.slice(1).map((p, i) => {
         const prev = points[i]
@@ -34,9 +34,9 @@ export default function PathMap({
         // Only draw bits in the middle stretch of each segment — the ends
         // sit right where each node's own label is centered, so bits there
         // would overlap the module title text.
-        const steps = 8
+        const steps = 10
         const bits = []
-        for (let s = 3; s <= 5; s++) {
+        for (let s = 5; s <= 6; s++) {
           const t = s / steps
           const x = prev.x + (p.x - prev.x) * t
           const y = prev.y + (p.y - prev.y) * t
