@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --pq-green: #58cc02;
+  --pq-green-dark: #46a302;
+  --pq-blue: #1cb0f6;
+  --pq-blue-dark: #1899d6;
+  --pq-gold: #ffc800;
+  --pq-red: #ff4b4b;
+  --pq-purple: #ce82ff;
+  --pq-bg: #131f24;
+  --pq-card: #ffffff;
+  --pq-ink: #3c3c3c;
+  --pq-muted: #777777;
+  --pq-locked: #e5e5e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Baloo 2", "Segoe UI", system-ui, sans-serif;
+  color: var(--pq-ink);
+  background: #f7f7f7;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8d8d8;
+  border-radius: 8px;
+}
+
+.pq-btn {
+  border-radius: 16px;
+  border-bottom-width: 4px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: transform 0.05s ease, filter 0.15s ease;
+  cursor: pointer;
+}
+.pq-btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+.pq-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pq-btn-green {
+  background: var(--pq-green);
+  border-color: var(--pq-green-dark);
+  border-bottom-color: var(--pq-green-dark);
+  color: white;
+}
+.pq-btn-blue {
+  background: var(--pq-blue);
+  border-bottom-color: var(--pq-blue-dark);
+  color: white;
+}
+.pq-btn-outline {
+  background: white;
+  border: 2px solid #e5e5e5;
+  border-bottom-width: 4px;
+  border-bottom-color: #e5e5e5;
+  color: var(--pq-blue);
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.pq-float {
+  animation: floaty 4s ease-in-out infinite;
+}

@@ -1,0 +1,16 @@
+# Backend (Python/Flask)
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/instance/
+*.pyc
+
+# Frontend (Node/Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/public/pyodide/
+frontend/.vite/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
