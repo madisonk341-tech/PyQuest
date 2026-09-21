@@ -1,4 +1,8 @@
-"""Course content: module metadata, lesson content, practice pools, sandbox prompts."""
+"""Course content: module metadata, lesson content, practice pools, sandbox prompts.
+
+Content is aligned to the actual ENGR 102 lecture slides for each module (terminology,
+worked examples, and the order topics are introduced all follow the lectures).
+"""
 
 MODULES_META = [
     {"id": "1", "title": "Intro to Course, Engineering & Programming", "week": 1, "icon": "🚀", "exam": None},
@@ -19,796 +23,982 @@ MODULES_META = [
 MODULES_WITH_CONTENT = {str(i) for i in range(1, 14)}
 
 # ---------------------------------------------------------------------------
-# Full lesson content for modules 1-3
+# Full lesson content for all 13 modules
 # ---------------------------------------------------------------------------
 
 MODULE_CONTENT = {
     "1": {
         "id": "1",
         "title": "Intro to Course, Engineering & Programming",
-        "intro": "Before writing real programs, let's get oriented: what programming actually is, "
-                 "how to make a program talk back to you with print(), and how to leave notes for "
-                 "yourself (and your grader) with comments.",
+        "intro": "A programmer writes instructions (a program) for a computer to follow; a compiler or "
+                 "interpreter converts those instructions into something the computer can execute. This "
+                 "module covers that basic process, your first Python program, arithmetic in Python, and "
+                 "a general process for tackling any programming problem.",
         "components": [
             {
                 "id": "1.1",
-                "title": "What Is Programming?",
+                "title": "The Programming Process",
                 "explanation": (
-                    "A computer only does exactly what it's told, in exactly the order it's told. "
-                    "Programming is the act of writing that exact list of instructions in a language "
-                    "the computer can follow — for this course, that language is Python.\n\n"
-                    "A Python **script** is just a text file full of instructions, executed top to "
-                    "bottom by a program called an *interpreter*. When you 'run' a script, the "
-                    "interpreter reads each line and carries it out immediately, which is different "
-                    "from languages that must be fully compiled before anything happens."
+                    "A program is just a text file containing commands, saved with the right extension "
+                    "(.py for Python). A compiler or interpreter translates those commands into "
+                    "instructions the computer can run. A compiler looks at the whole program at once "
+                    "and produces a separate file of machine instructions; an interpreter translates and "
+                    "runs a program line by line, with no separate file saved. Python is interpreted — "
+                    "the original program is often called a script.\n\n"
+                    "You can write a script in any text editor, but an IDE (Integrated Development "
+                    "Environment) bundles an editor with helpful tools like syntax coloring and a way to "
+                    "run your code, all in one place."
                 ),
                 "examples": [
                     {
-                        "code": 'print("Hello, world!")',
-                        "output": "Hello, world!",
-                        "note": "The classic first program: print() displays whatever is inside the parentheses.",
+                        "code": 'print("Howdy, World!")',
+                        "output": "Howdy, World!",
+                        "note": "The traditional first program, Aggie-style — one line is all it takes.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "1.1.p1",
-                        "question": "What does a Python interpreter do?",
+                        "question": "What is the key difference between a compiler and an interpreter?",
                         "choices": [
-                            "Reads and executes your code line by line",
-                            "Draws the icons for your desktop",
-                            "Compiles your code into a Word document",
-                            "Only runs after your whole computer restarts",
+                            "A compiler translates the whole program before running it; an interpreter translates and runs it line by line",
+                            "A compiler only works with Python",
+                            "An interpreter is faster in every case",
+                            "There is no real difference",
                         ],
                         "answer": 0,
-                        "explanation": "The interpreter executes Python source line by line, top to bottom.",
+                        "explanation": "A compiler processes the whole program up front; an interpreter translates line by line as it executes.",
                     },
                     {
                         "id": "1.1.p2",
-                        "question": "A Python script is best described as:",
+                        "question": "What is a Python script?",
                         "choices": [
+                            "A compiled binary file",
+                            "A text file containing Python commands",
+                            "A type of IDE",
                             "A picture of your code",
-                            "A text file containing instructions for the interpreter",
-                            "A type of computer hardware",
-                            "A compiled binary file only",
                         ],
                         "answer": 1,
-                        "explanation": "Scripts are plain text files containing Python instructions.",
+                        "explanation": "A script is just a text file of instructions, run by the interpreter.",
                     },
                 ],
             },
             {
                 "id": "1.2",
-                "title": "The print() Function",
+                "title": "Arithmetic and the math Module",
                 "explanation": (
-                    "print() is how a program communicates with the outside world. Anything placed "
-                    "between its parentheses is displayed on the screen (the console).\n\n"
-                    "You can print multiple pieces of information at once by separating them with "
-                    "commas — print() automatically puts a space between them. You can also control "
-                    "what goes between items (sep) and what's printed at the very end (end, which "
-                    "defaults to a newline)."
+                    "Python supports the basic arithmetic operators +, -, *, and / with the usual order "
+                    "of operations (and parentheses override that order). Beyond those, Python has "
+                    "** for exponentiation (2**10 is 1024), // for integer (floor) division with no "
+                    "remainder (7//3 is 2), and % for modulus, the remainder from division (7%3 is 1).\n\n"
+                    "For more advanced math — square roots, trig functions, logarithms — add the line "
+                    "from math import * near the top of your program. This gives you functions like "
+                    "sqrt(x), sin(x)/cos(x)/tan(x) (which use radians, not degrees), and constants like pi."
                 ),
                 "examples": [
                     {
-                        "code": 'print("Engineering", "is", "fun")',
-                        "output": "Engineering is fun",
-                        "note": "Commas between arguments insert a single space automatically.",
+                        "code": "print(2+3*4)\nprint((2+3)*4)\nprint(2**10)\nprint(7//3)\nprint(7%3)",
+                        "output": "14\n20\n1024\n2\n1",
+                        "note": "Order of operations applies (2+3*4 does the multiplication first); parentheses override it.",
                     },
                     {
-                        "code": 'print("A", "B", "C", sep="-")\nprint("No newline here", end="")\nprint(" ...continued")',
-                        "output": "A-B-C\nNo newline here ...continued",
-                        "note": "sep changes the separator between items; end changes what prints after the line (default is a newline).",
+                        "code": 'from math import *\nprint("ENGR")\nprint(((3**3)+4*5)*(sqrt(25)//2)+(28%10))',
+                        "output": "ENGR\n102.0",
+                        "note": "Working inside-out: 3**3=27, 27+20=47, sqrt(25)//2 = 5.0//2 = 2.0, 47*2.0=94.0, 28%10=8, 94.0+8=102.0.",
                     },
                 ],
                 "practice": [
                     {
                         "id": "1.2.p1",
-                        "question": 'What is the output of print("x", "y", "z")?',
-                        "choices": ["xyz", "x y z", "x, y, z", "Error"],
-                        "answer": 1,
-                        "explanation": "By default, print() separates arguments with a single space.",
+                        "question": "What does 2**10 evaluate to?",
+                        "choices": ["20", "100", "1024", "2"],
+                        "answer": 2,
+                        "explanation": "** is exponentiation: 2 to the 10th power is 1024.",
                     },
                     {
                         "id": "1.2.p2",
-                        "question": 'What does print("Hi", end="!") print, exactly?',
-                        "choices": [
-                            "Hi followed by a newline",
-                            "Hi! with no newline afterward",
-                            "!Hi",
-                            "An error, end is not a valid argument",
-                        ],
+                        "question": "What must you add to your program to use sqrt() or pi?",
+                        "choices": ["Nothing, they're always available", "from math import *", "import python", "print(math)"],
                         "answer": 1,
-                        "explanation": "The end argument replaces the default trailing newline — here, with '!'.",
+                        "explanation": "Extra math functions and constants come from the math module.",
                     },
                 ],
             },
             {
                 "id": "1.3",
-                "title": "Comments and Good Habits",
+                "title": "print(), Comments, and Multiple Values",
                 "explanation": (
-                    "A comment starts with # and is ignored entirely by the interpreter — it exists "
-                    "only for humans reading the code. Use comments to explain *why* something is "
-                    "done, not to restate what the code obviously does.\n\n"
-                    "Good commenting habits matter for academic honesty too: in this course, your "
-                    "comments and code should reflect your own understanding. Never copy code you "
-                    "can't explain — if you can't describe what a line does in your own words, you're "
-                    "not ready to turn it in."
+                    "print() displays whatever is in its parentheses. Text must be in quotation marks; "
+                    "numbers can be placed directly. Each print() statement displays on its own line by "
+                    "default.\n\n"
+                    "Code can include comments, starting with a # character — everything after the # on "
+                    "that line is ignored by the computer. Comments exist purely to help people reading "
+                    "the code understand it."
                 ),
                 "examples": [
                     {
-                        "code": "# Convert a temperature reading from Celsius to Fahrenheit\ncelsius = 20\nfahrenheit = celsius * 9 / 5 + 32\nprint(fahrenheit)",
-                        "output": "68.0",
-                        "note": "The comment explains the purpose of the calculation, not the mechanics of the math operator.",
+                        "code": 'print("Howdy, World!")\nprint(1)\n# The line below is a comment and does nothing\n# print(999)',
+                        "output": "Howdy, World!\n1",
+                        "note": "Text needs quotes; numbers don't. The commented-out print(999) never runs.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "1.3.p1",
-                        "question": "Which line is a comment in Python?",
+                        "question": 'Why does print("Howdy") need quotation marks but print(1) does not?',
                         "choices": [
-                            '"# this explains the code"',
-                            "// this explains the code",
-                            "<!-- this explains the code -->",
-                            "/* this explains the code */",
+                            "It's random which needs quotes",
+                            "Text (a string) needs quotes; a number can be used directly",
+                            "Quotes are always optional",
+                            "Numbers always need quotes too",
                         ],
-                        "answer": 0,
-                        "explanation": "Python comments start with a single # character.",
+                        "answer": 1,
+                        "explanation": "Quotation marks tell Python you mean literal text, not a variable name.",
                     },
                     {
                         "id": "1.3.p2",
-                        "question": "Why does this course care about comments and academic honesty together?",
+                        "question": "What happens to the text after a # on a line?",
+                        "choices": ["It causes an error", "It is ignored by the computer", "It is printed anyway", "It becomes a variable name"],
+                        "answer": 1,
+                        "explanation": "Everything after # on that line is a comment and is skipped entirely.",
+                    },
+                ],
+            },
+            {
+                "id": "1.4",
+                "title": "A Process for Solving Problems",
+                "explanation": (
+                    "Programming is fundamentally problem solving. A reliable process: (1) Understand "
+                    "the problem — read it carefully, restate it in your own words; (2) Make a plan — "
+                    "write pseudocode or comments as an outline, and create test cases to check your "
+                    "answer against; (3) Execute the plan — write the code, run it, test it, debug it; "
+                    "(4) Review your work — check your output against your test cases, and consider "
+                    "whether there's a better way.\n\n"
+                    "When in doubt, solve the problem by hand first, then translate that process into code."
+                ),
+                "examples": [
+                    {
+                        "code": "# Understand: convert a temperature from Celsius to Fahrenheit\n# Plan: F = C * 9/5 + 32; test case: 0C should give 32F\ncelsius = 0\nfahrenheit = celsius * 9 / 5 + 32\nprint(fahrenheit)",
+                        "output": "32.0",
+                        "note": "The comments record the plan before the code; the result matches the known test case (0C = 32F).",
+                    }
+                ],
+                "practice": [
+                    {
+                        "id": "1.4.p1",
+                        "question": "Why create test cases before writing code?",
                         "choices": [
-                            "Comments are graded for length",
-                            "Being able to explain your code in your own words shows genuine understanding",
-                            "Comments make code run faster",
-                            "They are unrelated topics",
+                            "Python requires it",
+                            "They give you a way to check whether your finished code produces the right answer",
+                            "It makes the code run faster",
+                            "It's not useful",
                         ],
                         "answer": 1,
-                        "explanation": "If you can explain every line yourself, your work is genuinely your own.",
+                        "explanation": "A known expected answer lets you verify your code once it's written.",
+                    },
+                    {
+                        "id": "1.4.p2",
+                        "question": "What should you do when you're stuck on a problem?",
+                        "choices": [
+                            "Immediately start typing code",
+                            "Try solving it by hand first, then translate that into code",
+                            "Skip the understanding step",
+                            "Give up on planning",
+                        ],
+                        "answer": 1,
+                        "explanation": "Working it out by hand first often reveals the steps needed before any code is written.",
                     },
                 ],
             },
         ],
         "quiz": [
-            {"id": "1.q1", "question": "What runs a Python script line by line?", "choices": ["A compiler", "The interpreter", "A web browser", "The file system"], "answer": 1, "explanation": "The Python interpreter executes code sequentially."},
-            {"id": "1.q2", "question": 'print("A","B") outputs:', "choices": ["AB", "A B", "A, B", "A-B"], "answer": 1, "explanation": "Default separator between print() arguments is a space."},
-            {"id": "1.q3", "question": "Comments in Python begin with which character?", "choices": ["//", "#", ";", "%"], "answer": 1, "explanation": "# marks the start of a comment."},
-            {"id": "1.q4", "question": "What does the end= argument of print() control?", "choices": ["The separator between items", "What is printed after all arguments (default newline)", "Where the program stops", "Nothing, it's ignored"], "answer": 1, "explanation": "end= replaces the default trailing newline character."},
-            {"id": "1.q5", "question": "A good reason to write a comment is to explain:", "choices": ["What print() does", "Why a non-obvious calculation is being done", "That a variable exists", "The file's size"], "answer": 1, "explanation": "Comments should clarify intent/reasoning, not restate obvious syntax."},
+            {"id": "1.q1", "question": "An interpreter, unlike a compiler, translates and runs a program:", "choices": ["All at once, ahead of time", "Line by line, as it executes", "Never — interpreters don't run programs", "Only after compiling first"], "answer": 1, "explanation": "Interpreters process and execute code line by line."},
+            {"id": "1.q2", "question": "What does 7 // 3 evaluate to?", "choices": ["2.33", "2", "1", "3"], "answer": 1, "explanation": "// is floor division, dropping the remainder: 7 divided by 3 is 2 with remainder 1, so 7//3 is 2."},
+            {"id": "1.q3", "question": "What line gives you access to sqrt() and pi?", "choices": ["import python", "from math import *", "print(math)", "Nothing needed"], "answer": 1, "explanation": "Extra math functions/constants come from the math module."},
+            {"id": "1.q4", "question": "Text after a # on a line is:", "choices": ["Executed twice", "Ignored by the computer", "An error", "Printed automatically"], "answer": 1, "explanation": "Comments are skipped entirely by the interpreter."},
+            {"id": "1.q5", "question": "In the problem-solving process, creating test cases happens during:", "choices": ["Understanding the problem", "Making a plan", "Reviewing your work only", "Never"], "answer": 1, "explanation": "Test cases are created as part of the planning step, before executing the plan."},
         ],
     },
     "2": {
         "id": "2",
         "title": "Sequential Steps, Variables, Assignment",
         "intro": "Programs run one instruction after another, in order. This module covers that "
-                 "sequential flow, and how variables let a program remember values between steps.",
+                 "sequential flow, variables as named 'boxes' of computer memory, the rules for naming "
+                 "them well, and how assignment actually works.",
         "components": [
             {
                 "id": "2.1",
-                "title": "Sequential Execution",
+                "title": "Variables as Memory Boxes",
                 "explanation": (
-                    "Unless told otherwise, Python executes statements strictly top to bottom, one "
-                    "at a time. This means *order matters* — a value must exist before you use it, "
-                    "and swapping the order of two lines can completely change a program's behavior."
+                    "Think of a computer's main memory as a bunch of boxes that hold information. A "
+                    "variable is one of those boxes, holding a single unit of information (like the "
+                    "number 19). Since there are many boxes, we need a way to tell them apart — that's "
+                    "the variable name, like a label on the box.\n\n"
+                    "Python variable names can start with a letter or underscore, and contain letters, "
+                    "digits, and underscores after that — but a name can't be a reserved keyword (words "
+                    "like if, for, and while that are reserved for the language itself)."
                 ),
                 "examples": [
                     {
-                        "code": 'print("Step 1: mixing ingredients")\nprint("Step 2: baking")\nprint("Step 3: cooling")',
-                        "output": "Step 1: mixing ingredients\nStep 2: baking\nStep 3: cooling",
-                        "note": "Each line runs only after the one before it finishes, in the order written.",
+                        "code": "age = 19\nprint(age)\nprint(age + 3)",
+                        "output": "19\n22",
+                        "note": "age is a labeled box holding 19; age + 3 reads that value and computes 22 without changing the box.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "2.1.p1",
-                        "question": "In a normal Python script (no loops/conditionals yet), what determines execution order?",
-                        "choices": ["Alphabetical order of variable names", "Top-to-bottom order in the file", "Random order", "Shortest line first"],
+                        "question": "A variable is best thought of as:",
+                        "choices": ["A comment", "A named box of memory holding a value", "A type of loop", "A function"],
                         "answer": 1,
-                        "explanation": "Statements execute in the order they appear, top to bottom.",
-                    }
+                        "explanation": "Variables are labeled locations in memory that hold information."},
+                    {
+                        "id": "2.1.p2",
+                        "question": "Which of these can NOT be used as a Python variable name?",
+                        "choices": ["my_age", "_hidden", "for", "Age2"],
+                        "answer": 2,
+                        "explanation": "'for' is a reserved keyword, so it can't be used as a variable name.",
+                    },
                 ],
             },
             {
                 "id": "2.2",
-                "title": "Variables and the Assignment Operator",
+                "title": "Choosing Good Names",
                 "explanation": (
-                    "A variable is a name that refers to a value stored in memory. The = operator "
-                    "assigns a value to a name: `x = 5` means 'store 5, and call it x'. Note this is "
-                    "assignment, not mathematical equality — the right side is evaluated first, then "
-                    "stored under the name on the left."
+                    "A name being valid doesn't mean it's good. Pick descriptive names — volume is "
+                    "better than v — but not excessively long either. A few conventions: constants that "
+                    "never change are often written in ALL_CAPS (like PI); the variables i, j, and k are "
+                    "commonly used for counting; and most variable names start with a lowercase letter.\n\n"
+                    "Good names matter because you're communicating — with anyone who reads your code, "
+                    "and most importantly with your future self, once you've forgotten the details."
                 ),
                 "examples": [
                     {
-                        "code": "width = 4\nheight = 6\narea = width * height\nprint(area)",
-                        "output": "24",
-                        "note": "width and height hold values; area is computed from them and stored under its own name.",
+                        "code": "PI = 3.14159\nradius = 5\narea = PI * radius ** 2\nprint(area)",
+                        "output": "78.53975",
+                        "note": "PI in all caps signals a constant; radius and area are clear, descriptive, lowercase names.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "2.2.p1",
-                        "question": "In x = 5 + 3, what happens first?",
-                        "choices": ["x is created empty", "5 + 3 is evaluated, then stored in x", "x is compared to 8", "Nothing, this is invalid syntax"],
-                        "answer": 1,
-                        "explanation": "The right-hand side is always evaluated before assignment happens.",
+                        "question": "Which naming convention is commonly used for constants that never change?",
+                        "choices": ["ALL_CAPS", "camelCase", "starting with a number", "single random letters"],
+                        "answer": 0,
+                        "explanation": "Constants are often written in ALL_CAPS, like PI or MAX_SPEED.",
                     },
                     {
                         "id": "2.2.p2",
-                        "question": "Which symbol is Python's assignment operator?",
-                        "choices": ["==", ":=", "=", "<-"],
-                        "answer": 2,
-                        "explanation": "A single = assigns a value; == is used for comparison instead.",
+                        "question": "Why does it matter if study_session_length is a better name than just t?",
+                        "choices": [
+                            "t is invalid syntax",
+                            "A descriptive name communicates purpose to anyone reading the code later, including future you",
+                            "Longer names always run faster",
+                            "It doesn't matter at all",
+                        ],
+                        "answer": 1,
+                        "explanation": "Good names are a form of communication with future readers of the code — including yourself.",
                     },
                 ],
             },
             {
                 "id": "2.3",
-                "title": "Naming Rules & Reassignment",
+                "title": "Assignment and Sequential Execution",
                 "explanation": (
-                    "Variable names may contain letters, digits, and underscores, but can't start "
-                    "with a digit, and can't be a reserved word like `print` or `if`. Python "
-                    "convention is snake_case (lowercase with underscores), e.g. `total_cost`.\n\n"
-                    "Variables can be reassigned at any time — the old value is simply replaced, and "
-                    "only the most recent assignment matters going forward."
+                    "An assignment statement has the form <variable name> = <value to assign>. The = is "
+                    "the assignment operator, not \"equals\" — it's often read aloud as \"gets\" or \"is "
+                    "assigned.\" When an assignment runs, Python first evaluates the entire right-hand "
+                    "side, then stores that result in the variable on the left. This means z = z + 1 "
+                    "makes perfect sense: read the current value of z, add 1, then store the result back "
+                    "into z.\n\n"
+                    "Python statements execute sequentially, one after another in the order they're "
+                    "written — a variable must be assigned before it's used, and reassigning a variable "
+                    "replaces its old value entirely."
                 ),
                 "examples": [
                     {
-                        "code": "score = 10\nprint(score)\nscore = score + 5\nprint(score)",
-                        "output": "10\n15",
-                        "note": "score is reassigned to its old value plus 5; the old value of 10 is gone once reassigned.",
+                        "code": "x = 2\ny = 3\nx = x * x\ny = y + 2\nz = x * y\nz = z + 1\nprint(x, y, z)",
+                        "output": "4 5 21",
+                        "note": "Step by step: x becomes 4 (2*2), y becomes 5 (3+2), z becomes 20 (4*5), then z becomes 21 (20+1).",
                     }
                 ],
                 "practice": [
                     {
                         "id": "2.3.p1",
-                        "question": "Which of these is a valid Python variable name?",
-                        "choices": ["2nd_place", "total-cost", "total_cost", "class"],
-                        "answer": 2,
-                        "explanation": "total_cost follows snake_case and doesn't start with a digit or use a reserved word.",
+                        "question": "When Python executes z = z + 1, what happens first?",
+                        "choices": [
+                            "z is deleted",
+                            "The current value of z is read and 1 is added, before the result is stored back in z",
+                            "Python checks if z equals 1",
+                            "An error occurs",
+                        ],
+                        "answer": 1,
+                        "explanation": "The right-hand side is fully evaluated using the current value of z before the assignment happens.",
                     },
                     {
                         "id": "2.3.p2",
-                        "question": "After x = 3 then x = x + 1, what is x?",
-                        "choices": ["3", "4", "x + 1", "Error"],
+                        "question": "x=3; y=5; z=x; x=1 — what is the value of z at the end?",
+                        "choices": ["1", "3", "5", "Error"],
                         "answer": 1,
-                        "explanation": "x is reassigned to its previous value (3) plus 1, giving 4.",
+                        "explanation": "z=x copied x's value (3) at that moment; changing x afterward doesn't affect z.",
                     },
                 ],
             },
         ],
         "quiz": [
-            {"id": "2.q1", "question": "Python statements execute:", "choices": ["Randomly", "Top to bottom, in order", "Bottom to top", "All at once"], "answer": 1, "explanation": "Sequential execution runs statements in file order."},
-            {"id": "2.q2", "question": "What does total = 4 + 2 store in total?", "choices": ["The text '4 + 2'", "6", "4", "2"], "answer": 1, "explanation": "The expression is evaluated first, giving 6."},
-            {"id": "2.q3", "question": "Which is NOT a valid variable name?", "choices": ["my_var", "_hidden", "3rd_try", "value2"], "answer": 2, "explanation": "Names cannot start with a digit."},
-            {"id": "2.q4", "question": "If y = 10 and then y = 2, what is y afterward?", "choices": ["10", "2", "12", "Error, can't reassign"], "answer": 1, "explanation": "Reassignment replaces the old value entirely."},
-            {"id": "2.q5", "question": "Python's recommended naming style (lowercase_with_underscores) is called:", "choices": ["camelCase", "PascalCase", "snake_case", "kebab-case"], "answer": 2, "explanation": "snake_case is the Python convention for variable names."},
+            {"id": "2.q1", "question": "A variable name may NOT:", "choices": ["Contain an underscore", "Be a reserved keyword like 'while'", "Start with a letter", "Contain digits after the first character"], "answer": 1, "explanation": "Reserved keywords can't be used as variable names."},
+            {"id": "2.q2", "question": "The = operator in Python is best read aloud as:", "choices": ["'equals'", "'is assigned' or 'gets'", "'compares to'", "'greater than'"], "answer": 1, "explanation": "= assigns a value; it does not test equality (that's ==)."},
+            {"id": "2.q3", "question": "x=3\\ny=5\\nz=x\\nx=1 — what is z?", "choices": ["1", "3", "5", "Undefined"], "answer": 1, "explanation": "z copied x's value (3) at assignment time, before x changed."},
+            {"id": "2.q4", "question": "Which is a common convention for naming a constant like the value of pi?", "choices": ["pi_value_that_never_changes_ever", "PI", "p", "Pi123"], "answer": 1, "explanation": "ALL_CAPS is the common convention for constants."},
+            {"id": "2.q5", "question": "Python statements execute:", "choices": ["In a random order", "Sequentially, top to bottom", "All simultaneously", "Bottom to top"], "answer": 1, "explanation": "Statements run one after another, in the order written."},
         ],
     },
     "3": {
         "id": "3",
         "title": "Data Types, Input/Output, Basic Functions",
-        "intro": "Every value in Python has a type. This module covers the core types, how to read "
-                 "input from the user, and a handful of built-in functions you'll use constantly.",
+        "intro": "Every variable has a type, which says how to interpret the 1s and 0s it stores. This "
+                 "module covers Python's core types, strings and escape characters, converting between "
+                 "types, and getting nicely-formatted input and output.",
         "components": [
             {
                 "id": "3.1",
                 "title": "Core Data Types",
                 "explanation": (
-                    "Python's basic built-in types include int (whole numbers), float (decimal "
-                    "numbers), str (text, in quotes), and bool (True/False). Use the built-in "
-                    "type() function to check what type a value is."
+                    "Python's basic built-in types include int (whole numbers), float (numbers with a "
+                    "decimal point), bool (True or False), and str (text). In Python, a variable's type "
+                    "is implied by how it was created or last assigned — you don't declare it up front "
+                    "like in some other languages. Use type() to check what type a value currently is."
                 ),
                 "examples": [
                     {
-                        "code": 'print(type(7))\nprint(type(3.14))\nprint(type("hello"))\nprint(type(True))',
-                        "output": "<class 'int'>\n<class 'float'>\n<class 'str'>\n<class 'bool'>",
-                        "note": "type() reports the underlying data type of any value.",
+                        "code": 'a = 5\nb = 5.0\nc = True\nd = "Five"\nprint(type(a))\nprint(type(b))\nprint(type(c))\nprint(type(d))',
+                        "output": "<class 'int'>\n<class 'float'>\n<class 'bool'>\n<class 'str'>",
+                        "note": "The type comes entirely from how each variable was assigned — 5 is an int, 5.0 is a float.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "3.1.p1",
-                        "question": "What type is the value 3.0?",
-                        "choices": ["int", "float", "str", "bool"],
+                        "question": "What type is x after x = 2 / 2?",
+                        "choices": ["int", "float — dividing with / always gives a float", "str", "bool"],
                         "answer": 1,
-                        "explanation": "Any number written with a decimal point is a float.",
+                        "explanation": "The / operator always produces a float, even when the division comes out even.",
                     },
                     {
                         "id": "3.1.p2",
-                        "question": 'What type is "42" (with quotes)?',
-                        "choices": ["int", "float", "str", "bool"],
-                        "answer": 2,
-                        "explanation": "Quotes make it text (a string), even though it looks numeric.",
+                        "question": "What type is x after x = 2 // 2?",
+                        "choices": ["int — floor division with matching int operands stays an int", "float always", "str", "bool"],
+                        "answer": 0,
+                        "explanation": "// is floor division; with two ints it produces an int result.",
                     },
                 ],
             },
             {
                 "id": "3.2",
-                "title": "Getting Input from the User",
+                "title": "Strings and Escape Characters",
                 "explanation": (
-                    "The input() function pauses a program and waits for the user to type something "
-                    "and press Enter. Critically, input() **always** returns a string — even if the "
-                    "user types a number, you must convert it yourself using int() or float() before "
-                    "doing math with it."
+                    "A string is text, written inside single or double quotes: \"like this\" or 'like "
+                    "this'. To include an apostrophe, wrap the string in double quotes; to include a "
+                    "quotation mark, use single quotes. For a string that needs both, use a backslash "
+                    "\\ as an escape character before the character you want to include literally.\n\n"
+                    "Other escape sequences: \\\\ prints one backslash, \\t is a tab, and \\n is a "
+                    "newline. Triple-quoted strings ('''like this''' or \"\"\"like this\"\"\") can span "
+                    "multiple lines."
                 ),
                 "examples": [
                     {
-                        "code": 'age_text = input("Enter your age: ")\nage = int(age_text)\nprint("Next year you will be", age + 1)',
-                        "output": "Enter your age: 20\nNext year you will be 21",
-                        "note": "The first line of output is the prompt with the simulated user typing 20; input() returned the string \"20\", which int() converted to the number 20.",
+                        "code": "print('Backslash: \\\\1')\nprint('Tab: \\t2')\nprint('Newline: \\n3')\nprint('Quotes: \\'4\\' or \\\"5\\\"')",
+                        "output": "Backslash: \\1\nTab: \t2\nNewline: \n3\nQuotes: '4' or \"5\"",
+                        "note": "Each escape sequence produces one literal character in the output — \\n actually breaks the line.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "3.2.p1",
-                        "question": "What type does input() always return?",
-                        "choices": ["int", "float", "str", "Whatever type the user typed"],
-                        "answer": 2,
-                        "explanation": "input() always returns a string, regardless of what was typed.",
+                        "question": 'To include an apostrophe in a string, the simplest option is to:', "choices": [
+                            "Wrap the string in double quotes",
+                            "It's never possible",
+                            "Always use triple quotes",
+                            "Delete the apostrophe",
+                        ],
+                        "answer": 0,
+                        "explanation": '"It\'s" works directly since double quotes don\'t conflict with the apostrophe.',
                     },
                     {
                         "id": "3.2.p2",
-                        "question": 'Why does age_text + 1 fail if age_text = input(...)?',
-                        "choices": [
-                            "input() is broken",
-                            "age_text is a string, and you can't add an int directly to a string",
-                            "1 is not allowed in Python",
-                            "It doesn't fail",
-                        ],
+                        "question": "What does the escape sequence \\n represent?",
+                        "choices": ["A literal backslash-n", "A newline character", "A tab character", "Nothing, it's ignored"],
                         "answer": 1,
-                        "explanation": "You must convert the string to a number first with int() or float().",
+                        "explanation": "\\n inserts a newline within a string.",
                     },
                 ],
             },
             {
                 "id": "3.3",
-                "title": "Useful Built-in Functions",
+                "title": "Converting Between Types",
                 "explanation": (
-                    "Python ships with many ready-to-use functions. A few you'll use right away: "
-                    "len() (length of text), round() (round a number), abs() (absolute value), and "
-                    "max()/min() (largest/smallest of a set of values)."
+                    "Convert values with new_type(value): int(), float(), str(), and bool(). Converting "
+                    "a float to an int truncates it — int(4.9) is 4, and int(-1.3) is -1 (it drops the "
+                    "fractional part, it doesn't round). A string converts to a number only if it "
+                    "clearly represents one: int('3') works, but int('2.5') is an error (it does NOT "
+                    "convert to a float first).\n\n"
+                    "Boolean conversions have their own rules: converting True/False to a number gives "
+                    "1/0. Converting TO a bool, the number 0 is False and anything else is True — but "
+                    "for strings, only the empty string '' is False; even '0' and 'False' count as True, "
+                    "since they're non-empty strings."
                 ),
                 "examples": [
                     {
-                        "code": 'name = "Aggie"\nprint(len(name))\nprint(round(3.14159, 2))\nprint(abs(-7))\nprint(max(4, 9, 2))',
-                        "output": "5\n3.14\n7\n9",
-                        "note": "len() counts characters, round() takes an optional decimal-places argument, abs() removes the sign, max() returns the largest argument.",
+                        "code": "print(int(True))\nprint(float(False))\nprint(bool(0))\nprint(bool(3))\nprint(bool('0'))\nprint(bool(''))",
+                        "output": "1\n0.0\nFalse\nTrue\nTrue\nFalse",
+                        "note": "bool('0') is True because '0' is a non-empty string — only the truly empty string '' converts to False.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "3.3.p1",
-                        "question": 'What does len("python") return?',
-                        "choices": ["5", "6", "7", "Error"],
+                        "question": "What does int(4.9) evaluate to?",
+                        "choices": ["5 (it rounds)", "4 (it truncates)", "4.9", "Error"],
                         "answer": 1,
-                        "explanation": "'python' has 6 characters.",
+                        "explanation": "Converting float to int truncates the fractional part rather than rounding.",
                     },
                     {
                         "id": "3.3.p2",
-                        "question": "round(2.567, 1) returns:",
-                        "choices": ["2.5", "2.6", "3.0", "2.567"],
+                        "question": "What happens when you run int('2.5')?",
+                        "choices": [
+                            "It returns the integer 2",
+                            "It raises an error — it does not first convert to float, then to int",
+                            "It returns the float 2.5",
+                            "It returns 0",
+                        ],
                         "answer": 1,
-                        "explanation": "Rounded to 1 decimal place, 2.567 becomes 2.6.",
+                        "explanation": "int() on a string requires the string to clearly represent an integer; '2.5' does not.",
+                    },
+                ],
+            },
+            {
+                "id": "3.4",
+                "title": "Input, Output, and f-strings",
+                "explanation": (
+                    "input() reads what the user types, always as a string — convert it yourself with "
+                    "int() or float() if you need a number. input(\"prompt\") prints the prompt (with no "
+                    "newline after it) before waiting for input, which is usually cleaner than a separate "
+                    "print() call.\n\n"
+                    "print() separates multiple values with a space and ends with a newline by default; "
+                    "override either with sep=\"...\" or end=\"...\". For full control over formatting, "
+                    "use an f-string: write f'...' with {expression} placeholders inside. Add a format "
+                    "specifier like {value:.2f} to control decimal places, or {value:>10} to right-align "
+                    "text in a 10-character field (< for left, ^ for center)."
+                ),
+                "examples": [
+                    {
+                        "code": 'from math import pi\nflavor = "Apple"\nprint(f"{flavor} pie is tasty, and pi is {pi:.5f}")',
+                        "output": "Apple pie is tasty, and pi is 3.14159",
+                        "note": "{flavor} inserts the variable's value directly; {pi:.5f} formats pi to exactly 5 decimal places.",
+                    },
+                    {
+                        "code": "r = float(input(\"Enter the radius of a circle: \"))\nfrom math import pi\narea = pi * r ** 2\nprint(f\"The area of the circle is {area:.4f}\")",
+                        "output": "Enter the radius of a circle: 1\nThe area of the circle is 3.1416",
+                        "note": "input() with a prompt string avoids a separate print() call; the f-string rounds to 4 decimal places for display.",
+                    },
+                ],
+                "practice": [
+                    {
+                        "id": "3.4.p1",
+                        "question": 'What does f"pi is {pi:.2f}" do differently from f"pi is {pi}"?',
+                        "choices": [
+                            "Nothing, they're identical",
+                            "It rounds pi's displayed value to 2 decimal places",
+                            "It converts pi to a string only",
+                            "It causes an error",
+                        ],
+                        "answer": 1,
+                        "explanation": "The :.2f format specifier controls how many decimal places are shown.",
+                    },
+                    {
+                        "id": "3.4.p2",
+                        "question": 'age = int(input("Enter age: ")) — why convert with int()?',
+                        "choices": [
+                            "input() always returns a string, so it must be converted to do math with it",
+                            "It's not necessary",
+                            "int() reads the keyboard directly",
+                            "input() only works with int()",
+                        ],
+                        "answer": 0,
+                        "explanation": "input() always returns a string, regardless of what the user typed.",
                     },
                 ],
             },
         ],
         "quiz": [
-            {"id": "3.q1", "question": "Which function tells you a value's data type?", "choices": ["kind()", "typeof()", "type()", "class()"], "answer": 2, "explanation": "type() returns a value's type."},
-            {"id": "3.q2", "question": "input() always returns a:", "choices": ["int", "float", "str", "bool"], "answer": 2, "explanation": "input() returns text (a string) no matter what was typed."},
-            {"id": "3.q3", "question": 'What is len("engineer")?', "choices": ["7", "8", "9", "10"], "answer": 2, "explanation": "'engineer' has 9 characters."},
-            {"id": "3.q4", "question": "To use a number typed via input() in math, you should:", "choices": ["Use it directly", "Convert it with int() or float() first", "Wrap it in print()", "Nothing works, input can't be used in math"], "answer": 1, "explanation": "Convert the string to a numeric type before doing arithmetic."},
-            {"id": "3.q5", "question": "abs(-12) returns:", "choices": ["-12", "12", "0", "Error"], "answer": 1, "explanation": "abs() strips the sign, returning the magnitude."},
+            {"id": "3.q1", "question": "What type does x = 2 / 2 produce?", "choices": ["int", "float", "str", "bool"], "answer": 1, "explanation": "/ (true division) always produces a float."},
+            {"id": "3.q2", "question": "To include a quotation mark inside a string, the simplest option is to:", "choices": ["Wrap the string in single quotes", "It's impossible", "Use only numbers", "Delete the quote"], "answer": 0, "explanation": "Single-quoting the string lets you include \" marks directly."},
+            {"id": "3.q3", "question": "int('2.5') results in:", "choices": ["2", "2.5", "An error", "0"], "answer": 2, "explanation": "int() on a string needs a clear integer representation; '2.5' isn't one."},
+            {"id": "3.q4", "question": "bool('') evaluates to:", "choices": ["True", "False", "Error", "0"], "answer": 1, "explanation": "Only the empty string converts to False; any non-empty string is True."},
+            {"id": "3.q5", "question": 'f"{3.14159:.2f}" displays as:', "choices": ["3.14159", "3.14", "3.1", "3"], "answer": 1, "explanation": ":.2f rounds and displays exactly 2 decimal places."},
         ],
     },
     "4": {
         "id": "4",
         "title": "Boolean Expressions, Conditionals",
-        "intro": "Programs need to make decisions. This module covers Boolean values (True/False), "
-                 "the comparison and logical operators that produce them, and if/elif/else statements "
-                 "that let a program take different paths depending on the data.",
+        "intro": "Programs need to make decisions. This module covers relational and Boolean operators "
+                 "that produce True/False values, and the if/elif/else statements that branch a "
+                 "program's flow based on them.",
         "components": [
             {
                 "id": "4.1",
-                "title": "Boolean Expressions & Comparisons",
+                "title": "Relational and Boolean Operators",
                 "explanation": (
-                    "A Boolean expression evaluates to exactly one of two values: True or False. "
-                    "Comparison operators (==, !=, <, >, <=, >=) produce Booleans, and the logical "
-                    "operators and, or, and not combine them.\n\n"
-                    "Watch the difference between = (assignment) and == (comparison) — this is one "
-                    "of the most common beginner mistakes in any language."
+                    "Relational operators compare two values and produce a Boolean: == (equal — note "
+                    "the two equal signs, since one = is assignment), != (not equal), <, >, <=, >=. "
+                    "Boolean operators combine Booleans: A and B is True only if both are True; A or B "
+                    "is True if either is True; not A flips A's value.\n\n"
+                    "Order of operations: math operators run first, then relational operators, then "
+                    "Boolean operators — and among Boolean operators, not runs before and, which runs "
+                    "before or. Even so, use parentheses to make your intent clear and avoid bugs."
                 ),
                 "examples": [
                     {
-                        "code": "temperature = 88\nis_hot = temperature > 85\nprint(is_hot)\nprint(temperature > 100)\nprint(temperature == 88 and is_hot)",
-                        "output": "True\nFalse\nTrue",
-                        "note": "is_hot stores a Boolean; and requires both sides to be True for the whole expression to be True.",
+                        "code": "a = 10\nb = 10\nc = 20\nd = ((a>b) and (b<=c)) or (not((((c<=a+b) and (a==10)) or ((b==10) and c!=10))))\nprint(d)",
+                        "output": "False",
+                        "note": "(a>b) is False, so the left side of or is False; inside the not(...), both inner conditions are True, so not(True) is False. False or False is False.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "4.1.p1",
-                        "question": "What does the expression 5 == 5 evaluate to?",
-                        "choices": ["5", "True", "False", "Error"],
+                        "question": "Which operator tests equality (not assignment)?",
+                        "choices": ["=", "==", ":=", "!="],
                         "answer": 1,
-                        "explanation": "== compares two values and produces a Boolean; 5 equals 5, so it's True.",
+                        "explanation": "== compares two values; = assigns a value.",
                     },
                     {
                         "id": "4.1.p2",
-                        "question": "What does (4 > 2) and (4 > 10) evaluate to?",
-                        "choices": ["True", "False", "4", "Error"],
+                        "question": "What is the Python order among not, and, or?",
+                        "choices": ["or, then and, then not", "not, then and, then or", "They're all equal precedence", "and, then not, then or"],
                         "answer": 1,
-                        "explanation": "and requires both sides True; 4 > 10 is False, so the whole expression is False.",
-                    },
+                        "explanation": "not binds tightest, then and, then or."},
                 ],
             },
             {
                 "id": "4.2",
                 "title": "if / elif / else",
                 "explanation": (
-                    "An if statement runs a block of code only when its condition is True. elif "
-                    "(\"else if\") checks another condition if the previous ones were False, and "
-                    "else catches everything else. Python only runs the FIRST branch whose condition "
-                    "is True, then skips the rest — order matters."
+                    "The if statement creates a branch: if <condition>: followed by an indented block "
+                    "that runs only when the condition is True. Unlike most languages, Python requires "
+                    "consistent indentation (commonly 4 spaces) to mark which lines belong to the block.\n\n"
+                    "Use if/else when there are exactly two possibilities, and if/elif/else when there "
+                    "are more. Conditions are checked top to bottom, and only the FIRST one that's True "
+                    "runs — the rest are skipped, even if they'd also be True."
                 ),
                 "examples": [
                     {
-                        "code": 'score = 72\nif score >= 90:\n    print("Grade: A")\nelif score >= 80:\n    print("Grade: B")\nelif score >= 70:\n    print("Grade: C")\nelse:\n    print("Grade: F")',
-                        "output": "Grade: C",
-                        "note": "72 fails the first two conditions but passes score >= 70, so that branch runs and the rest are skipped.",
+                        "code": 'major = "ECEN"\nif major == "CSCE":\n    office = "HRBB 302"\nelif major == "ECEN":\n    office = "WEB 301"\nelif major == "MEEN":\n    office = "MEOB 100"\nelse:\n    office = "unknown"\nprint(office)',
+                        "output": "WEB 301",
+                        "note": "The first branch (CSCE) doesn't match, so Python checks the next; ECEN matches, so that branch runs and the rest are skipped.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "4.2.p1",
-                        "question": "In an if/elif/else chain, how many branches can run?",
-                        "choices": ["All of them", "Only the first one whose condition is True", "Only the last one", "None unless else is first"],
+                        "question": "In Python, what marks which lines belong to an if block?",
+                        "choices": ["Curly braces {}", "Consistent indentation", "Semicolons", "Nothing — it's optional"],
                         "answer": 1,
-                        "explanation": "Python stops checking after the first True condition and runs only that branch.",
-                    },
+                        "explanation": "Python uses indentation, not braces, to define blocks — and it's required, not optional."},
                     {
                         "id": "4.2.p2",
-                        "question": "What does the else branch require?",
-                        "choices": ["A condition of its own", "Nothing — it always runs if no earlier condition was True", "To be written first", "elif to be absent"],
+                        "question": "In an if/elif/elif/else chain where two conditions would both be True, how many branches run?",
+                        "choices": ["Both", "Only the first one that's True", "Only the last one", "None"],
                         "answer": 1,
-                        "explanation": "else has no condition; it's the catch-all for when every if/elif above was False.",
+                        "explanation": "Python stops at the first True condition, regardless of whether a later one would also be True.",
                     },
                 ],
             },
             {
                 "id": "4.3",
-                "title": "Nested and Combined Conditions",
+                "title": "Combining and Nesting Conditions",
                 "explanation": (
-                    "Conditionals can be nested — an if statement inside another if statement — to "
-                    "check conditions only when an outer condition is already satisfied. Often, a "
-                    "nested if can also be written as one condition combined with and, which is "
-                    "usually easier to read."
+                    "You can nest an if statement inside another if to check a second condition only "
+                    "once an outer one is already satisfied. Often, a nested check can also be written "
+                    "as a single condition combined with and — which is usually easier to read.\n\n"
+                    "A common pattern is testing whether a value falls in a range, like whether water at "
+                    "a given Fahrenheit temperature is liquid: it needs to be both at least 32 and at "
+                    "most 212."
                 ),
                 "examples": [
                     {
-                        "code": 'age = 20\nhas_ticket = True\nif age >= 18:\n    if has_ticket:\n        print("Welcome in!")\n    else:\n        print("Buy a ticket first.")\nelse:\n    print("Must be 18 or older.")',
-                        "output": "Welcome in!",
-                        "note": "The inner if only runs because the outer condition (age >= 18) was already True.",
+                        "code": "F = 75\nis_liquid = (F >= 32) and (F <= 212)\nprint(is_liquid)",
+                        "output": "True",
+                        "note": "Both conditions must hold for water to be liquid at that temperature; and requires both to be True.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "4.3.p1",
-                        "question": "Why nest an if statement inside another if?",
+                        "question": "To test if a variable is between 0 and 100 inclusive, you would write:",
                         "choices": [
-                            "To make the code run twice",
-                            "To check a second condition only when the first is already True",
-                            "It's required by Python syntax",
-                            "To avoid using elif",
+                            "(variable >= 0) or (variable <= 100)",
+                            "(variable >= 0) and (variable <= 100)",
+                            "variable == 0 and 100",
+                            "not (variable >= 0)",
                         ],
                         "answer": 1,
-                        "explanation": "Nesting lets the inner check depend on the outer condition already being satisfied.",
-                    },
+                        "explanation": "Both bounds must hold at once, so and is required (or would always be True)."},
                     {
                         "id": "4.3.p2",
-                        "question": "if age >= 18 and has_ticket: is most similar to which structure?",
+                        "question": "A nested if inside another if is often equivalent to:",
                         "choices": [
-                            "Two separate unrelated if statements",
-                            "An if nested inside another if checking the same two conditions",
+                            "A single if with the conditions combined using and",
                             "A while loop",
                             "A function definition",
+                            "Nothing — nesting is never equivalent to anything else",
                         ],
-                        "answer": 1,
-                        "explanation": "Combining conditions with and is often a cleaner way to write nested ifs.",
+                        "answer": 0,
+                        "explanation": "Nested ifs checking two conditions can usually be flattened into one if using and.",
                     },
                 ],
             },
         ],
         "quiz": [
-            {"id": "4.q1", "question": "Which operator checks equality (not assignment)?", "choices": ["=", "==", "!=", ":="], "answer": 1, "explanation": "== compares two values; = assigns a value."},
-            {"id": "4.q2", "question": "True and False evaluates to:", "choices": ["True", "False", "None", "Error"], "answer": 1, "explanation": "and requires both sides True; here one side is False."},
-            {"id": "4.q3", "question": "In an if/elif/else chain, elif conditions are checked:", "choices": ["All at once", "Only if the previous conditions were False", "Only after else", "Never"], "answer": 1, "explanation": "Each elif is only evaluated if everything above it was False."},
-            {"id": "4.q4", "question": "not (5 > 3) evaluates to:", "choices": ["True", "False", "5", "3"], "answer": 1, "explanation": "5 > 3 is True; not flips it to False."},
-            {"id": "4.q5", "question": "A nested if statement is:", "choices": ["An if inside another if", "An if with two conditions joined by or", "A syntax error", "The same as elif"], "answer": 0, "explanation": "Nesting means placing one if block inside another."},
+            {"id": "4.q1", "question": "Which comparison operator means 'equal to'?", "choices": ["=", "==", "<>", "eq"], "answer": 1, "explanation": "== tests equality; = is assignment."},
+            {"id": "4.q2", "question": "True and False evaluates to:", "choices": ["True", "False", "None", "Error"], "answer": 1, "explanation": "and requires both sides True."},
+            {"id": "4.q3", "question": "Python requires ___ to mark an if block's contents.", "choices": ["Curly braces", "Consistent indentation", "Line numbers", "Nothing"], "answer": 1, "explanation": "Indentation is mandatory in Python, unlike most other languages."},
+            {"id": "4.q4", "question": "In an if/elif/else chain, once a condition is found True:", "choices": ["All remaining branches still run", "The remaining elif/else branches are skipped", "The program stops", "An error occurs"], "answer": 1, "explanation": "Only the first True branch executes."},
+            {"id": "4.q5", "question": "not (5 > 3) evaluates to:", "choices": ["True", "False", "5", "3"], "answer": 1, "explanation": "5 > 3 is True; not flips it to False."},
         ],
     },
     "5": {
         "id": "5",
         "title": "Creating & Testing Programs, Basic Debugging",
-        "intro": "Writing a working program is a process: plan what it should do, write it in small "
-                 "pieces, and test it against inputs where you already know the right answer. This "
-                 "module also introduces how to read Python's error messages when something goes wrong.",
+        "intro": "As programs grow, planning and testing become essential. This module covers writing "
+                 "good comments, designing a program before coding it, building it incrementally rather "
+                 "than all at once, and writing tests that actually catch problems.",
         "components": [
             {
                 "id": "5.1",
-                "title": "The Program Development Process",
+                "title": "Comments and Program Design",
                 "explanation": (
-                    "Before typing code, decide what the program's inputs, outputs, and steps are. "
-                    "Writing this out — even as a comment or on paper — is called planning, and it "
-                    "prevents you from getting lost once the code gets more complex.\n\n"
-                    "Build programs incrementally: write a few lines, run them, confirm they work, "
-                    "then add more. Trying to write an entire program at once makes it much harder "
-                    "to find where something went wrong."
+                    "Comments should describe the purpose of code, clarify a non-obvious computation, or "
+                    "separate sections — not restate what's already obvious from reading the code.\n\n"
+                    "For designing a program: list out its major stages in order outside of any code "
+                    "(e.g. get input -> calculate -> output result), turn those steps into comments, "
+                    "then fill in the code between them one section at a time."
                 ),
                 "examples": [
                     {
-                        "code": 'radius = 3\narea = 3.14159 * radius ** 2\nprint("Area:", area)',
-                        "output": "Area: 28.27431",
-                        "note": "Planned steps: get the radius, apply the area formula, then display the result.",
+                        "code": "# Get user's homework grade\nhomework = float(input(\"Enter your average homework grade: \"))\n# Get user's exam grade\nexam = float(input(\"Enter your average exam grade: \"))\n# Calculate grade as: 40% homework + 60% exam\ngrade = 0.4 * homework + 0.6 * exam\n# Determine letter grade\nif grade >= 90:\n    letter = \"A\"\nelif grade >= 80:\n    letter = \"B\"\nelse:\n    letter = \"C\"\nprint(f\"Your grade is: {letter}\")",
+                        "output": "Enter your average homework grade: 95\nEnter your average exam grade: 88\nYour grade is: B",
+                        "note": "Each comment states a design step first; the code beneath it fills that step in.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "5.1.p1",
-                        "question": "Why plan a program's steps before writing code?",
+                        "question": "A good use of a comment is to:",
                         "choices": [
-                            "Python requires a written plan to run",
-                            "It clarifies inputs, outputs, and logic before things get complex",
-                            "It makes the program run faster",
-                            "It's not useful for short programs",
+                            "Restate exactly what an obvious line of code does",
+                            "Clarify the purpose of a non-obvious computation",
+                            "Make the program run faster",
+                            "Replace the need for variable names",
                         ],
                         "answer": 1,
-                        "explanation": "Planning clarifies the problem so the code that follows has a clear direction.",
-                    },
+                        "explanation": "Comments should add understanding, not just repeat what's already clear from the code."},
                     {
                         "id": "5.1.p2",
-                        "question": "What does building a program 'incrementally' mean?",
-                        "choices": [
-                            "Writing the whole thing then testing once",
-                            "Writing and testing small pieces before adding more",
-                            "Only using integers",
-                            "Writing code backwards from the output",
-                        ],
+                        "question": "In the 'steps to comments to code' design process, what comes first?",
+                        "choices": ["Writing all the code", "Listing the program's major steps in order, outside of any code", "Testing the finished program", "Picking variable names"],
                         "answer": 1,
-                        "explanation": "Small, tested steps make it much easier to catch problems early.",
-                    },
+                        "explanation": "You outline the steps first, before any code is written."},
                 ],
             },
             {
                 "id": "5.2",
-                "title": "Reading Error Messages",
+                "title": "Incremental Development",
                 "explanation": (
-                    "When Python can't run your code, it raises an exception and prints a traceback: "
-                    "the line where it happened and the type of error. Common ones include "
-                    "SyntaxError (invalid Python grammar), NameError (using a variable that doesn't "
-                    "exist yet), and TypeError (using a value in a way its type doesn't support, "
-                    "like adding a string to a number).\n\n"
-                    "Read the LAST line of a traceback first — it names the error type and gives a "
-                    "short description, which is usually the fastest way to understand what went wrong."
+                    "Pyramids and arches are both stable ancient structures, but built very differently. "
+                    "A pyramid can stop at any point and still be stable — you can test the lower levels "
+                    "before adding more. An arch isn't stable until every stone is in place, so you can't "
+                    "really test it partway through.\n\n"
+                    "Some programmers build software the 'arch' way: write everything, then test at the "
+                    "end — and if one piece is broken, the whole thing falls apart. Better is the "
+                    "'pyramid' way: write a small piece, test it, confirm it works, then add more. You "
+                    "always have a working piece of software, even before it's complete."
                 ),
                 "examples": [
                     {
-                        "code": 'print("Testing:")\nresult = 10 / 2\nprint(result)',
-                        "output": "Testing:\n5.0",
-                        "note": "This one runs cleanly — but if result had been 10 / \"2\" instead, Python would raise a TypeError on that line.",
+                        "code": "# Step 1: read input and confirm it (test before continuing)\nstudy_time = float(input(\"How long will you study? \"))\nprint(\"Entered:\", study_time)",
+                        "output": "How long will you study? 10\nEntered: 10.0",
+                        "note": "Testing this small piece — confirming the input reads and converts correctly — before writing the next section is the 'pyramid' approach.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "5.2.p1",
-                        "question": "Which error occurs from using a variable that was never assigned?",
-                        "choices": ["SyntaxError", "NameError", "TypeError", "IndexError"],
+                        "question": "The 'pyramid' style of software development means:",
+                        "choices": [
+                            "Writing all the code, then testing once at the end",
+                            "Writing and testing small pieces before adding more",
+                            "Never testing your code",
+                            "Writing code in alphabetical order",
+                        ],
                         "answer": 1,
-                        "explanation": "NameError means Python doesn't recognize that name at all."},
+                        "explanation": "Pyramid-style development builds and verifies stable pieces incrementally."},
                     {
                         "id": "5.2.p2",
-                        "question": "When reading a traceback, which line should you check first?",
-                        "choices": ["The first line", "The last line", "The middle line", "It doesn't matter"],
+                        "question": "Why is the 'arch' style risky for software?",
+                        "choices": [
+                            "It's actually the safest approach",
+                            "Nothing can be tested until every piece is written, so one broken piece breaks everything",
+                            "It requires too many comments",
+                            "It only works for small programs",
+                        ],
                         "answer": 1,
-                        "explanation": "The last line names the exception type and gives the most direct explanation.",
-                    },
+                        "explanation": "Like an arch missing a stone, an incomplete 'arch-style' program can't be verified until it's entirely finished."},
                 ],
             },
             {
                 "id": "5.3",
-                "title": "Basic Debugging Techniques",
+                "title": "Writing Tests and Finding Bugs",
                 "explanation": (
-                    "Debugging is finding and fixing the difference between what a program does and "
-                    "what it should do. The simplest and most effective technique is adding temporary "
-                    "print() statements to show a variable's value at different points, so you can "
-                    "see exactly where it stops matching your expectations.\n\n"
-                    "Test with inputs where you already know the correct answer. If your program "
-                    "gets a simple case wrong, that's much easier to investigate than a complex one."
+                    "Tests are inputs where you already know the correct output. Test the 'typical' case "
+                    "first, then the 'edge' or 'corner' cases — the less common, boundary situations "
+                    "(like the very first or last valid value). Debugging means using a failing test to "
+                    "find, understand, and fix the underlying error.\n\n"
+                    "A classic bug: reading input and forgetting to convert it. input() always returns a "
+                    "string, so adding a number to it directly raises a TypeError — the fix is converting "
+                    "with float() or int() right when you read it."
                 ),
                 "examples": [
                     {
-                        "code": 'width = 4\nheight = 5\nprint("width:", width)\nprint("height:", height)\narea = width * height\nprint("area:", area)',
-                        "output": "width: 4\nheight: 5\narea: 20",
-                        "note": "Printing each variable along the way confirms every step before trusting the final result.",
+                        "code": "study_time = float(input(\"How long will you study? \"))\nprint(\"Adding 1:\", study_time + 1)",
+                        "output": "How long will you study? 10\nAdding 1: 11.0",
+                        "note": "Converting with float() as soon as the value is read avoids a TypeError from trying to add 1 to a string.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "5.3.p1",
-                        "question": "What is the simplest way to see a variable's value while a program runs?",
-                        "choices": ["Guessing", "Adding a temporary print() statement", "Rewriting the whole program", "Waiting for a crash"],
-                        "answer": 1,
-                        "explanation": "print() debugging is quick and requires no special tools.",
-                    },
-                    {
-                        "id": "5.3.p2",
-                        "question": "Why test with inputs where you already know the answer?",
+                        "question": "What is an 'edge case' when testing a program?",
                         "choices": [
-                            "It's required by Python",
-                            "It makes it obvious when the program's output is wrong",
-                            "It runs faster",
-                            "It avoids using variables",
+                            "A completely random input",
+                            "A boundary or unusual situation, like the very first or last valid value",
+                            "The most common, typical input",
+                            "An input that's guaranteed to crash the program",
                         ],
                         "answer": 1,
-                        "explanation": "A known expected result makes incorrect output immediately obvious.",
-                    },
+                        "explanation": "Edge cases test boundaries and unusual situations, beyond the typical case."},
+                    {
+                        "id": "5.3.p2",
+                        "question": "Why does study_time + 1 fail if study_time = input(\"...\") (with no conversion)?",
+                        "choices": [
+                            "input() is broken",
+                            "study_time is a string, and you can't add a number directly to a string",
+                            "1 is not a valid number in Python",
+                            "It doesn't fail",
+                        ],
+                        "answer": 1,
+                        "explanation": "input() returns a string; adding a number to it raises a TypeError unless it's converted first."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "5.q1", "question": "What is the first step in the program development process?", "choices": ["Writing all the code", "Planning inputs, outputs, and steps", "Submitting the assignment", "Adding comments"], "answer": 1, "explanation": "Planning comes before writing code."},
-            {"id": "5.q2", "question": "Using a variable before it's ever assigned raises a:", "choices": ["SyntaxError", "NameError", "TypeError", "IndexError"], "answer": 1, "explanation": "Python doesn't recognize the name, so it raises NameError."},
-            {"id": "5.q3", "question": "The most useful line of a traceback to read first is the:", "choices": ["First line", "Last line", "A random line", "Line count"], "answer": 1, "explanation": "The last line states the exception type and message directly."},
-            {"id": "5.q4", "question": "Adding temporary print() statements to inspect variables is called:", "choices": ["Compiling", "print() debugging", "Refactoring", "Linting"], "answer": 1, "explanation": "This simple technique is often called print-statement debugging."},
-            {"id": "5.q5", "question": "Building a program 'incrementally' means:", "choices": ["Writing it all at once", "Testing small pieces as you go", "Only using while loops", "Avoiding functions"], "answer": 1, "explanation": "Incremental development catches errors earlier by testing small steps."},
+            {"id": "5.q1", "question": "A good comment should:", "choices": ["Restate obvious code", "Clarify a non-obvious purpose or computation", "Always be one word", "Be written in code, not English"], "answer": 1, "explanation": "Comments should add understanding beyond what the code already shows."},
+            {"id": "5.q2", "question": "The 'pyramid' approach to building software means:", "choices": ["Writing everything before testing", "Testing small, stable pieces before adding more", "Skipping tests entirely", "Only testing at the very end"], "answer": 1, "explanation": "Like a pyramid, you can stop and verify stability at any point."},
+            {"id": "5.q3", "question": "An 'edge case' test checks:", "choices": ["A typical, common input", "A boundary or unusual situation", "Nothing useful", "Only negative numbers"], "answer": 1, "explanation": "Edge cases probe boundaries, not the typical case."},
+            {"id": "5.q4", "question": "Why convert input() results with float() or int() immediately?", "choices": ["It's optional styling", "input() always returns a string, and math operations need a number", "It makes the program run faster", "It's required by print()"], "answer": 1, "explanation": "Without conversion, using the result in math raises a TypeError."},
+            {"id": "5.q5", "question": "Debugging means:", "choices": ["Writing new features", "Finding, understanding, and fixing an error using a failing test", "Deleting all comments", "Renaming variables"], "answer": 1, "explanation": "Debugging is the process of tracking down and correcting a bug."},
         ],
     },
     "6": {
         "id": "6",
         "title": "Loops and Iteration",
-        "intro": "Loops let a program repeat steps without rewriting them. This module covers the "
-                 "while loop (repeat while a condition holds), the for loop (repeat a known number "
-                 "of times), and ways to control a loop's flow.",
+        "intro": "Loops let a program repeat steps without rewriting them. This module covers the while "
+                 "loop, the for loop with range(), nesting loops inside each other, and controlling a "
+                 "loop's flow with break and continue.",
         "components": [
             {
                 "id": "6.1",
                 "title": "The while Loop",
                 "explanation": (
-                    "A while loop repeats its body as long as its condition stays True. You must "
-                    "update something inside the loop that eventually makes the condition False — "
-                    "forgetting to do this creates an infinite loop that never stops."
+                    "Every loop has four parts: initializing a control variable, a continuation "
+                    "condition, the things to repeat, and updating the control variable. A while loop "
+                    "checks its condition, and if True, runs the indented block, then checks again — "
+                    "repeating until the condition is False. If nothing inside the loop ever changes the "
+                    "condition's outcome, you get an infinite loop.\n\n"
+                    "A very common pattern counts iterations with a variable (often named i, j, or k), "
+                    "usually starting at 0."
                 ),
                 "examples": [
                     {
-                        "code": 'count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1',
-                        "output": "1\n2\n3\n4\n5",
-                        "note": "count increases by 1 each time through the loop until it exceeds 5, which makes the condition False.",
+                        "code": 'secret_number = 7\nuser_guess = 4\nwhile user_guess != secret_number:\n    print("No! Try again.")\n    user_guess = 7\nprint("You guessed it!")',
+                        "output": "No! Try again.\nYou guessed it!",
+                        "note": "The condition (guess != secret) is checked, found True once, the loop body runs, then the (now-matching) guess makes the condition False.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "6.1.p1",
-                        "question": "A while loop keeps running as long as its condition is:",
-                        "choices": ["False", "True", "Zero", "A string"],
-                        "answer": 1,
-                        "explanation": "The loop body repeats while the condition evaluates to True.",
-                    },
-                    {
-                        "id": "6.1.p2",
-                        "question": "What causes an infinite loop in a while statement?",
+                        "question": "What are the four parts of a loop?",
                         "choices": [
-                            "Using print() inside it",
-                            "Never changing anything that affects the condition",
-                            "Starting count at 1",
-                            "Using range()",
+                            "print(), input(), if, else",
+                            "Initialize a control variable, a continuation condition, things to do, updating the control variable",
+                            "Comments, variables, functions, loops",
+                            "Only a condition is needed",
                         ],
                         "answer": 1,
-                        "explanation": "If nothing updates the condition's variables, it never becomes False.",
-                    },
+                        "explanation": "Every loop needs these four components to work correctly."},
+                    {
+                        "id": "6.1.p2",
+                        "question": "What causes an infinite while loop?",
+                        "choices": [
+                            "Using print() inside it",
+                            "Nothing inside the loop ever changes what the condition depends on",
+                            "Starting the counter at 0",
+                            "Using an if statement inside it",
+                        ],
+                        "answer": 1,
+                        "explanation": "If the condition's outcome never changes, the loop never stops."},
                 ],
             },
             {
                 "id": "6.2",
                 "title": "The for Loop and range()",
                 "explanation": (
-                    "A for loop repeats once for each item in a sequence. range(n) generates numbers "
-                    "0 through n-1; range(start, stop) and range(start, stop, step) give more control "
-                    "over where to begin, end, and how much to count by each time."
+                    "A for loop is built for the common case of running a known number of times. "
+                    "for i in range(10): runs the body 10 times, with i taking values 0 through 9 (not "
+                    "1 through 10 — the sequence starts at 0 and has 10 elements). i is called the "
+                    "iterator.\n\n"
+                    "range() can also take a start and step: range(start, stop, step) begins at start, "
+                    "stops before stop, and counts by step each time."
                 ),
                 "examples": [
                     {
-                        "code": "for i in range(5):\n    print(i)",
-                        "output": "0\n1\n2\n3\n4",
-                        "note": "range(5) produces 0, 1, 2, 3, 4 — five values, starting at 0 and stopping before 5.",
-                    },
-                    {
-                        "code": "for i in range(2, 10, 2):\n    print(i)",
-                        "output": "2\n4\n6\n8",
-                        "note": "range(2, 10, 2) starts at 2, stops before 10, counting by 2 each time.",
-                    },
+                        "code": "for i in range(3):\n    print(i, end='')\nprint()\nfor i in range(1, 5):\n    print(i, end='')\nprint()\nfor i in range(3, 9, 2):\n    print(i, end='')",
+                        "output": "012\n1234\n357",
+                        "note": "range(3) gives 0,1,2; range(1,5) gives 1,2,3,4; range(3,9,2) starts at 3, stops before 9, counting by 2.",
+                    }
                 ],
                 "practice": [
                     {
                         "id": "6.2.p1",
-                        "question": "What does range(4) produce?",
-                        "choices": ["1, 2, 3, 4", "0, 1, 2, 3", "0, 1, 2, 3, 4", "4"],
+                        "question": "for i in range(10): repeats the body:",
+                        "choices": ["9 times, i from 1 to 9", "10 times, i from 0 to 9", "10 times, i from 1 to 10", "11 times"],
                         "answer": 1,
-                        "explanation": "range(4) starts at 0 and stops before 4: 0, 1, 2, 3.",
-                    },
+                        "explanation": "range(10) generates 10 values: 0 through 9."},
                     {
                         "id": "6.2.p2",
-                        "question": "range(1, 10, 3) produces:",
-                        "choices": ["1, 4, 7", "1, 3, 6, 9", "1, 2, 3", "1, 4, 7, 10"],
+                        "question": "range(2, 10, 3) produces:",
+                        "choices": ["2, 5, 8", "2, 3, 4", "2, 10", "2, 5, 8, 11"],
                         "answer": 0,
-                        "explanation": "Starting at 1, stopping before 10, counting by 3: 1, 4, 7.",
-                    },
+                        "explanation": "Starting at 2, stopping before 10, counting by 3: 2, 5, 8."},
                 ],
             },
             {
                 "id": "6.3",
-                "title": "Loop Control: break, continue, and Accumulators",
+                "title": "Nesting Loops",
                 "explanation": (
-                    "break exits a loop immediately, and continue skips the rest of the current "
-                    "iteration and moves to the next one. A very common loop pattern is the "
-                    "accumulator: a variable (often starting at 0) that gets updated on every pass "
-                    "through the loop to build up a total, count, or combined result."
+                    "Just like if statements, loops can be nested — a loop written entirely inside "
+                    "another loop's body. For each single pass of the outer loop, the entire inner loop "
+                    "runs completely. This is useful for anything with two independent counters, like "
+                    "generating every combination of two ranges of numbers."
                 ),
                 "examples": [
                     {
-                        "code": "total = 0\nfor n in range(1, 6):\n    if n == 4:\n        continue\n    total = total + n\nprint(total)",
-                        "output": "11",
-                        "note": "continue skips adding 4, so total accumulates 1+2+3+5 = 11.",
+                        "code": "for i in range(3):\n    for j in range(3):\n        print(f'{i} times {j} equals {i*j}')",
+                        "output": "0 times 0 equals 0\n0 times 1 equals 0\n0 times 2 equals 0\n1 times 0 equals 0\n1 times 1 equals 1\n1 times 2 equals 2\n2 times 0 equals 0\n2 times 1 equals 2\n2 times 2 equals 4",
+                        "note": "For each value of i, the entire inner loop over j runs from start to finish before i advances.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "6.3.p1",
-                        "question": "What does break do inside a loop?",
-                        "choices": ["Skips to the next iteration", "Exits the loop immediately", "Restarts the loop", "Causes an error"],
-                        "answer": 1,
-                        "explanation": "break stops the loop entirely, right where it's called.",
-                    },
-                    {
-                        "id": "6.3.p2",
-                        "question": "An 'accumulator' variable is typically used to:",
+                        "question": "In a nested loop, how many times does the inner loop run in total?",
                         "choices": [
-                            "Store a single unchanging value",
-                            "Build up a running total or result across loop iterations",
-                            "Exit a loop early",
-                            "Define a function",
+                            "Once, no matter what",
+                            "Its full range, once for every single iteration of the outer loop",
+                            "The same number of times as the outer loop, combined",
+                            "Never — inner loops don't actually run",
                         ],
                         "answer": 1,
-                        "explanation": "Accumulators collect a result (like a sum or count) as the loop progresses.",
-                    },
+                        "explanation": "The entire inner loop completes for each pass of the outer loop."},
+                    {
+                        "id": "6.3.p2",
+                        "question": "for i in range(2):\\n    for j in range(4):\\n        print('x') — how many times does 'x' print?",
+                        "choices": ["2", "4", "8", "6"],
+                        "answer": 2,
+                        "explanation": "2 outer iterations x 4 inner iterations each = 8 total prints."},
+                ],
+            },
+            {
+                "id": "6.4",
+                "title": "break, continue, and Choosing a Loop",
+                "explanation": (
+                    "break immediately exits the loop it's in — the next line executed is the one after "
+                    "the loop. continue immediately skips the rest of the current iteration and jumps "
+                    "back to check the condition (while) or advance to the next value (for). Both are "
+                    "best used sparingly, only when they make the code clearer.\n\n"
+                    "Use a for loop when you know the number of iterations, or are iterating through a "
+                    "known set of items. Use a while loop when you want to repeat indefinitely, until a "
+                    "specific value shows up, or until some general condition is met."
+                ),
+                "examples": [
+                    {
+                        "code": "for i in range(10):\n    if i % 2 == 1:\n        continue\n    print(\"i is\", i)",
+                        "output": "i is 0\ni is 2\ni is 4\ni is 6\ni is 8",
+                        "note": "continue skips printing for every odd i, jumping straight to the next value in range(10).",
+                    }
+                ],
+                "practice": [
+                    {
+                        "id": "6.4.p1",
+                        "question": "What does break do inside a loop?",
+                        "choices": ["Skips to the next iteration", "Immediately exits the loop entirely", "Pauses the program", "Restarts the loop from the beginning"],
+                        "answer": 1,
+                        "explanation": "break exits the loop right away; the next line is whatever comes after the loop."},
+                    {
+                        "id": "6.4.p2",
+                        "question": "You should generally choose a for loop over a while loop when:",
+                        "choices": [
+                            "You want to repeat forever",
+                            "You know the number of iterations or are iterating a known set of items",
+                            "You never know when to stop",
+                            "There's no difference, ever",
+                        ],
+                        "answer": 1,
+                        "explanation": "for loops fit naturally when the number of repetitions (or the items to visit) is already known."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "6.q1", "question": "A while loop repeats as long as its condition is:", "choices": ["True", "False", "0", "Undefined"], "answer": 0, "explanation": "while loops continue while their condition remains True."},
-            {"id": "6.q2", "question": "range(3) produces which values?", "choices": ["1, 2, 3", "0, 1, 2", "0, 1, 2, 3", "3"], "answer": 1, "explanation": "range(3) gives 0, 1, 2 — three values starting at 0."},
-            {"id": "6.q3", "question": "Which keyword skips the rest of the current loop iteration only?", "choices": ["break", "continue", "pass", "return"], "answer": 1, "explanation": "continue jumps to the next iteration without exiting the loop."},
-            {"id": "6.q4", "question": "What is required to avoid an infinite while loop?", "choices": ["A print() statement", "Something inside the loop that can make the condition False", "Using range()", "Nothing, while loops always stop"], "answer": 1, "explanation": "The loop needs its condition to eventually become False."},
-            {"id": "6.q5", "question": "An accumulator variable is usually initialized:", "choices": ["Inside the loop, every iteration", "Before the loop starts", "After the loop ends", "It doesn't need initializing"], "answer": 1, "explanation": "It's set to a starting value (often 0) before the loop begins, then updated inside it."},
+            {"id": "6.q1", "question": "A while loop's condition is checked:", "choices": ["Only once, before anything runs", "At the top of every potential repetition", "Only after the loop finishes", "Never"], "answer": 1, "explanation": "The condition is evaluated at the start of every possible iteration."},
+            {"id": "6.q2", "question": "range(5) produces which values?", "choices": ["1,2,3,4,5", "0,1,2,3,4", "0,1,2,3,4,5", "5"], "answer": 1, "explanation": "range(5) starts at 0 and stops before 5."},
+            {"id": "6.q3", "question": "In a nested loop, the inner loop runs its full range:", "choices": ["Once total", "Once per iteration of the outer loop", "Never", "Only on the last outer iteration"], "answer": 1, "explanation": "The complete inner loop executes for every single outer iteration."},
+            {"id": "6.q4", "question": "continue inside a loop:", "choices": ["Exits the loop completely", "Skips the rest of the current iteration and moves to the next", "Is identical to break", "Causes an error"], "answer": 1, "explanation": "continue jumps ahead without leaving the loop."},
+            {"id": "6.q5", "question": "Choose a for loop over a while loop when:", "choices": ["You don't know how many times to repeat", "You know the number of iterations or items in advance", "You want an infinite loop", "Never — while is always better"], "answer": 1, "explanation": "for loops are the natural choice for a known number of repetitions."},
         ],
     },
     "7": {
         "id": "7",
         "title": "Lists of Data",
-        "intro": "A list stores many values together under one name. This module covers creating and "
-                 "indexing lists, common list operations, and looping over a list's contents.",
+        "intro": "When you have several related values, storing each in its own variable doesn't scale. "
+                 "This module covers lists — a single named collection of values — indexing, slicing, "
+                 "common list operations, and looping through a list's contents.",
         "components": [
             {
                 "id": "7.1",
                 "title": "Creating and Indexing Lists",
                 "explanation": (
-                    "A list is written with square brackets and comma-separated values: "
-                    '["apple", "banana", "cherry"]. Each item has an index starting at 0, so the '
-                    "first item is fruits[0], not fruits[1]. len() gives the number of items in a list."
+                    "A list groups similar values under one name, written with square brackets: "
+                    "grades = [87, 93, 75, 100]. Each element has a position (index) starting at 0, so "
+                    "the first element is grades[0]. Negative indices count backward from the end: "
+                    "grades[-1] is the last element. Indexing past either end of the list — forward or "
+                    "backward — raises an IndexError."
                 ),
                 "examples": [
                     {
-                        "code": 'fruits = ["apple", "banana", "cherry"]\nprint(fruits[0])\nprint(fruits[2])\nprint(len(fruits))',
-                        "output": "apple\ncherry\n3",
-                        "note": "Indexing starts at 0, so fruits[2] is the third item, 'cherry'.",
+                        "code": "grades = [87, 93, 75, 100, 82, 91, 85]\nprint(grades[0], grades[6])\nprint(grades[-1])",
+                        "output": "87 85\n85",
+                        "note": "grades[0] is the first element, grades[6] and grades[-1] both reach the same last element (7 items, indices 0-6 or -7 to -1).",
                     }
                 ],
                 "practice": [
@@ -817,764 +1007,868 @@ MODULE_CONTENT = {
                         "question": 'For colors = ["red", "green", "blue"], what is colors[0]?',
                         "choices": ["red", "green", "blue", "Error"],
                         "answer": 0,
-                        "explanation": "List indexing starts at 0, so colors[0] is the first item.",
-                    },
+                        "explanation": "Indexing starts at 0, so colors[0] is the first item."},
                     {
                         "id": "7.1.p2",
-                        "question": 'For nums = [10, 20, 30, 40], what does len(nums) return?',
-                        "choices": ["3", "4", "5", "40"],
-                        "answer": 1,
-                        "explanation": "The list has 4 items, so len() returns 4.",
-                    },
+                        "question": 'For nums = [10, 20, 30], what is nums[-1]?',
+                        "choices": ["10", "20", "30", "Error"],
+                        "answer": 2,
+                        "explanation": "Negative index -1 refers to the last element."},
                 ],
             },
             {
                 "id": "7.2",
-                "title": "List Operations",
+                "title": "Slicing Lists",
                 "explanation": (
-                    ".append(x) adds x to the end of a list. The in operator checks whether a value "
-                    "exists in a list, returning a Boolean. Slicing (list[start:stop]) pulls out a "
-                    "sub-section of a list, stopping before the stop index — just like range()."
+                    "Slicing pulls out a sub-part of a list: list[a:b] gives elements from index a up "
+                    "to (but not including) b. Leave off a to start at the beginning, or leave off b to "
+                    "go to the end. Add a third value, list[a:b:c], to step by c between elements. "
+                    "Unlike direct indexing, slicing never raises an out-of-range error — it just gives "
+                    "you as much of the list as exists."
                 ),
                 "examples": [
                     {
-                        "code": 'fruits = ["apple", "banana"]\nfruits.append("cherry")\nprint(fruits)\nprint("banana" in fruits)\nprint(fruits[1:3])',
-                        "output": "['apple', 'banana', 'cherry']\nTrue\n['banana', 'cherry']",
-                        "note": "append() modifies the list in place; the slice [1:3] grabs indexes 1 and 2, stopping before 3.",
+                        "code": "grades = [87, 93, 75, 100, 82, 91, 85]\nprint(grades[0:3])\nprint(grades[4:])\nprint(grades[1:6:2])\nprint(grades[4:300])",
+                        "output": "[87, 93, 75]\n[82, 91, 85]\n[93, 100, 91]\n[82, 91, 85]",
+                        "note": "grades[1:6:2] steps by 2 starting at index 1; grades[4:300] just returns everything from index 4 to the end, with no error.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "7.2.p1",
-                        "question": 'What does nums.append(5) do if nums = [1, 2, 3]?',
-                        "choices": [
-                            "Replaces the list with [5]",
-                            "Adds 5 to the end, making it [1, 2, 3, 5]",
-                            "Adds 5 to the beginning",
-                            "Raises an error",
-                        ],
+                        "question": "For nums = [10, 20, 30, 40, 50], what is nums[1:4]?",
+                        "choices": ["[10, 20, 30]", "[20, 30, 40]", "[20, 30, 40, 50]", "[10, 20, 30, 40]"],
                         "answer": 1,
-                        "explanation": "append() always adds the new item to the end of the list.",
-                    },
+                        "explanation": "The slice starts at index 1 and stops before index 4."},
                     {
                         "id": "7.2.p2",
-                        "question": 'For nums = [10, 20, 30, 40, 50], what is nums[1:4]?',
-                        "choices": ["[10, 20, 30]", "[20, 30, 40]", "[20, 30, 40, 50]", "[1, 2, 3, 4]"],
+                        "question": "What happens with nums[2:1000] if nums only has 5 elements?",
+                        "choices": [
+                            "It raises an IndexError",
+                            "It returns whatever elements exist from index 2 onward, no error",
+                            "It returns an empty list always",
+                            "It crashes the program",
+                        ],
                         "answer": 1,
-                        "explanation": "The slice starts at index 1 and stops before index 4: [20, 30, 40].",
-                    },
+                        "explanation": "Slicing never raises an out-of-range error, unlike direct indexing."},
                 ],
             },
             {
                 "id": "7.3",
-                "title": "Iterating Over Lists",
+                "title": "List Operations",
                 "explanation": (
-                    "A for loop can walk through every item in a list directly: for item in my_list. "
-                    "This is the most common way to process every value in a list, such as summing "
-                    "them up or checking each one against a condition."
+                    "list.append(x) adds x to the end of a list. Two lists can be joined with + "
+                    "(concatenation), producing a brand-new list; += works the same way, but you must "
+                    "concatenate a list, not a bare value: grades += [80], not grades += 80. len() gives "
+                    "the number of elements in a list."
                 ),
                 "examples": [
                     {
-                        "code": 'scores = [88, 92, 79, 95]\ntotal = 0\nfor s in scores:\n    total = total + s\nprint("Average:", total / len(scores))',
-                        "output": "Average: 88.5",
-                        "note": "The loop visits every score once, accumulating a sum that's then divided by the count.",
+                        "code": "grades = [87, 93, 75]\ngrades.append(80)\nprint(grades)\ngrades += [95]\nprint(grades)\nprint(len(grades))",
+                        "output": "[87, 93, 75, 80]\n[87, 93, 75, 80, 95]\n5",
+                        "note": "append() adds one item in place; += needs the new item wrapped in its own list, [95], to concatenate correctly.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "7.3.p1",
-                        "question": "for item in my_list: gives you access to:",
-                        "choices": ["Each item's index only", "Each item's value, one at a time", "The whole list at once, every iteration", "Nothing until the loop ends"],
+                        "question": "Which correctly adds the single value 80 to the end of the list grades?",
+                        "choices": ["grades += 80", "grades.append(80)", "grades[80]", "grades = 80"],
                         "answer": 1,
-                        "explanation": "Each pass through the loop, item holds the next value from the list.",
-                    },
+                        "explanation": "append() adds one element directly; += would need [80], a one-item list, instead."},
                     {
                         "id": "7.3.p2",
-                        "question": "Why divide by len(scores) when computing an average in a loop?",
+                        "question": "list1 = [1,2]; list2 = [3,4]; list3 = list1 + list2 — what is list3?",
+                        "choices": ["[1,2,3,4]", "[[1,2],[3,4]]", "Error", "[4,6]"],
+                        "answer": 0,
+                        "explanation": "+ concatenates two lists into one new combined list."},
+                ],
+            },
+            {
+                "id": "7.4",
+                "title": "Iterating Over Lists",
+                "explanation": (
+                    "for i in range(len(mylist)): gives you the index i at each step, so mylist[i] can "
+                    "be read AND changed. for i in mylist: is simpler and gives you each value directly "
+                    "— but i is a separate variable, so changing i does NOT change the list itself. To "
+                    "modify list elements in a loop, you need the index form.\n\n"
+                    "enumerate(mylist) gives you both the index and the value together, which is handy "
+                    "when you need both."
+                ),
+                "examples": [
+                    {
+                        "code": "grades = [87, 93, 75]\nfor i in grades:\n    i = 100\nprint(grades)\nfor i in range(len(grades)):\n    grades[i] = 100\nprint(grades)",
+                        "output": "[87, 93, 75]\n[100, 100, 100]",
+                        "note": "The first loop's i is a separate copy, so the list is untouched; the second loop uses the index to actually modify each element.",
+                    }
+                ],
+                "practice": [
+                    {
+                        "id": "7.4.p1",
+                        "question": "for i in mylist: i = 100 — what happens to mylist?",
                         "choices": [
-                            "To find the total number of items",
-                            "To convert the sum into an average by dividing by how many values were summed",
-                            "It's not necessary",
-                            "To reset the accumulator",
+                            "Every element becomes 100",
+                            "mylist is unchanged — i is a separate variable, not a reference into the list",
+                            "It raises an error",
+                            "The list is deleted",
                         ],
                         "answer": 1,
-                        "explanation": "Average = total divided by count, and len() gives that count.",
-                    },
+                        "explanation": "This loop form gives i a copy of each value; reassigning i doesn't touch the list."},
+                    {
+                        "id": "7.4.p2",
+                        "question": "enumerate(mylist) provides:",
+                        "choices": ["Only the values", "Only the indices", "Both the index and value together", "The list's length"],
+                        "answer": 2,
+                        "explanation": "enumerate() yields (index, value) pairs as you loop."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "7.q1", "question": 'For nums = [5, 10, 15], what is nums[1]?', "choices": ["5", "10", "15", "1"], "answer": 1, "explanation": "Index 1 is the second item: 10."},
-            {"id": "7.q2", "question": "Which method adds an item to the end of a list?", "choices": ["add()", "append()", "insert()", "push()"], "answer": 1, "explanation": "append() adds an item at the end of the list."},
-            {"id": "7.q3", "question": '"x" in my_list evaluates to:', "choices": ["The index of x", "A Boolean: whether x is in the list", "A copy of the list", "An error if x is missing"], "answer": 1, "explanation": "The in operator returns True or False."},
-            {"id": "7.q4", "question": 'For nums = [1, 2, 3, 4, 5], what is nums[0:2]?', "choices": ["[1, 2]", "[1, 2, 3]", "[2, 3]", "[0, 1]"], "answer": 0, "explanation": "The slice starts at index 0 and stops before index 2: [1, 2]."},
-            {"id": "7.q5", "question": "for x in my_list: loops:", "choices": ["Once total", "Once for every item in the list", "A fixed 10 times", "Zero times always"], "answer": 1, "explanation": "It iterates once per item in the list."},
+            {"id": "7.q1", "question": "For nums = [5, 10, 15], what is nums[-1]?", "choices": ["5", "10", "15", "Error"], "answer": 2, "explanation": "Negative index -1 is the last element."},
+            {"id": "7.q2", "question": "Slicing past the end of a list:", "choices": ["Raises an IndexError", "Just returns whatever elements exist, no error", "Deletes the list", "Is not allowed"], "answer": 1, "explanation": "Unlike direct indexing, slicing tolerates out-of-range bounds."},
+            {"id": "7.q3", "question": "Which correctly adds 80 to the end of a list using concatenation?", "choices": ["grades += 80", "grades += [80]", "grades.add(80)", "grades[len(grades)] = 80 on an empty slot"], "answer": 1, "explanation": "+= needs a list on the right side, so [80] rather than a bare 80."},
+            {"id": "7.q4", "question": "for i in mylist: i += 1 will:", "choices": ["Increase every element of mylist by 1", "Leave mylist unchanged", "Raise an error", "Double the list's length"], "answer": 1, "explanation": "i is a copy of each value in this loop form, so the list itself is never modified."},
+            {"id": "7.q5", "question": "enumerate(mylist) is most useful when you need:", "choices": ["Only values", "Only indices", "Both index and value together", "Nothing from the list"], "answer": 2, "explanation": "enumerate() pairs each index with its corresponding value."},
         ],
     },
     "8": {
         "id": "8",
         "title": "Top-Down Design; Dictionaries",
-        "intro": "This module introduces top-down design — breaking a big problem into smaller "
-                 "subproblems — and dictionaries, which store data as key/value pairs instead of "
-                 "numbered positions.",
+        "intro": "This module introduces top-down design — organizing a complex problem as a hierarchy, "
+                 "breaking it into smaller and smaller pieces — and dictionaries, which store data as "
+                 "key-value pairs instead of numbered positions.",
         "components": [
             {
                 "id": "8.1",
-                "title": "Top-Down Design",
+                "title": "Top-Down Design and Hierarchies",
                 "explanation": (
-                    "Top-down design means breaking a large problem into smaller, more manageable "
-                    "subproblems before writing any code — for example, splitting 'analyze this data' "
-                    "into 'get the input', 'do the computation', and 'display the result'. Each "
-                    "subproblem can later become its own function."
+                    "Top-down design starts with the most general idea and repeatedly divides it into "
+                    "smaller, more specific pieces until each piece is simple enough to implement "
+                    "directly. The result is a hierarchy — in computing, usually called a tree. A tree "
+                    "has a root at the top; individual elements are nodes; a node's parent is the node "
+                    "above it, its children are the nodes below it, and nodes with no children are "
+                    "leaves.\n\n"
+                    "Hierarchies show up everywhere — a university's org chart, a body's systems -> "
+                    "organs -> cells, a sports league's conferences and divisions — because breaking a "
+                    "big idea into a tree makes each piece easier to understand on its own."
                 ),
                 "examples": [
                     {
-                        "code": 'def get_input():\n    return 40, 6\n\ndef compute_average(a, b):\n    return (a + b) / 2\n\ndef display(avg):\n    print("Average:", avg)\n\nx, y = get_input()\navg = compute_average(x, y)\ndisplay(avg)',
-                        "output": "Average: 23.0",
-                        "note": "Each subproblem (getting input, computing, displaying) is handled by its own small function.",
+                        "code": "# Top-down design of a vacation plan (as comments = a design outline)\n# Vacation\n#   Transportation\n#   Hotel\n#   Activities\n#   Food\nprint(\"Design outlines don't need to run — they're a planning tool\")",
+                        "output": "Design outlines don't need to run — they're a planning tool",
+                        "note": "Turning a hierarchy into indented comments is a common first step before writing any real code.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "8.1.p1",
+                        "question": "In tree/hierarchy terminology, a node with no children is called a:",
+                        "choices": ["Root", "Leaf", "Parent", "Branch only"],
+                        "answer": 1,
+                        "explanation": "Nodes without children are leaves."},
+                    {
+                        "id": "8.1.p2",
                         "question": "Top-down design means:",
                         "choices": [
                             "Writing code from the bottom of the file upward",
-                            "Breaking a big problem into smaller subproblems first",
-                            "Always using loops",
+                            "Starting with the general problem and repeatedly breaking it into smaller pieces",
+                            "Never planning ahead",
                             "Avoiding functions",
                         ],
                         "answer": 1,
-                        "explanation": "It's a planning approach: divide the big problem before coding the details.",
-                    },
-                    {
-                        "id": "8.1.p2",
-                        "question": "Why split a program into subproblems like get_input(), compute(), display()?",
-                        "choices": [
-                            "It's required by Python syntax",
-                            "Each piece is easier to write, test, and understand on its own",
-                            "It makes the program run faster",
-                            "It avoids using variables",
-                        ],
-                        "answer": 1,
-                        "explanation": "Smaller, focused pieces are simpler to reason about and debug individually.",
-                    },
+                        "explanation": "It's a planning approach: divide the big problem into a hierarchy before coding details."},
                 ],
             },
             {
                 "id": "8.2",
                 "title": "Dictionaries: Keys and Values",
                 "explanation": (
-                    "A dictionary stores data as key/value pairs instead of numbered positions: "
-                    '{"name": "Sam", "gpa": 3.5}. Look up a value with its key in square brackets, '
-                    "like a list but indexed by a meaningful name instead of a position."
+                    "A dictionary stores key-value pairs instead of numbered positions: "
+                    "age = {'John': 21, 'Jill': 21}. Create one with {}, or {} alone for an empty "
+                    "dictionary. Both key and value can be any type. Look up a value with its key in "
+                    "square brackets — age['John'] — and add or update an entry the same way a variable "
+                    "is assigned: age['James'] = 20."
                 ),
                 "examples": [
                     {
-                        "code": 'student = {"name": "Sam", "major": "ENGR", "gpa": 3.5}\nprint(student["name"])\nprint(student["gpa"])',
-                        "output": "Sam\n3.5",
-                        "note": "Each value is looked up by its key ('name', 'gpa') rather than a numeric index.",
+                        "code": "age = {'John': 21, 'Jill': 21}\nprint(age['John'])\nage['James'] = 20\nprint(age)",
+                        "output": "21\n{'John': 21, 'Jill': 21, 'James': 20}",
+                        "note": "Looking up age['John'] uses the key directly; assigning to a new key adds it to the dictionary.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "8.2.p1",
-                        "question": 'For d = {"a": 1, "b": 2}, what does d["b"] return?',
-                        "choices": ["1", "2", "b", "Error"],
+                        "question": "For d = {'a': 1, 'b': 2}, what does d['b'] return?",
+                        "choices": ["1", "2", "'b'", "Error"],
                         "answer": 1,
-                        "explanation": "d[\"b\"] looks up the value stored under the key 'b', which is 2.",
-                    },
+                        "explanation": "d['b'] looks up the value stored under key 'b'."},
                     {
                         "id": "8.2.p2",
                         "question": "How is a dictionary different from a list?",
                         "choices": [
                             "It cannot store numbers",
-                            "It's accessed by meaningful keys instead of numeric positions",
+                            "It's accessed by keys (which can be any type) instead of numeric position",
                             "It can only hold one value",
-                            "There is no difference",
+                            "There is no real difference",
                         ],
                         "answer": 1,
-                        "explanation": "Dictionaries map keys to values, rather than ordering items by position.",
-                    },
+                        "explanation": "Dictionaries map keys to values rather than ordering items by numeric position."},
                 ],
             },
             {
                 "id": "8.3",
                 "title": "Working with Dictionaries",
                 "explanation": (
-                    "You can add or update a key with dict[key] = value, and loop over a dictionary's "
-                    "entries with .items(). The .get(key, default) method safely looks up a key, "
-                    "returning a default value instead of an error if the key doesn't exist."
+                    "Loop over a dictionary with a regular for loop — for key in my_dict: — and the "
+                    "iterator takes on each KEY (not the value); use my_dict[key] inside the loop to get "
+                    "the matching value. The in operator tests whether something is a key in the "
+                    "dictionary: if 'James' in age:."
                 ),
                 "examples": [
                     {
-                        "code": 'inventory = {"bolts": 120, "screws": 75}\ninventory["nails"] = 40\ninventory["bolts"] = inventory["bolts"] - 20\nfor item, count in inventory.items():\n    print(item, ":", count)\nprint(inventory.get("washers", 0))',
-                        "output": "bolts : 100\nscrews : 75\nnails : 40\n0",
-                        "note": "items() gives each key/value pair; .get() returns 0 instead of an error since 'washers' isn't a key.",
+                        "code": "age = {'John': 21, 'Jill': 21, 'James': 20}\nfor key in age:\n    print(f\"key {key}, value {age[key]}\")\nif 'James' in age:\n    print(\"Yes for James\")\nif 'Joe' in age:\n    print(\"Yes for Joe\")\nelse:\n    print(\"No for Joe\")",
+                        "output": "key John, value 21\nkey Jill, value 21\nkey James, value 20\nYes for James\nNo for Joe",
+                        "note": "The for loop's iterator takes each key in turn; age[key] then looks up the matching value.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "8.3.p1",
-                        "question": 'What does d.get("x", 0) return if "x" is not a key in d?',
-                        "choices": ["An error", "None always", "0 (the given default)", "The key 'x' itself"],
-                        "answer": 2,
-                        "explanation": ".get() returns the provided default instead of raising an error for a missing key.",
-                    },
+                        "question": "for k in my_dict: — what does k take the value of, each time through the loop?",
+                        "choices": ["Each value", "Each key", "Both key and value together", "Nothing useful"],
+                        "answer": 1,
+                        "explanation": "Looping directly over a dictionary iterates its keys."},
                     {
                         "id": "8.3.p2",
-                        "question": "for key, value in d.items(): lets you access:",
-                        "choices": ["Only the keys", "Only the values", "Both the key and value together each iteration", "Nothing useful"],
-                        "answer": 2,
-                        "explanation": ".items() yields key/value pairs together, one per iteration.",
-                    },
+                        "question": "'x' in my_dict tests whether:",
+                        "choices": ["'x' is a value in the dictionary", "'x' is a key in the dictionary", "The dictionary is empty", "'x' equals the dictionary"],
+                        "answer": 1,
+                        "explanation": "in checks dictionary keys, not values."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "8.q1", "question": "Top-down design means breaking a problem into:", "choices": ["Random pieces", "Smaller subproblems before coding", "One giant function", "Comments only"], "answer": 1, "explanation": "It's a planning strategy of dividing the big problem first."},
-            {"id": "8.q2", "question": 'For d = {"x": 5}, how do you access the value 5?', "choices": ["d[0]", 'd["x"]', "d.x", "d.get(0)"], "answer": 1, "explanation": "Dictionary values are accessed with their key in square brackets."},
-            {"id": "8.q3", "question": "Which method safely looks up a key with a fallback default?", "choices": [".items()", ".get()", ".append()", ".keys()"], "answer": 1, "explanation": ".get(key, default) avoids an error for a missing key."},
-            {"id": "8.q4", "question": 'd["new_key"] = 10 on an existing dictionary d:', "choices": ["Raises an error", "Adds a new key or updates an existing one", "Deletes d", "Does nothing"], "answer": 1, "explanation": "Assigning to a dictionary key adds it if missing, or updates it if present."},
-            {"id": "8.q5", "question": ".items() is used to:", "choices": ["Delete a dictionary", "Loop over key/value pairs together", "Convert a dictionary to a list of keys only", "Sort a dictionary"], "answer": 1, "explanation": "It yields (key, value) pairs for iteration."},
+            {"id": "8.q1", "question": "In a tree hierarchy, the node at the very top is called the:", "choices": ["Leaf", "Root", "Child", "Branch"], "answer": 1, "explanation": "The topmost node is the root."},
+            {"id": "8.q2", "question": "For d = {'x': 5}, how do you access the value 5?", "choices": ["d[0]", "d['x']", "d.x", "d.get(0)"], "answer": 1, "explanation": "Dictionary values are accessed with their key in square brackets."},
+            {"id": "8.q3", "question": "for k in my_dict: iterates over:", "choices": ["The dictionary's values", "The dictionary's keys", "Nothing", "Key-value pairs directly as tuples"], "answer": 1, "explanation": "A plain for loop over a dictionary yields its keys."},
+            {"id": "8.q4", "question": "d['new_key'] = 10 on an existing dictionary d:", "choices": ["Raises an error", "Adds a new key or updates an existing one", "Deletes d", "Does nothing"], "answer": 1, "explanation": "Assigning to a dictionary key adds it if missing, or updates it if present."},
+            {"id": "8.q5", "question": "Top-down design produces what kind of structure?", "choices": ["A single flat list", "A hierarchy (tree)", "A random arrangement", "A dictionary only"], "answer": 1, "explanation": "Repeated breakdown from general to specific naturally produces a tree structure."},
         ],
     },
     "9": {
         "id": "9",
         "title": "Advanced Functions, Scope",
-        "intro": "This module goes deeper into writing your own functions: parameters, return values, "
-                 "default arguments, and scope — the rules for where a variable can and can't be seen.",
+        "intro": "This module goes deeper into functions: how arguments and return values pass data in "
+                 "and out, tuples for returning more than one value, the scope rules that keep a "
+                 "function's variables separate from everything else, and how mutable data like lists "
+                 "behaves differently when passed as an argument.",
         "components": [
             {
                 "id": "9.1",
-                "title": "Parameters and Return Values",
+                "title": "Functions as Black Boxes",
                 "explanation": (
-                    "A function is defined with def name(parameters):. Parameters are placeholders "
-                    "for values passed in when the function is called; return sends a value back to "
-                    "wherever the function was called from. A function without return sends back None."
+                    "Think of a function as a black box: it takes input through arguments (also called "
+                    "parameters), does something, and may return a value. def <name>(<parameters>): "
+                    "starts a function definition; the indented body is its code. A function must be "
+                    "defined before it's called — the interpreter just remembers the function's name and "
+                    "body when it's defined, and only runs that body when the function is actually "
+                    "called."
                 ),
                 "examples": [
                     {
-                        "code": "def rectangle_area(width, height):\n    return width * height\n\nresult = rectangle_area(4, 5)\nprint(result)",
-                        "output": "20",
-                        "note": "width and height are parameters; the function returns their product, which is stored in result.",
+                        "code": 'def warn():\n    print("********** WARNING! **********")\n    print("You are about to do something dangerous!")\n\ndef doublewarn():\n    warn()\n    warn()\n\ndoublewarn()',
+                        "output": "********** WARNING! **********\nYou are about to do something dangerous!\n********** WARNING! **********\nYou are about to do something dangerous!",
+                        "note": "doublewarn() calls warn() twice; each call jumps to warn()'s body, runs it fully, then returns to where it was called.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "9.1.p1",
-                        "question": "What does return do in a function?",
-                        "choices": ["Prints a value to the screen", "Sends a value back to the caller", "Ends the whole program", "Restarts the function"],
+                        "question": "What must happen before a function can be called?",
+                        "choices": ["Nothing special", "It must be defined earlier in the program", "It must return a value", "It must have no parameters"],
                         "answer": 1,
-                        "explanation": "return hands a value back to wherever the function was called.",
-                    },
+                        "explanation": "Calling an undefined function raises a NameError — definitions must come first."},
                     {
                         "id": "9.1.p2",
-                        "question": "What does a function return if it has no return statement?",
-                        "choices": ["0", '""', "None", "An error"],
-                        "answer": 2,
-                        "explanation": "Without an explicit return, Python functions return None by default.",
-                    },
+                        "question": "Thinking of a function as a 'black box' means:",
+                        "choices": [
+                            "You must know its exact internal code to use it",
+                            "You only need to know its inputs and outputs, not how it works internally",
+                            "It never returns anything",
+                            "It can't take arguments",
+                        ],
+                        "answer": 1,
+                        "explanation": "The black-box view focuses on inputs/outputs, hiding internal implementation details."},
                 ],
             },
             {
                 "id": "9.2",
-                "title": "Local vs Global Scope",
+                "title": "Tuples and Multiple Return Values",
                 "explanation": (
-                    "A variable created inside a function is local — it only exists while that "
-                    "function runs and is invisible outside it. A variable created outside all "
-                    "functions is global. A local variable with the same name as a global one is a "
-                    "completely separate variable; changing one doesn't affect the other."
+                    "A function can only return one value — but that value can be a tuple, letting it "
+                    "effectively return several values at once. A tuple looks like a list but uses "
+                    "parentheses (or no brackets at all) and is immutable: once created, its values can't "
+                    "be changed. You can 'unpack' a tuple's values directly into separate variables: "
+                    "a, b = some_function()."
                 ),
                 "examples": [
                     {
-                        "code": 'def add_bonus():\n    points = 10\n    print("Inside function:", points)\n\npoints = 100\nadd_bonus()\nprint("Outside function:", points)',
-                        "output": "Inside function: 10\nOutside function: 100",
-                        "note": "The points inside add_bonus() is a separate local variable from the global points — changing one doesn't touch the other.",
+                        "code": "def min_max(numbers):\n    return min(numbers), max(numbers)\n\nlo, hi = min_max([4, 9, 2, 7])\nprint(lo, hi)",
+                        "output": "2 9",
+                        "note": "min_max returns a tuple (2, 9); writing lo, hi = ... unpacks it into two separate variables in one step.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "9.2.p1",
-                        "question": "A variable created inside a function is:",
-                        "choices": ["Global, visible everywhere", "Local, only visible inside that function", "Deleted immediately", "Automatically printed"],
+                        "question": "How many values can a Python function actually return?",
+                        "choices": [
+                            "As many separate values as it wants",
+                            "Exactly one value — though that value can be a tuple holding several",
+                            "Zero, always",
+                            "It depends on the number of parameters",
+                        ],
                         "answer": 1,
-                        "explanation": "Local variables exist only within the function where they're created.",
-                    },
+                        "explanation": "Multiple 'return values' are really one tuple, which the caller can unpack."},
                     {
                         "id": "9.2.p2",
-                        "question": "If a function has a local variable with the same name as a global one, they are:",
-                        "choices": ["The exact same variable", "Two separate variables that don't affect each other", "A syntax error", "Automatically merged"],
+                        "question": "What makes a tuple different from a list?",
+                        "choices": [
+                            "Tuples can't hold numbers",
+                            "Tuples are immutable — their contents can't be changed after creation",
+                            "Tuples can only have one element",
+                            "There's no real difference",
+                        ],
                         "answer": 1,
-                        "explanation": "The local name shadows the global one inside the function, but they remain independent.",
-                    },
+                        "explanation": "Lists can be modified after creation; tuples cannot."},
                 ],
             },
             {
                 "id": "9.3",
-                "title": "Default Arguments and Multiple Return Values",
+                "title": "Scope: Local vs Global",
                 "explanation": (
-                    "A parameter can have a default value (def greet(name, title=\"Student\"):), used "
-                    "only when the caller doesn't provide that argument. A function can also return "
-                    "multiple values separated by commas, which the caller can unpack into separate "
-                    "variables."
+                    "A local variable is defined inside a function and lives only in that function's own "
+                    "area of memory — other functions (and the main program) can't see it. A global "
+                    "variable is defined in the main program. A function CAN read a global variable if "
+                    "it has no local variable of the same name — but relying on this is bad style. "
+                    "Functions should stand on their own, understandable just by looking at their "
+                    "parameters and return value, without needing to know about outside variables."
                 ),
                 "examples": [
                     {
-                        "code": 'def describe(name, title="Student"):\n    return name + " is a " + title\n\nprint(describe("Sam"))\nprint(describe("Sam", "Freshman"))\n\ndef min_max(numbers):\n    return min(numbers), max(numbers)\n\nlo, hi = min_max([4, 9, 2, 7])\nprint(lo, hi)',
-                        "output": "Sam is a Student\nSam is a Freshman\n2 9",
-                        "note": "title defaults to 'Student' unless overridden; min_max returns two values at once, unpacked into lo and hi.",
+                        "code": 'def my_function():\n    a = 3\n    print(a)\n\na = 5\nprint(a)\nmy_function()\nprint(a)',
+                        "output": "5\n3\n5",
+                        "note": "The a inside my_function is a completely separate variable from the a in the main program — each has its own memory.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "9.3.p1",
-                        "question": "A default argument value is used when:",
-                        "choices": ["Always, no matter what", "The caller doesn't provide a value for that parameter", "The function has no return", "Never"],
+                        "question": "A variable created inside a function is:",
+                        "choices": ["Global, visible everywhere", "Local, living only in that function's own memory", "Deleted immediately", "Automatically printed"],
                         "answer": 1,
-                        "explanation": "Defaults only kick in if the caller omits that argument."},
+                        "explanation": "Local variables exist only within the function that creates them."},
                     {
                         "id": "9.3.p2",
-                        "question": "lo, hi = min_max([4, 9, 2, 7]) relies on the function:",
-                        "choices": ["Printing two values", "Returning two values that get unpacked into lo and hi", "Taking two parameters", "Using a while loop"],
+                        "question": "Why is it bad style for a function to read a global variable directly?",
+                        "choices": [
+                            "It's actually good style",
+                            "The function then can't be understood or reused without knowing about outside code",
+                            "It causes a syntax error",
+                            "Python doesn't allow it at all",
+                        ],
                         "answer": 1,
-                        "explanation": "The function returns a pair of values, which Python unpacks into lo and hi.",
-                    },
+                        "explanation": "Functions should be understandable on their own, using only their parameters and return value."},
+                ],
+            },
+            {
+                "id": "9.4",
+                "title": "Passing Arguments and Mutable Data",
+                "explanation": (
+                    "When a function is called, each argument's value is copied into the function's own "
+                    "parameter variable — reassigning that parameter never affects the caller's variable. "
+                    "Lists (and dictionaries) behave differently, though: they're mutable, so if a "
+                    "function modifies an element of a list passed in, that change IS visible outside the "
+                    "function — but assigning the parameter itself a brand-new list is not."
+                ),
+                "examples": [
+                    {
+                        "code": "def dosomething(a):\n    a = [10, 11, 12]\n\nx = [1, 2, 3]\ndosomething(x)\nprint(x)\n\ndef dosomething2(a):\n    a[0] = 10\n\ny = [1, 2, 3]\ndosomething2(y)\nprint(y)",
+                        "output": "[1, 2, 3]\n[10, 2, 3]",
+                        "note": "Reassigning a to a new list inside the function doesn't affect x — but changing a[0] does modify y, since lists are mutable.",
+                    }
+                ],
+                "practice": [
+                    {
+                        "id": "9.4.p1",
+                        "question": "def f(a): a = 99  ...  x = 5; f(x); print(x) — what prints?",
+                        "choices": ["99", "5", "Error", "None"],
+                        "answer": 1,
+                        "explanation": "Reassigning the parameter a never changes the caller's variable x."},
+                    {
+                        "id": "9.4.p2",
+                        "question": "def f(a): a[0] = 99  ...  y = [1,2,3]; f(y); print(y) — what prints?",
+                        "choices": ["[1, 2, 3]", "[99, 2, 3]", "Error", "None"],
+                        "answer": 1,
+                        "explanation": "Since lists are mutable, modifying an element inside the function changes the same list the caller holds."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "9.q1", "question": "A function with no return statement returns:", "choices": ["0", "An empty string", "None", "An error"], "answer": 2, "explanation": "Python functions return None by default."},
-            {"id": "9.q2", "question": "A variable defined inside a function is:", "choices": ["Global", "Local to that function", "Deleted on creation", "Always named 'x'"], "answer": 1, "explanation": "It exists only within that function's scope."},
-            {"id": "9.q3", "question": "def greet(name, title=\"Student\"): — title is a:", "choices": ["Required argument", "Default argument", "Return value", "Global variable"], "answer": 1, "explanation": "It has a default value, making it optional for the caller."},
-            {"id": "9.q4", "question": "return a, b from a function lets the caller:", "choices": ["Only use a", "Unpack both values into two variables", "Cause an error", "Only print the values"], "answer": 1, "explanation": "Multiple return values can be unpacked into separate variables."},
-            {"id": "9.q5", "question": "A local variable with the same name as a global variable:", "choices": ["Overwrites the global permanently", "Is a separate variable inside the function", "Causes a NameError", "Is not allowed in Python"], "answer": 1, "explanation": "The local variable shadows the global one only within that function."},
+            {"id": "9.q1", "question": "A function must be ___ before it can be called.", "choices": ["Returned", "Defined", "Imported from math", "Printed"], "answer": 1, "explanation": "Definitions must appear before the corresponding call."},
+            {"id": "9.q2", "question": "A Python function can actually return:", "choices": ["Multiple separate values directly", "Exactly one value (which can be a tuple)", "Nothing, ever", "Only integers"], "answer": 1, "explanation": "Multiple return values are packaged into one tuple."},
+            {"id": "9.q3", "question": "A variable defined inside a function is:", "choices": ["Global", "Local to that function", "Deleted on creation", "Shared with all functions"], "answer": 1, "explanation": "It exists only within that function's own scope."},
+            {"id": "9.q4", "question": "def f(a): a[0]=99 ... y=[1,2,3]; f(y); print(y) prints:", "choices": ["[1,2,3]", "[99,2,3]", "Error", "None"], "answer": 1, "explanation": "Modifying a mutable list's element inside a function affects the caller's list too."},
+            {"id": "9.q5", "question": "def f(a): a=99 ... x=5; f(x); print(x) prints:", "choices": ["99", "5", "Error", "None"], "answer": 1, "explanation": "Reassigning a parameter doesn't change the argument passed in from the caller."},
         ],
     },
     "10": {
         "id": "10",
         "title": "Systematic Debugging",
-        "intro": "This module builds a more structured approach to finding bugs: recognizing what "
-                 "kind of error you're dealing with, tracing code by hand, and isolating the exact "
-                 "line where behavior goes wrong.",
+        "intro": "Everyone writes bugs — good programmers just find and fix them faster. This module "
+                 "covers the three types of errors, handling runtime errors gracefully with try/except, "
+                 "and a systematic process (DRIFT) for tracking down and fixing bugs.",
         "components": [
             {
                 "id": "10.1",
-                "title": "Types of Errors",
+                "title": "Three Types of Errors",
                 "explanation": (
-                    "Syntax errors mean Python can't even parse your code (like a missing colon) and "
-                    "are caught before the program runs. Runtime errors happen while the program is "
-                    "executing, like IndexError from accessing a position that doesn't exist. Logic "
-                    "errors are the trickiest: the program runs fine but produces the wrong answer."
+                    "Syntax errors break Python's grammar rules (a misspelled keyword, using = instead "
+                    "of ==) — the editor usually catches these before the program even runs. Run-time "
+                    "errors (exceptions) happen while the program executes, like dividing by zero or "
+                    "indexing past the end of a list — often not predictable ahead of time. Logic errors "
+                    "are the toughest: the code runs fine, but produces the wrong answer, often because "
+                    "of a typo or a misunderstanding about what the code actually does."
                 ),
                 "examples": [
                     {
-                        "code": "values = [4, 8, 15, 16]\nprint(values[10])",
+                        "code": "my_list = [1, 2, 3]\nprint(my_list[10])",
                         "output": "IndexError: list index out of range",
-                        "note": "This is a runtime error: the code is valid Python, but index 10 doesn't exist in a 4-item list.",
+                        "note": "This is a run-time error: the code is valid Python, but index 10 doesn't exist in a 3-item list.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "10.1.p1",
-                        "question": "A program that runs without crashing but gives the wrong answer has a:",
-                        "choices": ["Syntax error", "Runtime error", "Logic error", "No error at all"],
+                        "question": "A program that runs to completion but gives the wrong answer has a:",
+                        "choices": ["Syntax error", "Run-time error", "Logic error", "No error at all"],
                         "answer": 2,
                         "explanation": "Logic errors don't crash the program — they just produce incorrect results."},
                     {
                         "id": "10.1.p2",
-                        "question": "A missing colon after an if statement causes a:",
-                        "choices": ["Logic error", "SyntaxError", "IndexError", "Nothing, it's optional"],
+                        "question": "Dividing by zero at run time raises a:",
+                        "choices": ["SyntaxError", "ZeroDivisionError (a run-time error)", "Logic error only", "Nothing — it's allowed"],
                         "answer": 1,
-                        "explanation": "Invalid Python grammar is caught as a SyntaxError before the program runs.",
-                    },
+                        "explanation": "This is caught only while the program executes, since it depends on the actual values involved."},
                 ],
             },
             {
                 "id": "10.2",
-                "title": "Tracing Code by Hand",
+                "title": "Handling Errors with try/except",
                 "explanation": (
-                    "Tracing means walking through code line by line on paper (or in your head), "
-                    "writing down each variable's value as it changes. This is especially useful for "
-                    "loops, where it's easy to lose track of how a value evolves over each iteration."
+                    "try: wraps code that might fail; if no error occurs, the except block is skipped "
+                    "entirely. If a run-time error DOES occur, Python jumps straight to a matching "
+                    "except <exception_type>: block instead of crashing. Common exception types include "
+                    "TypeError, IndexError, ZeroDivisionError, and NameError. Leaving off the type "
+                    "(except:) catches any exception at all."
                 ),
                 "examples": [
                     {
-                        "code": 'total = 0\nfor n in [1, 2, 3]:\n    total += n\n    print("n =", n, "running total =", total)',
-                        "output": "n = 1 running total = 1\nn = 2 running total = 3\nn = 3 running total = 6",
-                        "note": "Printing the state at each step is exactly what hand-tracing captures on paper.",
+                        "code": 'a = 10\nb = 0\ntry:\n    c = a / b\nexcept ZeroDivisionError:\n    print("You can\'t divide by 0!")\n    b = 2\n    c = a / b\nprint(c)',
+                        "output": "You can't divide by 0!\n5.0",
+                        "note": "Dividing by 0 raises ZeroDivisionError, so the except block runs, fixes b, and retries the division.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "10.2.p1",
-                        "question": "Tracing code by hand is most useful for understanding:",
-                        "choices": ["How a program looks visually", "How variables change step by step, especially in loops", "How to write comments", "File names"],
+                        "question": "What happens to the except block if the try block runs with no error?",
+                        "choices": ["It runs anyway", "It is skipped entirely", "It raises an error", "It runs twice"],
                         "answer": 1,
-                        "explanation": "Tracing tracks each variable's value across every step of execution.",
-                    },
+                        "explanation": "except only runs if a matching exception actually occurs in the try block."},
                     {
                         "id": "10.2.p2",
-                        "question": "total += n is shorthand for:",
-                        "choices": ["total = n", "total = total + n", "total = total - n", "n = total + n"],
+                        "question": "Which exception type matches trying to access index 20 of a 5-item list?",
+                        "choices": ["TypeError", "IndexError", "ZeroDivisionError", "NameError"],
                         "answer": 1,
-                        "explanation": "+= adds the right-hand value to the variable and reassigns it.",
-                    },
+                        "explanation": "Accessing an out-of-range list position raises IndexError."},
                 ],
             },
             {
                 "id": "10.3",
-                "title": "Isolating Bugs with print() and assert",
+                "title": "A Systematic Debugging Process: DRIFT",
                 "explanation": (
-                    "To find exactly where a bug happens, narrow it down: add print() statements at "
-                    "different points until you find the first place a value is wrong. An assert "
-                    "statement checks that a condition is True and stops the program immediately with "
-                    "a message if it isn't — useful for catching bad values the moment they occur."
+                    "Rather than randomly changing code and hoping it works, follow DRIFT: Discover a "
+                    "repeatable problem; Reproduce it with a reliable test case; Isolate the bug's "
+                    "location by narrowing down where things go wrong (e.g. with print statements or a "
+                    "debugger's breakpoints); Fix the bug; Test to confirm the original case now passes "
+                    "and nothing else broke.\n\n"
+                    "IDE debuggers (VS Code, Spyder, PyCharm) support breakpoints (pause execution at a "
+                    "line), step/step-into (run one line at a time), and examining variable values — "
+                    "useful tools for the Isolate step, though they don't fix bugs for you."
                 ),
                 "examples": [
                     {
-                        "code": 'def half(n):\n    assert n >= 0, "n must be non-negative"\n    return n / 2\n\nprint(half(10))',
-                        "output": "5.0",
-                        "note": "The assert passes silently since 10 >= 0; had a negative number been passed, it would stop immediately with the given message.",
+                        "code": "total = 0\nfor n in [1, 2, 3]:\n    total += n\n    print(\"n =\", n, \"running total =\", total)",
+                        "output": "n = 1 running total = 1\nn = 2 running total = 3\nn = 3 running total = 6",
+                        "note": "Printing state at each step like this is exactly what the Isolate step of DRIFT looks like in practice.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "10.3.p1",
-                        "question": "What does an assert statement do when its condition is False?",
-                        "choices": ["Nothing", "Stops the program with an error message", "Skips to the next line silently", "Fixes the bug automatically"],
+                        "question": "In the DRIFT process, what comes right after Discover?",
+                        "choices": ["Fix", "Reproduce — create a reliable test case", "Test", "Isolate"],
                         "answer": 1,
-                        "explanation": "A failed assert raises an AssertionError with the given message."},
+                        "explanation": "D-R-I-F-T: Discover, Reproduce, Isolate, Fix, Test."},
                     {
                         "id": "10.3.p2",
-                        "question": "Adding print() statements at different points to narrow down a bug is called:",
-                        "choices": ["Compiling", "Isolating the bug", "Refactoring", "Importing"],
+                        "question": "What does a breakpoint do in an IDE debugger?",
+                        "choices": ["Deletes that line of code", "Pauses execution at that line so you can examine memory", "Fixes the bug automatically", "Comments out the line"],
                         "answer": 1,
-                        "explanation": "This process narrows down exactly where behavior first goes wrong."},
+                        "explanation": "A breakpoint pauses the program at a chosen line for inspection."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "10.q1", "question": "A program that crashes while running due to a bad index has a:", "choices": ["Syntax error", "Runtime error", "Logic error", "No error"], "answer": 1, "explanation": "This is a runtime error, caught as the program executes."},
-            {"id": "10.q2", "question": "A program that runs fine but gives the wrong answer has a:", "choices": ["Syntax error", "Runtime error", "Logic error", "No error"], "answer": 2, "explanation": "Logic errors produce wrong results without crashing."},
-            {"id": "10.q3", "question": "Tracing code by hand means:", "choices": ["Deleting code that doesn't work", "Following execution step by step, tracking variable values", "Writing comments", "Running the code faster"], "answer": 1, "explanation": "It's a manual walkthrough of how variables change over time."},
-            {"id": "10.q4", "question": "assert x > 0, \"x must be positive\" does what if x is -1?", "choices": ["Nothing", "Prints x", "Stops the program with an AssertionError", "Sets x to 0"], "answer": 2, "explanation": "A failing assert raises an AssertionError immediately."},
-            {"id": "10.q5", "question": "Adding print() statements to narrow down where a bug occurs is called:", "choices": ["Isolating the bug", "Compiling", "Looping", "Scoping"], "answer": 0, "explanation": "This narrows down the exact location of incorrect behavior."},
+            {"id": "10.q1", "question": "A program that crashes because of invalid Python grammar has a:", "choices": ["Logic error", "Syntax error", "Run-time error", "No error"], "answer": 1, "explanation": "Grammar violations are syntax errors, usually caught before running."},
+            {"id": "10.q2", "question": "except ZeroDivisionError: runs when:", "choices": ["The try block succeeds", "A division by zero occurs inside the matching try block", "The program starts", "Never"], "answer": 1, "explanation": "except only runs for a matching exception raised in try."},
+            {"id": "10.q3", "question": "In DRIFT, the 'I' stands for:", "choices": ["Ignore", "Isolate — narrow down where the bug is", "Import", "Interpret"], "answer": 1, "explanation": "Isolate means narrowing down the bug's exact location."},
+            {"id": "10.q4", "question": "A program that runs fine but gives the wrong answer has a:", "choices": ["Syntax error", "Run-time error", "Logic error", "No error"], "answer": 2, "explanation": "Logic errors produce wrong results without crashing."},
+            {"id": "10.q5", "question": "A breakpoint in a debugger:", "choices": ["Automatically fixes bugs", "Pauses execution at a chosen line for inspection", "Deletes the program", "Only works with syntax errors"], "answer": 1, "explanation": "Breakpoints pause a running program so you can examine its state."},
         ],
     },
     "11": {
         "id": "11",
         "title": "File Input and Output",
-        "intro": "Programs often need to save data between runs or read data someone else prepared. "
-                 "This module covers opening files for reading and writing, and safely closing them "
-                 "with the with statement.",
+        "intro": "Programs often need to save data between runs or read data someone else prepared. This "
+                 "module covers opening, reading from, and writing to files, and processing strings — "
+                 "especially the lines read from a file — with split(), strip(), and join().",
         "components": [
             {
                 "id": "11.1",
-                "title": "Opening and Reading Files",
+                "title": "Opening, Writing, and Closing Files",
                 "explanation": (
-                    'open(filename, "w") opens a file for writing (creating it if needed, erasing '
-                    'existing contents), and open(filename, "r") opens it for reading. Using with '
-                    "open(...) as f: automatically closes the file when the block ends, even if an "
-                    "error occurs — always prefer this over opening a file without with."
+                    "fileID = open(\"filename\", \"mode\") opens a file and assigns it to a variable. "
+                    "Common modes: \"r\" reads an existing file, \"w\" writes (creating the file, or "
+                    "erasing it if it already exists), and \"a\" appends to the end. Use fileID.write(text) "
+                    "to write — unlike print(), write() only accepts one string, never adds a space "
+                    "between calls, and never adds a newline automatically (add \\n yourself).\n\n"
+                    "Always close a file with fileID.close() when done, or use with open(...) as "
+                    "fileID: — which closes the file automatically once its indented block ends, even if "
+                    "an error occurs partway through."
                 ),
                 "examples": [
                     {
-                        "code": 'with open("scores.txt", "w") as f:\n    f.write("88\\n92\\n79\\n")\n\nwith open("scores.txt", "r") as f:\n    for line in f:\n        print(line.strip())',
-                        "output": "88\n92\n79",
-                        "note": ".strip() removes the trailing newline character each line ends with, so print() doesn't add an extra blank line.",
+                        "code": 'with open("scores.txt", "w") as f:\n    f.write("Testing the write command.\\n")\n    x = 987\n    f.write("Here\'s a number: " + str(x) + "\\n")',
+                        "output": "",
+                        "note": "Nothing prints here — this writes two lines to scores.txt. write() needs \\n explicitly, and only accepts strings (str(x) converts the number first).",
                     }
                 ],
                 "practice": [
                     {
                         "id": "11.1.p1",
-                        "question": 'What does open("data.txt", "w") do if data.txt already exists with content?',
-                        "choices": [
-                            "Appends to the existing content",
-                            "Erases the existing content and starts fresh",
-                            "Refuses to open it",
-                            "Reads it instead",
+                        "question": 'open("data.txt", "w") on a file that already has content will:', "choices": [
+                            "Append to the existing content",
+                            "Erase the existing content and start fresh",
+                            "Refuse to open it",
+                            "Read it instead",
                         ],
                         "answer": 1,
                         "explanation": '"w" mode opens for writing and erases whatever was already in the file.',
                     },
                     {
                         "id": "11.1.p2",
-                        "question": "Why use with open(...) as f: instead of just open(...)?",
-                        "choices": [
-                            "It's required syntax with no benefit",
-                            "It automatically closes the file when done, even if an error happens",
-                            "It reads faster",
-                            "It only works for writing, not reading",
-                        ],
+                        "question": "Does fileID.write() add a newline automatically, like print() does?",
+                        "choices": ["Yes, always", "No — you must add \\n yourself", "Only in 'a' mode", "Only for the first write"],
                         "answer": 1,
-                        "explanation": "with guarantees the file is properly closed once the block finishes.",
+                        "explanation": "write() writes exactly the string given, with no automatic separator or newline.",
                     },
                 ],
             },
             {
                 "id": "11.2",
-                "title": "Writing to Files",
+                "title": "Reading From Files",
                 "explanation": (
-                    "f.write(text) writes exactly the text given — it does not add a newline "
-                    "automatically like print() does, so you usually add \\n yourself between lines. "
-                    "f.read() reads an entire file's contents back as one string."
+                    "fileID.readline() reads one line at a time as a string, returning '' once the file "
+                    "is exhausted. fileID.read() reads the ENTIRE file into one (possibly huge) string. "
+                    "fileID.readlines() reads every line into a list of strings. Most often, though, "
+                    "you'll loop directly over the file: for line in fileID: gives you one line per "
+                    "iteration, just like looping through a list."
                 ),
                 "examples": [
                     {
-                        "code": 'lines = ["Alice,90", "Bob,85"]\nwith open("students.txt", "w") as f:\n    for line in lines:\n        f.write(line + "\\n")\n\nwith open("students.txt", "r") as f:\n    contents = f.read()\nprint(contents)',
-                        "output": "Alice,90\nBob,85\n",
-                        "note": 'Each write() call adds its own "\\n" explicitly; f.read() then pulls the whole file back as a single string.',
+                        "code": 'with open("scores.txt", "r") as f:\n    for line in f:\n        print(line, end=\'\')',
+                        "output": "Testing the write command.\nHere's a number: 987",
+                        "note": "end='' avoids doubling up newlines, since each line already ends with its own \\n from the file.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "11.2.p1",
-                        "question": "Does f.write() add a newline automatically like print() does?",
-                        "choices": ["Yes, always", "No — you must add \\n yourself", "Only in write mode", "Only when reading"],
+                        "question": "for line in fileID: (fileID is an open file) gives you:",
+                        "choices": ["The whole file at once", "One line per iteration", "Only the first line", "The file's name"],
                         "answer": 1,
-                        "explanation": "write() writes exactly what you give it, with no automatic newline.",
-                    },
+                        "explanation": "Iterating directly over a file object yields one line per pass, like iterating a list."},
                     {
                         "id": "11.2.p2",
-                        "question": "f.read() returns:",
-                        "choices": ["Just the first line", "The entire file's contents as one string", "A list of lines", "Nothing, it's for writing only"],
+                        "question": "fileID.readlines() returns:",
+                        "choices": ["A single string with the whole file", "A list of strings, one per line", "Just the first line", "Nothing — it's write-only"],
                         "answer": 1,
-                        "explanation": "read() with no arguments returns the whole file as a single string.",
-                    },
+                        "explanation": "readlines() converts the file's lines into a list of strings."},
                 ],
             },
             {
                 "id": "11.3",
-                "title": "Working with File Data",
+                "title": "String Processing: split, strip, join",
                 "explanation": (
-                    "Looping directly over an open file (for line in f:) gives one line at a time, "
-                    "which is usually more memory-efficient than reading the whole file at once. Since "
-                    "lines from a file include the trailing newline character, .strip() is commonly "
-                    "used to remove it before using the text."
+                    "mystring.split(separator) breaks a string into a list of strings wherever the "
+                    "separator appears — useful for pulling apart a line read from a file, like "
+                    "\"11/01/2023\".split('/'). mystring.strip() removes leading and trailing whitespace "
+                    "(including the trailing \\n a file line usually has). separator.join(list_of_strings) "
+                    "does the reverse, gluing a list of strings back together with a separator between "
+                    "them. These methods are often chained together in one line."
                 ),
                 "examples": [
                     {
-                        "code": 'with open("scores.txt", "r") as f:\n    total = 0\n    count = 0\n    for line in f:\n        total = total + int(line.strip())\n        count = count + 1\nprint("Average:", total / count)',
-                        "output": "Average: 86.33333333333333",
-                        "note": "Each line is a string like '88\\n'; .strip() removes the newline and int() converts it to a number before adding it in.",
+                        "code": "date = \"11/01/2023\"\nmonth, day, year = date.split('/')\nprint(f\"Day: {day} Month: {month} Year: {year}\")\n\nmystr = \"  1,2,3,4,5  \\n\"\nprint(mystr.strip().split(','))\nprint('.'.join(mystr.strip().split(',')))",
+                        "output": "Day: 01 Month: 11 Year: 2023\n['1', '2', '3', '4', '5']\n1.2.3.4.5",
+                        "note": "split('/') on the date gives a 3-item list unpacked directly into month/day/year; strip() then split() then join() are chained in one line.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "11.3.p1",
-                        "question": "for line in f: (where f is an open file) gives you:",
-                        "choices": ["The whole file at once", "One line at a time", "Only the first line", "The file's name"],
+                        "question": '"a,b,c".split(\',\') returns:', "choices": ["'a,b,c'", "['a', 'b', 'c']", "('a', 'b', 'c')", "Error"],
                         "answer": 1,
-                        "explanation": "Iterating over a file object yields one line per iteration.",
+                        "explanation": "split() always returns a list of strings.",
                     },
                     {
                         "id": "11.3.p2",
-                        "question": "Why call .strip() on a line read from a file before converting it with int()?",
+                        "question": "Why call .strip() on a line read from a file before splitting or converting it?",
                         "choices": [
                             "It's not necessary",
-                            "The line includes a trailing newline character that int() can't parse",
+                            "The line includes a trailing newline character that would otherwise cause problems",
                             "strip() converts text to numbers",
                             "It closes the file",
                         ],
                         "answer": 1,
-                        "explanation": "int() can't parse a string containing a newline, so strip() removes it first.",
+                        "explanation": "Lines from a file end in \\n; strip() removes it before further processing.",
                     },
                 ],
             },
         ],
         "quiz": [
             {"id": "11.q1", "question": 'open(filename, "r") opens a file for:', "choices": ["Writing only", "Reading", "Deleting", "Renaming"], "answer": 1, "explanation": '"r" mode opens a file for reading.'},
-            {"id": "11.q2", "question": "Why prefer with open(...) as f: over a plain open() call?", "choices": ["It reads faster", "It closes the file automatically, even on errors", "It's required to write files", "It prevents typos"], "answer": 1, "explanation": "The with block guarantees proper file closing."},
-            {"id": "11.q3", "question": "Does f.write() add a newline automatically?", "choices": ["Yes", "No, you add \\n yourself", "Only for the first line", "Only in append mode"], "answer": 1, "explanation": "write() only writes exactly what's given."},
-            {"id": "11.q4", "question": "for line in f: iterates:", "choices": ["Once for the whole file", "Once per line in the file", "Once per character", "Never"], "answer": 1, "explanation": "Each iteration yields the next line."},
-            {"id": "11.q5", "question": "Why use .strip() on a line before int(line)?", "choices": ["To remove the trailing newline that would break int()", "To make the number bigger", "It's not needed", "To convert it to a list"], "answer": 0, "explanation": "int() can't parse a string with a trailing newline character."},
+            {"id": "11.q2", "question": "Why prefer with open(...) as f: over a plain open() call?", "choices": ["It reads faster", "It closes the file automatically, even if an error occurs", "It's required to write files", "It prevents typos"], "answer": 1, "explanation": "The with block guarantees proper file closing."},
+            {"id": "11.q3", "question": "Does fileID.write() add a newline automatically?", "choices": ["Yes", "No, you add \\n yourself", "Only for the first line", "Only in append mode"], "answer": 1, "explanation": "write() only writes exactly what's given."},
+            {"id": "11.q4", "question": "for line in fileID: iterates:", "choices": ["Once for the whole file", "Once per line in the file", "Once per character", "Never"], "answer": 1, "explanation": "Each iteration yields the next line."},
+            {"id": "11.q5", "question": '"11/01/2023".split(\'/\') returns:', "choices": ["'11/01/2023'", "['11', '01', '2023']", "('11','01','2023',)", "Error"], "answer": 1, "explanation": "split() breaks the string apart at every '/' into a list of strings."},
         ],
     },
     "12": {
         "id": "12",
         "title": "Using Engineering Modules in Python",
-        "intro": "Python's standard library includes modules with ready-made functions for common "
-                 "tasks. This module covers importing and using math and random, two modules "
-                 "engineers use constantly.",
+        "intro": "Python's standard library — and thousands of external packages — provide ready-made "
+                 "functions you don't have to write yourself. This module covers what modules and "
+                 "packages are, the different ways to import them, and how to get more of them.",
         "components": [
             {
                 "id": "12.1",
-                "title": "The math Module",
+                "title": "What Are Modules and Packages?",
                 "explanation": (
-                    "import math gives access to mathematical functions and constants not built "
-                    "into Python directly, like math.sqrt() (square root), math.pi, and math.ceil() "
-                    "(round up to the next whole number). Access anything in the module with "
-                    "math.name."
+                    "A module is a file of Python code someone else wrote — typically defining "
+                    "functions, and sometimes constants. You've already used one: the math module "
+                    "defines functions like sqrt() and sin(), plus the constant pi. A package is a "
+                    "collection of related modules bundled together; you access a module inside a "
+                    "package with package_name.module_name, like matplotlib.pyplot.\n\n"
+                    "Using modules means you don't need to write (or even fully understand) everything "
+                    "yourself — you get access to code many other people have already built and tested."
                 ),
                 "examples": [
                     {
-                        "code": "import math\nprint(math.sqrt(64))\nprint(math.pi)\nprint(math.ceil(4.2))",
-                        "output": "8.0\n3.141592653589793\n5",
-                        "note": "math.pi is a precise constant; math.ceil() always rounds up to the next whole number.",
+                        "code": "import math\nprint(math.sqrt(2.0))",
+                        "output": "1.4142135623730951",
+                        "note": "Once imported, every function in the math module is available through the math. prefix.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "12.1.p1",
-                        "question": "What must you do before using math.sqrt()?",
-                        "choices": ["Nothing, it's automatically available", "import math", "Define your own sqrt function", "Install Python again"],
-                        "answer": 1,
-                        "explanation": "Modules must be imported before their contents can be used.",
+                        "question": "A Python module is best described as:",
+                        "choices": [
+                            "A file of code someone else wrote, usually defining functions",
+                            "A type of loop",
+                            "A syntax error",
+                            "A single variable",
+                        ],
+                        "answer": 0,
+                        "explanation": "Modules are files of pre-written code you can import and reuse.",
                     },
                     {
                         "id": "12.1.p2",
-                        "question": "math.ceil(4.2) returns:",
-                        "choices": ["4", "4.2", "5", "4.0"],
-                        "answer": 2,
-                        "explanation": "ceil() rounds up to the next whole number, regardless of the decimal portion.",
+                        "question": "matplotlib.pyplot refers to:",
+                        "choices": [
+                            "A variable named pyplot",
+                            "The pyplot module inside the matplotlib package",
+                            "An error in Python",
+                            "A function with two names",
+                        ],
+                        "answer": 1,
+                        "explanation": "package_name.module_name accesses a module inside a package.",
                     },
                 ],
             },
             {
                 "id": "12.2",
-                "title": "The random Module",
+                "title": "Ways to Import",
                 "explanation": (
-                    "import random provides functions for generating randomness: random.randint(a, b) "
-                    "gives a random whole number between a and b (inclusive), and random.choice(seq) "
-                    "picks a random item from a sequence. random.seed(n) makes the sequence of "
-                    "'random' values reproducible — useful for testing."
+                    "import module_name brings in the whole module; call its functions with "
+                    "module_name.function_name(). from module_name import name1, name2 imports just "
+                    "those specific names, so you can call them directly without the module prefix. "
+                    "from module_name import * imports everything — convenient, but risky, since a new "
+                    "name could silently override one you already had. You can also rename something as "
+                    "you import it: from math import sqrt as sr lets you call sr(2.0) instead."
                 ),
                 "examples": [
                     {
-                        "code": 'import random\nrandom.seed(42)\nprint(random.randint(1, 10))\nprint(random.choice(["rock", "paper", "scissors"]))',
-                        "output": "2\nrock",
-                        "note": "random.seed(42) makes this example's output reproducible every time — without a seed, values would differ each run.",
+                        "code": "from math import sin, sqrt, pi\na = sqrt(2.0)\nb = sin(pi / 4)\nprint(a, b)",
+                        "output": "1.4142135623730951 0.7071067811865476",
+                        "note": "Since sqrt, sin, and pi were imported by name, they're called directly with no math. prefix needed.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "12.2.p1",
-                        "question": "random.randint(1, 6) simulates:",
-                        "choices": ["A coin flip", "A single six-sided die roll", "A random word", "A fixed value of 1"],
-                        "answer": 1,
-                        "explanation": "It returns a random whole number from 1 to 6, inclusive — like a die roll.",
-                    },
-                    {
-                        "id": "12.2.p2",
-                        "question": "Why would a program call random.seed(42)?",
-                        "choices": [
-                            "To disable randomness completely",
-                            "To make the 'random' sequence reproducible for testing",
-                            "It's required before any random call",
-                            "To generate bigger numbers",
-                        ],
-                        "answer": 1,
-                        "explanation": "Seeding makes the same sequence of pseudo-random values repeat every run.",
-                    },
-                ],
-            },
-            {
-                "id": "12.3",
-                "title": "Importing Specific Names",
-                "explanation": (
-                    "Instead of importing a whole module, from module import name imports just the "
-                    "specific functions or constants you need, letting you call them without the "
-                    "module prefix. This is convenient but be careful: importing many names this way "
-                    "can make it unclear where a function came from."
-                ),
-                "examples": [
-                    {
-                        "code": "from math import sqrt, pi\nprint(sqrt(25))\nprint(round(pi, 3))",
-                        "output": "5.0\n3.142",
-                        "note": "sqrt and pi are used directly, without the math. prefix, since they were imported by name.",
-                    }
-                ],
-                "practice": [
-                    {
-                        "id": "12.3.p1",
                         "question": "After from math import sqrt, how do you call it?",
                         "choices": ["math.sqrt(x)", "sqrt(x)", "import.sqrt(x)", "sqrt.math(x)"],
                         "answer": 1,
                         "explanation": "Importing a specific name lets you call it directly, without the module prefix.",
                     },
                     {
-                        "id": "12.3.p2",
-                        "question": "One downside of from module import * (importing everything) is:",
+                        "id": "12.2.p2",
+                        "question": "Why is from module import * generally discouraged?",
                         "choices": [
-                            "It's faster than normal import",
-                            "It can make it unclear where a function came from",
-                            "It doesn't work in Python",
-                            "It only imports one function",
+                            "It's slower than other imports",
+                            "You may not know everything you're bringing in, and it could silently override an existing name",
+                            "It only works with the math module",
+                            "It doesn't actually work in Python",
                         ],
                         "answer": 1,
-                        "explanation": "Bringing in many names at once can create naming confusion or conflicts.",
+                        "explanation": "Importing everything makes it unclear what names you now have, risking accidental conflicts.",
+                    },
+                ],
+            },
+            {
+                "id": "12.3",
+                "title": "Getting More Modules",
+                "explanation": (
+                    "Python ships with many built-in modules (math, random, statistics, and 200+ more) "
+                    "— you still have to import them, but nothing extra to install. Beyond that, "
+                    "external packages (like numpy for vector/matrix math, matplotlib for plotting, or "
+                    "pandas for data processing) can be installed with pip: pip install package_name, "
+                    "run from your IDE's terminal. Once installed, they're imported exactly like any "
+                    "built-in module."
+                ),
+                "examples": [
+                    {
+                        "code": "import random\nrandom.seed(42)\nprint(random.randint(1, 10))",
+                        "output": "2",
+                        "note": "random is a built-in module — no installation needed, just import it; seed(42) makes the 'random' result reproducible here.",
+                    }
+                ],
+                "practice": [
+                    {
+                        "id": "12.3.p1",
+                        "question": "Which of these is a built-in Python module, needing no separate install?",
+                        "choices": ["random", "numpy", "pandas", "matplotlib"],
+                        "answer": 0,
+                        "explanation": "random ships with Python; numpy, pandas, and matplotlib are external packages you'd install with pip.",
+                    },
+                    {
+                        "id": "12.3.p2",
+                        "question": "How do you install an external package like numpy?",
+                        "choices": ["import numpy install", "pip install numpy, from a terminal", "It's automatic", "Rewrite it yourself"],
+                        "answer": 1,
+                        "explanation": "pip is the standard tool for installing external Python packages.",
                     },
                 ],
             },
         ],
         "quiz": [
-            {"id": "12.q1", "question": "Before using any function from the math module, you must:", "choices": ["Nothing special", "import math", "Restart Python", "Define it yourself"], "answer": 1, "explanation": "Modules require an import statement before use."},
-            {"id": "12.q2", "question": "math.sqrt(81) returns:", "choices": ["8.0", "9.0", "81.0", "40.5"], "answer": 1, "explanation": "The square root of 81 is 9."},
-            {"id": "12.q3", "question": "random.randint(1, 6) can return:", "choices": ["Only 1 or 6", "Any whole number from 1 to 6, inclusive", "Any decimal from 1 to 6", "Always the same number"], "answer": 1, "explanation": "randint is inclusive of both endpoints."},
-            {"id": "12.q4", "question": "Why use random.seed()?", "choices": ["To stop the program", "To make random output reproducible", "To speed up the program", "It's required for every random call"], "answer": 1, "explanation": "Seeding fixes the sequence of pseudo-random values."},
-            {"id": "12.q5", "question": "After from math import pi, which call works?", "choices": ["math.pi", "pi", "import.pi", "pi.math"], "answer": 1, "explanation": "Specific imports drop the module prefix."},
+            {"id": "12.q1", "question": "A module is best described as:", "choices": ["A syntax error", "A file of pre-written code you can import", "A type of variable", "A comment"], "answer": 1, "explanation": "Modules bundle reusable, pre-written code."},
+            {"id": "12.q2", "question": "After import math, how do you call sqrt()?", "choices": ["sqrt(x)", "math.sqrt(x)", "math->sqrt(x)", "import.sqrt(x)"], "answer": 1, "explanation": "A whole-module import requires the module_name. prefix."},
+            {"id": "12.q3", "question": "from math import sqrt as sr lets you call:", "choices": ["math.sqrt(x)", "sr(x)", "sqrt.sr(x)", "as(x)"], "answer": 1, "explanation": "The as keyword renames the imported function for use in your code."},
+            {"id": "12.q4", "question": "Which of these needs pip install before you can import it?", "choices": ["math", "random", "numpy", "None of them do"], "answer": 2, "explanation": "numpy is an external package; math and random are built into Python."},
+            {"id": "12.q5", "question": "A key risk of from module import * is:", "choices": ["It's not valid Python", "It can silently override names you already have, without you noticing", "It only imports one function", "It disables the module"], "answer": 1, "explanation": "Bringing in everything makes accidental name conflicts more likely."},
         ],
     },
     "13": {
         "id": "13",
         "title": "Functions in Top-Down / Bottom-Up Design",
-        "intro": "This final module ties functions together with the design ideas from earlier in "
-                 "the course: breaking a program into functions from the top down, building and "
-                 "testing them from the bottom up, and combining them into a complete program.",
+        "intro": "This final module ties functions together with the design ideas from earlier in the "
+                 "course: building a program's structure from the top down, building and combining "
+                 "small tested pieces from the bottom up, documenting functions with docstrings, and "
+                 "the idea of abstraction that ties it all together.",
         "components": [
             {
                 "id": "13.1",
-                "title": "Top-Down Design with Functions",
+                "title": "Top-Down Design With Functions",
                 "explanation": (
-                    "In top-down design, you start with the overall problem and break it into "
-                    "functions before filling in their details. A main() function often calls "
-                    "several helper functions in sequence, each handling one part of the problem — "
-                    "making the overall structure readable at a glance."
+                    "Each node of a top-down hierarchy can become its own function — the smallest nodes "
+                    "are functions that don't call anything else, while higher-level functions call "
+                    "several others to do their work. When writing the code, define child functions "
+                    "BEFORE the parent functions that call them, so those calls work; the main program's "
+                    "code (the actual function calls, in order) goes at the bottom.\n\n"
+                    "This separation makes changes easy: if you decide to read input from a file instead "
+                    "of the console, you only change the implementation of that one function — nothing "
+                    "that calls it needs to know how it works internally."
                 ),
                 "examples": [
                     {
-                        "code": 'def get_numbers():\n    return [3, 7, 2, 9]\n\ndef find_largest(numbers):\n    return max(numbers)\n\ndef main():\n    nums = get_numbers()\n    largest = find_largest(nums)\n    print("Largest:", largest)\n\nmain()',
+                        "code": "def get_numbers():\n    return [3, 7, 2, 9]\n\ndef find_largest(numbers):\n    return max(numbers)\n\ndef main():\n    nums = get_numbers()\n    largest = find_largest(nums)\n    print(\"Largest:\", largest)\n\nmain()",
                         "output": "Largest: 9",
-                        "note": "main() reads like an outline of the whole program: get data, process it, show the result.",
+                        "note": "main() reads like an outline of the whole program's top-down design: get data, then process it, then show the result.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "13.1.p1",
-                        "question": "In top-down design, what typically calls the helper functions?",
-                        "choices": ["Nothing, they call themselves", "A main() function that outlines the overall steps", "The Python interpreter automatically", "Only loops"],
+                        "question": "When converting a top-down hierarchy into functions, child functions should be defined:",
+                        "choices": ["After their parent function", "Before the parent function that calls them", "It doesn't matter", "Only inside main()"],
                         "answer": 1,
-                        "explanation": "main() usually ties the helper functions together in the right order.",
-                    },
+                        "explanation": "A function must be defined before it's called, so children come first in the file."},
                     {
                         "id": "13.1.p2",
-                        "question": "A benefit of splitting a program into functions like get_numbers() and find_largest() is:",
+                        "question": "If you change how get_numbers() reads its data (console vs. file), what else must change?",
                         "choices": [
-                            "The program runs in a random order",
-                            "Each function can be understood, tested, and reused on its own",
-                            "It's required syntax",
-                            "It removes the need for variables",
+                            "Every function in the program",
+                            "Nothing that calls get_numbers() needs to change, as long as it still returns the same thing",
+                            "main() must be rewritten entirely",
+                            "The program can no longer run",
                         ],
                         "answer": 1,
-                        "explanation": "Small, focused functions are easier to read, test, and reuse.",
-                    },
+                        "explanation": "Separating functions by task means internal changes don't ripple outward, as long as the interface stays the same."},
                 ],
             },
             {
                 "id": "13.2",
-                "title": "Bottom-Up Design and Testing",
+                "title": "Bottom-Up Design",
                 "explanation": (
-                    "Bottom-up design means building and testing small, individual functions first, "
-                    "then combining them into a larger program once each piece works correctly. "
-                    "Testing a function by itself — calling it directly with known inputs and "
-                    "checking the output — catches problems before they get buried inside a bigger program."
+                    "Bottom-up design starts from the other direction: build and test small, useful "
+                    "functions for things you already know you'll need (like converting Celsius to "
+                    "Fahrenheit), then combine them into bigger and bigger pieces until they form your "
+                    "whole program. Create a new function whenever you spot something that will be done "
+                    "repeatedly, or a key concept that can be built cleanly from what you already have.\n\n"
+                    "In practice, most real design blends both directions: sketch the overall structure "
+                    "top-down, while building and testing the small reusable pieces bottom-up."
                 ),
                 "examples": [
                     {
                         "code": "def celsius_to_fahrenheit(c):\n    return c * 9 / 5 + 32\n\nprint(celsius_to_fahrenheit(0))\nprint(celsius_to_fahrenheit(100))",
                         "output": "32.0\n212.0",
-                        "note": "Testing the conversion function directly with known values (0°C = 32°F, 100°C = 212°F) confirms it works before using it elsewhere.",
+                        "note": "This is exactly the kind of small, independently useful function bottom-up design starts with — tested here against known values (0C=32F, 100C=212F).",
                     }
                 ],
                 "practice": [
@@ -1583,71 +1877,77 @@ MODULE_CONTENT = {
                         "question": "Bottom-up design means:",
                         "choices": [
                             "Writing the whole program before testing anything",
-                            "Building and testing small functions individually before combining them",
-                            "Only writing while loops",
-                            "Skipping the planning stage",
+                            "Building and testing small, useful functions first, then combining them into larger pieces",
+                            "Never using functions",
+                            "Skipping the planning stage entirely",
                         ],
                         "answer": 1,
-                        "explanation": "Each piece is verified on its own before being assembled into the full program.",
-                    },
+                        "explanation": "Each small, reusable piece is built and verified before being combined into something larger."},
                     {
                         "id": "13.2.p2",
-                        "question": "Why test celsius_to_fahrenheit(0) specifically?",
+                        "question": "A good reason to create a new function is:",
                         "choices": [
-                            "It's a random choice",
-                            "0°C has a well-known correct answer (32°F), making errors obvious",
-                            "It's the only input Python allows",
-                            "It avoids using functions",
+                            "You'll only ever use the code once, in one place",
+                            "You realize you'll need to do the same task repeatedly",
+                            "The code is exactly one line",
+                            "Never — functions should be avoided",
                         ],
                         "answer": 1,
-                        "explanation": "Known correct answers make it immediately obvious if a function is wrong.",
-                    },
+                        "explanation": "Repeated tasks are a classic signal that a reusable function is worth writing."},
                 ],
             },
             {
                 "id": "13.3",
-                "title": "Combining Functions into a Complete Program",
+                "title": "Docstrings and Abstraction",
                 "explanation": (
-                    "Once individual functions are written and tested, top-down and bottom-up meet "
-                    "in the middle: the tested functions are combined under a main() that calls them "
-                    "in the right order, producing a complete, working program built from "
-                    "well-understood pieces."
+                    "A docstring documents a function: the first line right after def is a string "
+                    "(usually triple-quoted) describing what the function does. Python's built-in "
+                    "help(function_name) command displays it — handy for anyone using your function "
+                    "without reading its internals.\n\n"
+                    "That's really the whole point of top-down design, bottom-up design, and functions "
+                    "in general: abstraction — the ability to use a well-documented piece of code "
+                    "without worrying about exactly how it works inside. It's one of the most important "
+                    "ideas in all of computing, letting you focus on one part of a problem at a time."
                 ),
                 "examples": [
                     {
-                        "code": 'def celsius_to_fahrenheit(c):\n    return c * 9 / 5 + 32\n\ndef describe_temp(f):\n    if f >= 90:\n        return "hot"\n    elif f >= 60:\n        return "mild"\n    else:\n        return "cold"\n\ndef main():\n    c = 30\n    f = celsius_to_fahrenheit(c)\n    print(f, "degrees F is", describe_temp(f))\n\nmain()',
-                        "output": "86.0 degrees F is mild",
-                        "note": "Two independently-tested functions (conversion and classification) are combined inside main() to produce the final program.",
+                        "code": 'def drawsquare():\n    """Draw a square and return to original position and orientation"""\n    pass\n\nhelp(drawsquare)',
+                        "output": "Help on function drawsquare in module __main__:\n\ndrawsquare()\n    Draw a square and return to original position and orientation",
+                        "note": "help() reads the docstring directly — good documentation means anyone can use this function without reading its code.",
                     }
                 ],
                 "practice": [
                     {
                         "id": "13.3.p1",
-                        "question": "Combining tested functions under a main() is an example of:",
-                        "choices": ["A syntax error", "Bringing top-down structure and bottom-up tested pieces together", "Avoiding functions entirely", "Deleting unused code"],
-                        "answer": 1,
-                        "explanation": "The overall structure (top-down) is filled in with pieces already verified individually (bottom-up)."},
-                    {
-                        "id": "13.3.p2",
-                        "question": "Why test each function individually before combining them?",
+                        "question": "Where does a function's docstring go?",
                         "choices": [
-                            "It's not necessary if the final program works",
-                            "Bugs are much easier to find in a small, isolated function than in a large combined program",
-                            "Python requires it",
-                            "It makes the program run faster",
+                            "In a comment before the def line",
+                            "As the first line of the function body, usually a triple-quoted string",
+                            "At the very end of the file",
+                            "Nowhere — Python doesn't support this",
                         ],
                         "answer": 1,
-                        "explanation": "Isolated testing narrows down exactly where a bug could be, before complexity is added.",
-                    },
+                        "explanation": "A docstring is the string literal that appears first inside the function body."},
+                    {
+                        "id": "13.3.p2",
+                        "question": "Abstraction, in the sense used throughout this course, means:",
+                        "choices": [
+                            "Making code deliberately confusing",
+                            "Being able to use a piece of code by its documented behavior, without needing to know its internal details",
+                            "Removing all comments",
+                            "Writing only very short programs",
+                        ],
+                        "answer": 1,
+                        "explanation": "Abstraction lets you rely on what something does without tracking exactly how it does it."},
                 ],
             },
         ],
         "quiz": [
-            {"id": "13.q1", "question": "In top-down design, main() typically:", "choices": ["Contains all the program's logic directly", "Calls helper functions in the right order", "Is never used", "Only holds variables"], "answer": 1, "explanation": "main() outlines the overall program by calling other functions."},
-            {"id": "13.q2", "question": "Bottom-up design focuses on:", "choices": ["Writing the whole program at once", "Testing small functions individually before combining them", "Avoiding functions", "Writing comments only"], "answer": 1, "explanation": "Each function is verified on its own first."},
-            {"id": "13.q3", "question": "Why test a function like celsius_to_fahrenheit(0) with a known answer?", "choices": ["It's required by Python", "A known correct answer makes bugs obvious", "It runs faster", "It replaces the need for main()"], "answer": 1, "explanation": "Known expected results make incorrect behavior immediately visible."},
-            {"id": "13.q4", "question": "Combining top-down and bottom-up design means:", "choices": ["Picking only one approach", "Planning the overall structure while building/testing pieces individually", "Avoiding planning entirely", "Only using while loops"], "answer": 1, "explanation": "The two approaches meet: overall structure from top-down, verified pieces from bottom-up."},
-            {"id": "13.q5", "question": "A key benefit of splitting a program into small, tested functions is:", "choices": ["It's required syntax", "Bugs are easier to isolate in small, focused pieces", "It removes the need for a main() function", "It disables error messages"], "answer": 1, "explanation": "Small, tested functions make debugging far more manageable."},
+            {"id": "13.q1", "question": "When converting a hierarchy to functions, child functions must be defined:", "choices": ["After their parents", "Before the parent functions that call them", "Only in a separate file", "It never matters"], "answer": 1, "explanation": "A function must exist (be defined) before it can be called."},
+            {"id": "13.q2", "question": "Bottom-up design focuses on:", "choices": ["Writing the whole program at once", "Building and testing small reusable functions, then combining them", "Avoiding functions", "Writing comments only"], "answer": 1, "explanation": "Small verified pieces are combined into progressively larger ones."},
+            {"id": "13.q3", "question": "help(my_function) displays:", "choices": ["The function's entire source code", "The function's docstring", "Nothing unless you import help", "A syntax error"], "answer": 1, "explanation": "help() reads and displays the docstring."},
+            {"id": "13.q4", "question": "A docstring is written as:", "choices": ["A comment above def", "The first statement inside the function body, typically a triple-quoted string", "A variable name", "A separate file"], "answer": 1, "explanation": "Docstrings are string literals placed as the function body's first line."},
+            {"id": "13.q5", "question": "Abstraction, as used in this course, means being able to:", "choices": ["Use code without needing to know its internal implementation details", "Only write abstract math", "Avoid all documentation", "Write code with no functions"], "answer": 0, "explanation": "Abstraction hides implementation details behind a well-defined interface."},
         ],
     },
 }
@@ -1658,133 +1958,133 @@ MODULE_CONTENT = {
 
 PRACTICE_POOLS = {
     "1": [
-        {"id": "1.pool.1", "question": "The Python interpreter processes a script:", "choices": ["All lines simultaneously", "One statement at a time, in order", "Starting from the last line", "Only the first line"], "answer": 1, "explanation": "Statements are executed sequentially."},
-        {"id": "1.pool.2", "question": 'print("cat", "dog", sep=", ") outputs:', "choices": ["cat dog", "cat, dog", "catdog", "cat,dog"], "answer": 1, "explanation": "sep=', ' places a comma-space between arguments."},
-        {"id": "1.pool.3", "question": "Which is ignored completely by the interpreter?", "choices": ["print statements", "Variable names", "Text after a # on a line", "Function calls"], "answer": 2, "explanation": "Comments (after #) are not executed."},
-        {"id": "1.pool.4", "question": "What is the default value of print()'s end argument?", "choices": ["A space", "An empty string", "A newline character", "A comma"], "answer": 2, "explanation": "By default end='\\n', a newline."},
-        {"id": "1.pool.5", "question": "Why should you be able to explain every line of code you submit?", "choices": ["It's required for the code to run", "It demonstrates the work is genuinely your own understanding", "Python requires explanatory comments", "It makes the code faster"], "answer": 1, "explanation": "Academic honesty means understanding, not just copying, your submitted code."},
-        {"id": "1.pool.6", "question": 'How many arguments does print("a", "b", "c") receive?', "choices": ["1", "2", "3", "0"], "answer": 2, "explanation": "Three separate string arguments are passed."},
-        {"id": "1.pool.7", "question": "A script that only contains comments, when run, will:", "choices": ["Print the comments", "Produce a syntax error", "Run and produce no output", "Not save"], "answer": 2, "explanation": "Comments do nothing at runtime, so no output is produced."},
-        {"id": "1.pool.8", "question": "Which best defines 'programming'?", "choices": ["Designing computer hardware", "Writing exact instructions for a computer to follow", "Installing software", "Browsing the internet"], "answer": 1, "explanation": "Programming is writing precise instructions a computer executes."},
+        {"id": "1.pool.1", "question": "An interpreter differs from a compiler in that it:", "choices": ["Translates and runs code line by line", "Never produces any output", "Only works with binary files", "Is a type of variable"], "answer": 0, "explanation": "Interpreters process source code line by line as the program runs."},
+        {"id": "1.pool.2", "question": "What does 100 % 10 evaluate to?", "choices": ["10", "0", "1", "100"], "answer": 1, "explanation": "% gives the remainder; 100 divides evenly by 10, leaving remainder 0."},
+        {"id": "1.pool.3", "question": "Which line makes sqrt() and pi available in a program?", "choices": ["import python", "from math import *", "print(sqrt)", "Nothing needed"], "answer": 1, "explanation": "The math module must be imported to use its functions and constants."},
+        {"id": "1.pool.4", "question": "print(3+2*2) outputs:", "choices": ["10", "7", "12", "5"], "answer": 1, "explanation": "Multiplication happens before addition: 2*2=4, then 3+4=7."},
+        {"id": "1.pool.5", "question": "Text after a # on a line of Python code is:", "choices": ["Executed as normal code", "Completely ignored by the interpreter", "Highlighted in red only", "Required for every program"], "answer": 1, "explanation": "Everything after # on that line is a comment, skipped by the interpreter."},
+        {"id": "1.pool.6", "question": "In the problem-solving process, what comes right after understanding the problem?", "choices": ["Reviewing your work", "Making a plan, including test cases", "Submitting the assignment", "Deleting your code"], "answer": 1, "explanation": "Planning (with test cases) follows understanding, before execution."},
+        {"id": "1.pool.7", "question": "A .py file is:", "choices": ["A compiled binary", "A text file containing Python source code", "An image format", "A type of IDE"], "answer": 1, "explanation": "Python source files are plain text with a .py extension."},
+        {"id": "1.pool.8", "question": "2**3 evaluates to:", "choices": ["6", "8", "9", "5"], "answer": 1, "explanation": "** is exponentiation: 2 to the power of 3 is 8."},
     ],
     "2": [
-        {"id": "2.pool.1", "question": "total = 3; total = total * 2 leaves total as:", "choices": ["3", "6", "2", "Error"], "answer": 1, "explanation": "total is reassigned to 3*2 = 6."},
-        {"id": "2.pool.2", "question": "Which statement about = in Python is true?", "choices": ["It checks equality", "It assigns the right-side value to the left-side name", "It only works with numbers", "It deletes a variable"], "answer": 1, "explanation": "= is the assignment operator."},
-        {"id": "2.pool.3", "question": "Which variable name is invalid?", "choices": ["value_1", "1st_value", "_value", "value1"], "answer": 1, "explanation": "Names can't start with a digit."},
-        {"id": "2.pool.4", "question": "If line 1 uses a variable defined on line 5, what happens?", "choices": ["Python looks ahead automatically", "An error occurs — the variable doesn't exist yet", "The variable defaults to 0", "Nothing, it's valid"], "answer": 1, "explanation": "Execution is sequential; a variable must be assigned before it's used."},
-        {"id": "2.pool.5", "question": "x = 5\ny = x\nx = 9\nWhat is y?", "choices": ["9", "5", "None", "Error"], "answer": 1, "explanation": "y copied x's value (5) at assignment time; later changes to x don't affect y."},
-        {"id": "2.pool.6", "question": "Which naming style does Python convention favor for variables?", "choices": ["snake_case", "camelCase", "PascalCase", "ALLCAPS"], "answer": 0, "explanation": "snake_case (lowercase_with_underscores) is the Python convention."},
-        {"id": "2.pool.7", "question": "count = 1\ncount = count + 1\ncount = count + 1\nWhat is count?", "choices": ["1", "2", "3", "Error"], "answer": 2, "explanation": "count increases by 1 twice, from 1 to 3."},
-        {"id": "2.pool.8", "question": "Reassigning a variable to a new value:", "choices": ["Creates a second variable with the same name", "Permanently deletes the variable", "Replaces its old value with the new one", "Causes an error"], "answer": 2, "explanation": "Assignment always overwrites the previous value."},
+        {"id": "2.pool.1", "question": "A variable is best described as:", "choices": ["A comment", "A named location in memory holding a value", "A type of loop", "A function call"], "answer": 1, "explanation": "Variables are labeled boxes of memory."},
+        {"id": "2.pool.2", "question": "Which is a reserved keyword and can't be a variable name?", "choices": ["total", "while", "my_var", "count2"], "answer": 1, "explanation": "'while' is reserved for the language itself."},
+        {"id": "2.pool.3", "question": "x=5; y=x; x=9 — what is y afterward?", "choices": ["9", "5", "None", "Error"], "answer": 1, "explanation": "y copied x's value (5) at assignment time; later changes to x don't affect y."},
+        {"id": "2.pool.4", "question": "Which naming convention is typically used for a constant like PI?", "choices": ["ALL_CAPS", "camelCase", "a single random letter", "starting with a digit"], "answer": 0, "explanation": "Constants are conventionally written in ALL_CAPS."},
+        {"id": "2.pool.5", "question": "count = 1\ncount = count + 1\ncount = count + 1\nWhat is count?", "choices": ["1", "2", "3", "Error"], "answer": 2, "explanation": "count increases by 1 twice, from 1 to 3."},
+        {"id": "2.pool.6", "question": "The = operator should be read aloud as:", "choices": ["'equals', exactly like in math", "'gets' or 'is assigned'", "'is greater than'", "'compares to'"], "answer": 1, "explanation": "= assigns a value; it is not a mathematical equality test."},
+        {"id": "2.pool.7", "question": "Which variable name is invalid in Python?", "choices": ["value_1", "1st_value", "_value", "value1"], "answer": 1, "explanation": "Names can't start with a digit."},
+        {"id": "2.pool.8", "question": "Python statements within a script execute:", "choices": ["In a random order", "Top to bottom, in the order written", "Bottom to top", "All at the same time"], "answer": 1, "explanation": "Sequential execution runs statements in file order."},
     ],
     "3": [
-        {"id": "3.pool.1", "question": "type(10 / 2) in Python 3 is:", "choices": ["int", "float", "str", "bool"], "answer": 1, "explanation": "The / operator always produces a float, even for evenly divisible numbers."},
-        {"id": "3.pool.2", "question": "What must you do before performing math on input() results?", "choices": ["Nothing", "Convert the string with int() or float()", "Wrap it in print()", "Use input() twice"], "answer": 1, "explanation": "input() returns a string; convert it to a number first."},
-        {"id": "3.pool.3", "question": 'len("") returns:', "choices": ["0", "1", "None", "Error"], "answer": 0, "explanation": "An empty string has zero characters."},
-        {"id": "3.pool.4", "question": "min(4, -2, 9, 0) returns:", "choices": ["4", "-2", "9", "0"], "answer": 1, "explanation": "-2 is the smallest of the given values."},
-        {"id": "3.pool.5", "question": 'type(True) is:', "choices": ["int", "str", "bool", "float"], "answer": 2, "explanation": "True/False values are of type bool."},
-        {"id": "3.pool.6", "question": "round(4.5) returns which type?", "choices": ["float", "int", "str", "bool"], "answer": 1, "explanation": "round() with no decimal-places argument returns an int."},
-        {"id": "3.pool.7", "question": 'float("3.5") converts the string to:', "choices": ["The integer 3", "The float 3.5", "An error", "The string \"3.5\" unchanged"], "answer": 1, "explanation": "float() parses a numeric string into a float value."},
-        {"id": "3.pool.8", "question": "Which function returns the absolute value of a number?", "choices": ["abs()", "len()", "round()", "type()"], "answer": 0, "explanation": "abs() strips the sign from a number."},
+        {"id": "3.pool.1", "question": "type(10 / 2) in Python is:", "choices": ["int", "float", "str", "bool"], "answer": 1, "explanation": "The / operator always produces a float, even for evenly divisible numbers."},
+        {"id": "3.pool.2", "question": "What must you do before doing math on an input() result?", "choices": ["Nothing", "Convert it with int() or float()", "Wrap it in print()", "Call input() twice"], "answer": 1, "explanation": "input() returns a string; convert it to a number first."},
+        {"id": "3.pool.3", "question": "bool('False') (the string) evaluates to:", "choices": ["False", "True — any non-empty string is True", "0", "Error"], "answer": 1, "explanation": "Only the truly empty string '' converts to False; 'False' is a non-empty string."},
+        {"id": "3.pool.4", "question": "int(-1.7) evaluates to:", "choices": ["-2", "-1", "-1.7", "2"], "answer": 1, "explanation": "Converting float to int truncates toward zero rather than rounding."},
+        {"id": "3.pool.5", "question": 'f"{5:>6}" pads 5 to a width of 6 characters, aligned:', "choices": ["Left", "Right", "Center", "It doesn't pad at all"], "answer": 1, "explanation": "The > specifier right-aligns within the given width."},
+        {"id": "3.pool.6", "question": "What does the escape sequence \\t produce inside a string?", "choices": ["A literal backslash-t", "A tab character", "A newline", "Nothing"], "answer": 1, "explanation": "\\t inserts a tab character."},
+        {"id": "3.pool.7", "question": 'name = input("Enter name: ") — what does this print before waiting for input?', "choices": ["Nothing at all", "Enter name: (with no newline after it)", "Enter name: followed by a newline", "An error"], "answer": 1, "explanation": "input() with a string argument prints that prompt with no trailing newline."},
+        {"id": "3.pool.8", "question": "Which correctly converts the string '3.14' to a float?", "choices": ["int('3.14')", "float('3.14')", "str(3.14)", "bool('3.14')"], "answer": 1, "explanation": "float() parses a numeric string, including decimals, into a float."},
     ],
     "4": [
         {"id": "4.pool.1", "question": "5 != 5 evaluates to:", "choices": ["True", "False", "5", "Error"], "answer": 1, "explanation": "!= means 'not equal'; 5 equals 5, so this is False."},
         {"id": "4.pool.2", "question": "(3 > 1) or (3 > 100) evaluates to:", "choices": ["True", "False", "3", "100"], "answer": 0, "explanation": "or only needs one side True; 3 > 1 is True."},
         {"id": "4.pool.3", "question": "In an if/elif chain, once one branch's condition is True:", "choices": ["Every remaining elif/else is skipped", "All branches still run", "The program stops entirely", "Python raises an error"], "answer": 0, "explanation": "Only the first matching branch runs; the rest are skipped."},
-        {"id": "4.pool.4", "question": "Which symbol is used for 'not equal to' in Python?", "choices": ["<>", "!=", "=/=", "~="], "answer": 1, "explanation": "!= is Python's inequality operator."},
-        {"id": "4.pool.5", "question": "An else clause runs when:", "choices": ["Its own condition is True", "No earlier if/elif condition was True", "It's placed first", "Never, it's optional syntax only"], "answer": 1, "explanation": "else has no condition of its own — it's the fallback."},
+        {"id": "4.pool.4", "question": "What does Python require to mark the body of an if statement?", "choices": ["Curly braces {}", "Consistent indentation", "A semicolon at the end", "Nothing"], "answer": 1, "explanation": "Indentation (not braces) defines a block in Python, and it's mandatory."},
+        {"id": "4.pool.5", "question": "Python's precedence order (highest to lowest) among these is:", "choices": ["Boolean operators, then relational, then math", "Math operators, then relational, then Boolean", "They're all equal", "Relational, then math, then Boolean"], "answer": 1, "explanation": "Math runs first, then comparisons, then and/or/not."},
         {"id": "4.pool.6", "question": "not True evaluates to:", "choices": ["True", "False", "None", "1"], "answer": 1, "explanation": "not flips a Boolean value."},
-        {"id": "4.pool.7", "question": "Nesting a conditional inside another if is useful when:", "choices": ["You want to check a second condition only after the first is satisfied", "You want to skip all conditions", "Python requires it for every if", "It replaces loops"], "answer": 0, "explanation": "Nested ifs check further conditions only within an already-true outer branch."},
-        {"id": "4.pool.8", "question": "if 10 > 5: print(\"yes\") — what prints?", "choices": ["Nothing", "yes", "10 > 5", "An error"], "answer": 1, "explanation": "10 > 5 is True, so the if block runs and prints 'yes'."},
+        {"id": "4.pool.7", "question": "To test if water (in F) is liquid, you need BOTH F>=32 and F<=212. Which operator combines them?", "choices": ["or", "and", "not", "=="], "answer": 1, "explanation": "Both conditions must hold simultaneously, so and is required."},
+        {"id": "4.pool.8", "question": 'if 10 > 5: print("yes") — what prints?', "choices": ["Nothing", "yes", "10 > 5", "An error"], "answer": 1, "explanation": "10 > 5 is True, so the if block runs and prints 'yes'."},
     ],
     "5": [
-        {"id": "5.pool.1", "question": "Planning a program's inputs and outputs before coding is part of:", "choices": ["Debugging", "The development process", "Compiling", "Looping"], "answer": 1, "explanation": "Planning is an early step in developing a working program."},
-        {"id": "5.pool.2", "question": "Which error type means Python's grammar rules were violated?", "choices": ["SyntaxError", "NameError", "TypeError", "Logic error"], "answer": 0, "explanation": "SyntaxError is raised before the program even runs, for invalid Python code."},
-        {"id": "5.pool.3", "question": "Adding a string and a number directly (e.g. \"5\" + 3) raises a:", "choices": ["SyntaxError", "NameError", "TypeError", "IndexError"], "answer": 2, "explanation": "TypeError occurs when an operation isn't supported between those types."},
-        {"id": "5.pool.4", "question": "Building a program in small, tested steps is called developing it:", "choices": ["Randomly", "Incrementally", "Backwards", "Silently"], "answer": 1, "explanation": "Incremental development tests small pieces before adding more."},
-        {"id": "5.pool.5", "question": "The fastest way to inspect a variable's value while a program runs is to:", "choices": ["Guess based on the code", "Add a temporary print() statement", "Rewrite the function", "Wait for a crash"], "answer": 1, "explanation": "print() debugging shows a variable's actual value immediately."},
-        {"id": "5.pool.6", "question": "A traceback's last line typically tells you:", "choices": ["The file's total line count", "The exception type and a short description", "The programmer's name", "Nothing useful"], "answer": 1, "explanation": "The final line names the error and briefly explains it."},
-        {"id": "5.pool.7", "question": "Testing with an input where you already know the correct answer helps because:", "choices": ["It's required by Python", "Wrong output becomes immediately obvious", "It makes the program run faster", "It avoids using variables"], "answer": 1, "explanation": "A known expected result makes incorrect behavior easy to spot."},
-        {"id": "5.pool.8", "question": "Which of these is a logic error, not a crash?", "choices": ["Using an undefined variable", "A program that runs but calculates the wrong average", "Missing a colon after if", "Indexing past the end of a list"], "answer": 1, "explanation": "Logic errors produce wrong results while still running successfully."},
+        {"id": "5.pool.1", "question": "Turning a program's planned steps into comments, then filling in code below each, is an example of:", "choices": ["Debugging", "Program design", "Compiling", "Looping"], "answer": 1, "explanation": "This steps-to-comments-to-code approach is a basic design process."},
+        {"id": "5.pool.2", "question": "In the pyramid vs. arch analogy, which represents safer software development?", "choices": ["Arch — build everything, then test once at the end", "Pyramid — build and test small stable pieces incrementally", "Neither matters", "Arch, because it's faster"], "answer": 1, "explanation": "The pyramid approach lets you verify each piece is stable before adding more."},
+        {"id": "5.pool.3", "question": "Adding a number directly to a string (without converting first) raises a:", "choices": ["SyntaxError", "NameError", "TypeError", "IndexError"], "answer": 2, "explanation": "TypeError occurs when an operation isn't supported between those types."},
+        {"id": "5.pool.4", "question": "A 'typical case' test checks:", "choices": ["An unusual boundary situation", "A common, everyday input", "Only invalid input", "Nothing useful"], "answer": 1, "explanation": "Typical cases confirm the program handles ordinary, expected input correctly."},
+        {"id": "5.pool.5", "question": "Why write tests before writing the program, ideally?", "choices": ["It's required by Python", "It clarifies what the program should do and gives an immediate way to check your code", "It makes the program run faster", "It avoids using variables"], "answer": 1, "explanation": "Writing tests first forces you to think through expected behavior in advance."},
+        {"id": "5.pool.6", "question": "A comment that just restates obvious code (like # add one to x above x = x + 1) is:", "choices": ["Best practice", "Not very useful — comments should add understanding, not repeat the obvious", "Required by Python", "The only correct kind of comment"], "answer": 1, "explanation": "Good comments explain non-obvious purpose or reasoning, not restate the code."},
+        {"id": "5.pool.7", "question": "Which is a 'corner' or 'edge' case for a program processing calendar dates?", "choices": ["May 15", "February 29", "November 9", "Any random Tuesday"], "answer": 1, "explanation": "February 29 (leap day) is a special boundary case, unlike a typical mid-month date."},
+        {"id": "5.pool.8", "question": "Debugging is best described as:", "choices": ["Deleting all your code and starting over", "Finding, understanding, and fixing an error", "Adding comments only", "Renaming variables"], "answer": 1, "explanation": "Debugging is the systematic process of finding and correcting a bug."},
     ],
     "6": [
-        {"id": "6.pool.1", "question": "A while loop stops repeating when its condition becomes:", "choices": ["True", "False", "Zero", "Undefined"], "answer": 1, "explanation": "The loop exits once the condition evaluates to False."},
+        {"id": "6.pool.1", "question": "A while loop stops repeating once its condition becomes:", "choices": ["True", "False", "Zero", "Undefined"], "answer": 1, "explanation": "The loop exits once the condition evaluates to False."},
         {"id": "6.pool.2", "question": "range(0, 6, 2) produces:", "choices": ["0, 2, 4", "0, 2, 4, 6", "0, 1, 2, 3, 4, 5", "2, 4, 6"], "answer": 0, "explanation": "Starting at 0, stopping before 6, counting by 2: 0, 2, 4."},
         {"id": "6.pool.3", "question": "Which statement immediately exits the nearest enclosing loop?", "choices": ["continue", "break", "return", "pass"], "answer": 1, "explanation": "break stops the loop entirely."},
         {"id": "6.pool.4", "question": "An infinite loop happens when:", "choices": ["A for loop is used instead of while", "Nothing inside the loop ever makes the condition False", "print() is missing", "range() is used"], "answer": 1, "explanation": "The loop needs a path to eventually make its condition False."},
-        {"id": "6.pool.5", "question": "total = total + n inside a loop is an example of:", "choices": ["A conditional", "An accumulator pattern", "A function definition", "A syntax error"], "answer": 1, "explanation": "This pattern builds up a running total across iterations."},
-        {"id": "6.pool.6", "question": "for x in range(3): print(x) outputs:", "choices": ["1 2 3", "0 1 2", "0 1 2 3", "3"], "answer": 1, "explanation": "range(3) yields 0, 1, 2."},
-        {"id": "6.pool.7", "question": "continue inside a loop:", "choices": ["Exits the loop completely", "Skips the rest of the current iteration and moves to the next", "Restarts the whole program", "Is identical to break"], "answer": 1, "explanation": "continue jumps ahead to the next iteration without leaving the loop."},
-        {"id": "6.pool.8", "question": "A while loop is generally preferred over a for loop when:", "choices": ["The exact number of repetitions isn't known ahead of time", "You're looping over a list", "You never need a condition", "Python requires it for counting"], "answer": 0, "explanation": "while loops fit naturally when repetition depends on a condition rather than a fixed count."},
+        {"id": "6.pool.5", "question": "In a loop, the variable names i, j, and k are conventionally used for:", "choices": ["Storing text", "Counting/indexing", "File names", "Boolean values"], "answer": 1, "explanation": "i, j, k are common counter variable names."},
+        {"id": "6.pool.6", "question": "for i in range(4): print(i, end='') outputs:", "choices": ["1234", "0123", "01234", "4"], "answer": 1, "explanation": "range(4) yields 0,1,2,3, printed with no separator or newline."},
+        {"id": "6.pool.7", "question": "For a nested loop (outer range(2), inner range(5)), how many total inner iterations occur?", "choices": ["2", "5", "7", "10"], "answer": 3, "explanation": "2 outer passes x 5 inner iterations each = 10 total."},
+        {"id": "6.pool.8", "question": "Choose a while loop over a for loop when:", "choices": ["The number of iterations is known in advance", "You need to repeat until a general condition is met, with an unknown number of iterations", "You're looping through a fixed list", "Never — for is always better"], "answer": 1, "explanation": "while loops fit naturally when the stopping point isn't known ahead of time."},
     ],
     "7": [
         {"id": "7.pool.1", "question": 'For letters = ["a", "b", "c", "d"], what is letters[3]?', "choices": ["c", "d", "3", "Error"], "answer": 1, "explanation": "Index 3 is the fourth item: 'd'."},
-        {"id": "7.pool.2", "question": "Which operator checks whether a value exists in a list?", "choices": ["==", "in", "is", "has"], "answer": 1, "explanation": "in returns True or False depending on membership."},
-        {"id": "7.pool.3", "question": 'For nums = [1, 2, 3], what does nums.append(4) change nums to?', "choices": ["[4, 1, 2, 3]", "[1, 2, 3, 4]", "[1, 2, 3]", "Error"], "answer": 1, "explanation": "append() adds the new value to the end of the list."},
+        {"id": "7.pool.2", "question": 'For letters = ["a","b","c","d","e"], what is letters[-2]?', "choices": ["c", "d", "e", "b"], "answer": 1, "explanation": "-2 counts backward two from the end: 'd'."},
+        {"id": "7.pool.3", "question": 'For nums = [1, 2, 3], what does nums.append(4) change nums to?', "choices": ["[4, 1, 2, 3]", "[1, 2, 3, 4]", "[1, 2, 3]", "Error"], "answer": 1, "explanation": "append() always adds the new value to the end of the list."},
         {"id": "7.pool.4", "question": 'For letters = ["a","b","c","d","e"], what is letters[2:4]?', "choices": ["['c', 'd']", "['b', 'c', 'd']", "['c', 'd', 'e']", "['a', 'b']"], "answer": 0, "explanation": "The slice starts at index 2 and stops before index 4."},
-        {"id": "7.pool.5", "question": "for item in my_list: assigns item to:", "choices": ["The whole list every time", "One element per iteration", "Only the last element", "The list's length"], "answer": 1, "explanation": "Each iteration gives the next single element of the list."},
+        {"id": "7.pool.5", "question": "for i in range(len(mylist)): mylist[i] = 0 — what does this do?", "choices": ["Raises an error", "Sets every element of mylist to 0", "Does nothing to mylist", "Deletes mylist"], "answer": 1, "explanation": "Using the index directly lets the loop actually modify each list element."},
         {"id": "7.pool.6", "question": "len([]) (an empty list) returns:", "choices": ["0", "1", "None", "Error"], "answer": 0, "explanation": "An empty list has zero elements."},
-        {"id": "7.pool.7", "question": "To compute an average of a list of numbers, you typically:", "choices": ["Multiply all the numbers together", "Sum them and divide by len() of the list", "Use only the first number", "Sort the list"], "answer": 1, "explanation": "Average = sum of values divided by how many there are."},
-        {"id": "7.pool.8", "question": 'What does "z" in ["x", "y"] evaluate to?', "choices": ["True", "False", "z", "Error"], "answer": 1, "explanation": "'z' is not one of the list's elements, so in returns False."},
+        {"id": "7.pool.7", "question": "grades += [90] on an existing list grades:", "choices": ["Raises an error", "Appends 90 to the end of grades", "Replaces grades with [90]", "Removes the last element"], "answer": 1, "explanation": "+= with a one-item list concatenates, effectively appending that item."},
+        {"id": "7.pool.8", "question": "What does enumerate(mylist) give you access to, per iteration?", "choices": ["Only the value", "Only the index", "Both index and value together", "The list's length"], "answer": 2, "explanation": "enumerate() pairs each index with its value."},
     ],
     "8": [
-        {"id": "8.pool.1", "question": "Breaking a large problem into smaller subproblems before coding describes:", "choices": ["Bottom-up testing", "Top-down design", "Debugging", "Looping"], "answer": 1, "explanation": "Top-down design divides a big problem into manageable pieces first."},
-        {"id": "8.pool.2", "question": 'For d = {"a": 1, "b": 2, "c": 3}, what does d["c"] return?', "choices": ["1", "2", "3", "c"], "answer": 2, "explanation": "The key 'c' maps to the value 3."},
-        {"id": "8.pool.3", "question": "Which best describes a dictionary compared to a list?", "choices": ["Both are indexed only by position", "A dictionary is indexed by keys, not numeric position", "A dictionary can't store strings", "There's no difference"], "answer": 1, "explanation": "Dictionaries map keys to values rather than using positional indexing."},
-        {"id": "8.pool.4", "question": 'd["new"] = 5 on a dictionary that has no "new" key:', "choices": ["Raises an error", "Adds a new key/value pair", "Deletes the dictionary", "Does nothing"], "answer": 1, "explanation": "Assigning to a new key adds it to the dictionary."},
-        {"id": "8.pool.5", "question": 'd.get("missing", -1) if "missing" is not a key returns:', "choices": ["An error", "None", "-1", "missing"], "answer": 2, "explanation": ".get() returns the provided default instead of raising an error."},
-        {"id": "8.pool.6", "question": "for k, v in d.items(): gives access to:", "choices": ["Only keys", "Only values", "Both key and value per iteration", "The dictionary's length"], "answer": 2, "explanation": ".items() yields key/value pairs together."},
-        {"id": "8.pool.7", "question": "A function like get_input() that handles one small piece of a bigger problem reflects:", "choices": ["Bottom-up chaos", "Top-down design broken into subproblems", "A syntax requirement", "An error-handling technique"], "answer": 1, "explanation": "Each function tackles one subproblem identified during top-down design."},
-        {"id": "8.pool.8", "question": 'Which syntax creates an empty dictionary?', "choices": ["[]", "()", "{}", "\"\""], "answer": 2, "explanation": "Curly braces with nothing inside create an empty dictionary."},
+        {"id": "8.pool.1", "question": "Breaking a large problem into smaller subproblems before coding describes:", "choices": ["Bottom-up testing", "Top-down design", "Debugging", "Looping"], "answer": 1, "explanation": "Top-down design divides a big problem into a hierarchy of smaller pieces first."},
+        {"id": "8.pool.2", "question": "In tree terminology, the node directly above a given node is called its:", "choices": ["Child", "Parent", "Leaf", "Root always"], "answer": 1, "explanation": "The node above is the parent."},
+        {"id": "8.pool.3", "question": 'For d = {"a": 1, "b": 2, "c": 3}, what does d["c"] return?', "choices": ["1", "2", "3", "c"], "answer": 2, "explanation": "The key 'c' maps to the value 3."},
+        {"id": "8.pool.4", "question": "How is a dictionary's key different from a list's index?", "choices": ["A dictionary key must always be an integer, like an index", "A dictionary key can be almost any type, not just an integer position", "There's no difference", "Dictionaries don't have keys"], "answer": 1, "explanation": "Dictionary keys can be strings or other types, not just sequential integers."},
+        {"id": "8.pool.5", "question": '"x" in my_dict tests whether:', "choices": ["'x' is a value in my_dict", "'x' is a key in my_dict", "my_dict is empty", "'x' equals my_dict"], "answer": 1, "explanation": "The in operator on a dictionary checks its keys."},
+        {"id": "8.pool.6", "question": "for k in my_dict: print(my_dict[k]) will print:", "choices": ["Every key", "Every value, looked up by each key", "Nothing", "An error"], "answer": 1, "explanation": "k takes each key in turn, and my_dict[k] looks up its value."},
+        {"id": "8.pool.7", "question": "A node in a hierarchy with no children is called a:", "choices": ["Root", "Leaf", "Parent", "Branch"], "answer": 1, "explanation": "Nodes without children are called leaves."},
+        {"id": "8.pool.8", "question": "Which syntax creates an empty dictionary?", "choices": ["[]", "()", "{}", '""'], "answer": 2, "explanation": "Curly braces with nothing inside create an empty dictionary."},
     ],
     "9": [
         {"id": "9.pool.1", "question": "A function with no explicit return statement returns:", "choices": ["0", "An empty string", "None", "The last variable used"], "answer": 2, "explanation": "Python functions return None by default."},
-        {"id": "9.pool.2", "question": "A variable assigned inside a function, with no matching global name, is:", "choices": ["Visible everywhere in the program", "Local to that function only", "Automatically printed", "A syntax error"], "answer": 1, "explanation": "It only exists within that function's local scope."},
+        {"id": "9.pool.2", "question": "A tuple differs from a list mainly because a tuple is:", "choices": ["Always empty", "Immutable — its values can't change after creation", "Only for numbers", "Actually the same as a list"], "answer": 1, "explanation": "Tuples cannot be modified after creation, unlike lists."},
         {"id": "9.pool.3", "question": "def f(x, y=10): — calling f(5) uses which value for y?", "choices": ["5", "10", "None", "Error, y is required"], "answer": 1, "explanation": "y falls back to its default value of 10 since no second argument was given."},
-        {"id": "9.pool.4", "question": "return a, b allows the caller to write:", "choices": ["x = a, b (with no unpacking possible)", "x, y = f(...) to get both values separately", "Only one variable can ever be used", "This causes a syntax error"], "answer": 1, "explanation": "Multiple return values can be unpacked into separate variables."},
-        {"id": "9.pool.5", "question": "A parameter is best described as:", "choices": ["A global variable", "A placeholder for a value passed into a function", "The function's return value", "A type of loop"], "answer": 1, "explanation": "Parameters receive whatever values are passed in when the function is called."},
-        {"id": "9.pool.6", "question": "Changing a local variable inside a function:", "choices": ["Always changes a global variable with the same name", "Only affects that local variable, unless declared global", "Is not allowed in Python", "Deletes the function"], "answer": 1, "explanation": "Local variables are independent from global ones unless explicitly declared global."},
-        {"id": "9.pool.7", "question": "def greet(name, greeting=\"Hello\"): greeting is called a:", "choices": ["Required argument", "Default argument", "Global variable", "Return value"], "answer": 1, "explanation": "It has a default value used only if the caller omits it."},
-        {"id": "9.pool.8", "question": "Why use functions with parameters instead of hardcoding values?", "choices": ["Parameters make code slower", "The same function can be reused with different inputs", "It's required by Python syntax", "It disables return values"], "answer": 1, "explanation": "Parameters let one function definition work for many different inputs."},
+        {"id": "9.pool.4", "question": "lo, hi = min_max(numbers) relies on min_max returning:", "choices": ["A single number", "A tuple of two values, which gets unpacked", "Nothing", "A dictionary"], "answer": 1, "explanation": "Multiple return values are packaged as a tuple and unpacked on assignment."},
+        {"id": "9.pool.5", "question": "A variable is best considered 'local' when it is:", "choices": ["Defined in the main program", "Defined and used only inside one function", "Imported from a module", "A type of loop"], "answer": 1, "explanation": "Local variables live only within the function that creates them."},
+        {"id": "9.pool.6", "question": "def f(a): a = [9,9,9] ... x=[1,2,3]; f(x); print(x) prints:", "choices": ["[9, 9, 9]", "[1, 2, 3]", "Error", "None"], "answer": 1, "explanation": "Reassigning the parameter to a brand-new list doesn't affect the caller's original list."},
+        {"id": "9.pool.7", "question": "def f(a): a[1] = 9 ... x=[1,2,3]; f(x); print(x) prints:", "choices": ["[1, 2, 3]", "[1, 9, 3]", "Error", "None"], "answer": 1, "explanation": "Modifying an element of a mutable list inside the function changes the caller's list too."},
+        {"id": "9.pool.8", "question": "Why should a function avoid reading a global variable directly, if possible?", "choices": ["Python forbids it", "It makes the function harder to understand and reuse on its own", "It always causes an error", "It's the only correct approach"], "answer": 1, "explanation": "Functions relying on outside globals are harder to understand in isolation."},
     ],
     "10": [
         {"id": "10.pool.1", "question": "A program that crashes because of invalid Python grammar has a:", "choices": ["Logic error", "Syntax error", "Runtime error", "No error"], "answer": 1, "explanation": "Syntax errors are caught before the program can even run."},
         {"id": "10.pool.2", "question": "A program that runs to completion but produces an incorrect result has a:", "choices": ["Syntax error", "Runtime error", "Logic error", "No error"], "answer": 2, "explanation": "Logic errors don't crash the program; they just give wrong output."},
-        {"id": "10.pool.3", "question": "Tracing code by hand is especially useful for understanding:", "choices": ["File names", "How variable values evolve through a loop", "Comment formatting", "Import statements"], "answer": 1, "explanation": "It tracks each variable's value step by step, which is most valuable in loops."},
-        {"id": "10.pool.4", "question": "assert x != 0, \"x cannot be zero\" does what if x is 0?", "choices": ["Nothing", "Prints a warning but continues", "Stops the program with an AssertionError", "Sets x to 1"], "answer": 2, "explanation": "A failing assert raises an AssertionError immediately, halting the program."},
-        {"id": "10.pool.5", "question": "Adding print() statements at several points to find exactly where a bug starts is called:", "choices": ["Compiling", "Isolating the bug", "Importing", "Formatting"], "answer": 1, "explanation": "This narrows down the precise location where behavior first goes wrong."},
+        {"id": "10.pool.3", "question": "Which except clause would catch a division by zero?", "choices": ["except TypeError:", "except ZeroDivisionError:", "except IndexError:", "except NameError:"], "answer": 1, "explanation": "ZeroDivisionError is raised specifically for dividing by zero."},
+        {"id": "10.pool.4", "question": "except: (with no exception type given) will catch:", "choices": ["Nothing", "Only TypeErrors", "Any exception at all", "Only syntax errors"], "answer": 2, "explanation": "A bare except catches every kind of exception."},
+        {"id": "10.pool.5", "question": "In DRIFT, which step comes last?", "choices": ["Discover", "Fix", "Test — confirm the fix worked and nothing else broke", "Reproduce"], "answer": 2, "explanation": "D-R-I-F-T ends with Test."},
         {"id": "10.pool.6", "question": "Accessing index 5 of a 3-item list raises a(n):", "choices": ["SyntaxError", "IndexError", "Logic error only", "NameError"], "answer": 1, "explanation": "This is a runtime error: valid code, but an out-of-range index."},
-        {"id": "10.pool.7", "question": "total += n is equivalent to:", "choices": ["total = n", "total = total + n", "n = total", "total == total + n"], "answer": 1, "explanation": "+= adds to the variable and reassigns the result to it."},
-        {"id": "10.pool.8", "question": "Systematic debugging generally starts with:", "choices": ["Rewriting the entire program", "Identifying what type of error you're dealing with", "Ignoring the error message", "Deleting the code that failed"], "answer": 1, "explanation": "Knowing whether it's a syntax, runtime, or logic error shapes how you investigate it."},
+        {"id": "10.pool.7", "question": "Using a debugger's 'step' command:", "choices": ["Deletes the current line", "Executes just the next line of code", "Fixes the bug automatically", "Restarts the whole program"], "answer": 1, "explanation": "Step runs one line at a time, letting you watch execution closely."},
+        {"id": "10.pool.8", "question": "A try block with no matching except for the error that occurs:", "choices": ["Silently ignores the error", "Still lets the program crash with that error", "Automatically fixes it", "Runs the try block twice"], "answer": 1, "explanation": "Only a matching except handles the exception; otherwise it propagates as normal."},
     ],
     "11": [
         {"id": "11.pool.1", "question": 'open("log.txt", "w") on a file that already has content will:', "choices": ["Append new content to the end", "Erase the old content and start fresh", "Refuse to open", "Only allow reading"], "answer": 1, "explanation": '"w" mode always starts the file empty.'},
         {"id": "11.pool.2", "question": "The main benefit of with open(...) as f: is that it:", "choices": ["Reads files faster", "Closes the file automatically, even if an error occurs", "Is the only way to open a file", "Prevents typos in the filename"], "answer": 1, "explanation": "with guarantees proper cleanup of the file handle."},
-        {"id": "11.pool.3", "question": "Does f.write(\"hello\") add a newline after 'hello'?", "choices": ["Yes, always", "No, you must add \\n yourself", "Only in read mode", "Only the first time"], "answer": 1, "explanation": "write() writes exactly the given text, with no automatic newline."},
-        {"id": "11.pool.4", "question": "f.read() with no arguments returns:", "choices": ["Just the first character", "The entire file's contents as one string", "A list of lines", "Nothing"], "answer": 1, "explanation": "It reads the whole file into a single string."},
+        {"id": "11.pool.3", "question": "Which reads the entire file into a single list of line-strings?", "choices": ["read()", "readline()", "readlines()", "open()"], "answer": 2, "explanation": "readlines() returns a list with one string per line."},
+        {"id": "11.pool.4", "question": '"a-b-c".split("-") returns:', "choices": ["'a-b-c'", "['a', 'b', 'c']", "('a','b','c')", "Error"], "answer": 1, "explanation": "split() breaks a string into a list wherever the separator appears."},
         {"id": "11.pool.5", "question": "for line in f: (f is an open file) yields:", "choices": ["The whole file at once", "One line per iteration", "Only the last line", "The file size"], "answer": 1, "explanation": "Iterating over a file gives one line per pass."},
         {"id": "11.pool.6", "question": "Why is .strip() commonly used on lines read from a file?", "choices": ["To make the text uppercase", "To remove the trailing newline character", "To convert it to a number automatically", "It's not commonly used"], "answer": 1, "explanation": "Lines from a file include a trailing \\n that strip() removes."},
-        {"id": "11.pool.7", "question": 'open("data.txt", "r") on a file that does not exist will:', "choices": ["Create an empty file", "Raise an error (FileNotFoundError)", "Return None silently", "Open an unrelated file"], "answer": 1, "explanation": "Reading a nonexistent file raises FileNotFoundError."},
-        {"id": "11.pool.8", "question": "What must you convert a line to before doing math with a number stored in a text file?", "choices": ["Nothing, it's already a number", "int() or float()", "list()", "dict()"], "answer": 1, "explanation": "Lines read from a file are strings and must be converted to a numeric type first."},
+        {"id": "11.pool.7", "question": "'-'.join(['a', 'b', 'c']) returns:", "choices": ["'a-b-c'", "['a', 'b', 'c']", "'abc'", "Error"], "answer": 0, "explanation": "join() glues the list's strings together, separated by '-'."},
+        {"id": "11.pool.8", "question": "What must you convert a line read from a file to before doing math with the number in it?", "choices": ["Nothing, it's already a number", "int() or float()", "list()", "dict()"], "answer": 1, "explanation": "Lines read from a file are strings and must be converted to a numeric type first."},
     ],
     "12": [
         {"id": "12.pool.1", "question": "Which statement makes math.sqrt() available for use?", "choices": ["No statement needed", "import math", "def math():", "from python import math"], "answer": 1, "explanation": "You must import a module before using its contents."},
-        {"id": "12.pool.2", "question": "math.ceil(7.1) returns:", "choices": ["7", "7.1", "8", "7.0"], "answer": 2, "explanation": "ceil() always rounds up to the next whole number."},
-        {"id": "12.pool.3", "question": "random.randint(5, 5) can return:", "choices": ["Only 5", "Any number from 0 to 5", "An error", "A random float"], "answer": 0, "explanation": "With matching bounds, the only possible value is 5."},
-        {"id": "12.pool.4", "question": "random.seed(1) is typically used to:", "choices": ["Disable all randomness permanently", "Make random results reproducible across runs", "Generate larger random numbers", "Import the random module"], "answer": 1, "explanation": "Seeding fixes the sequence so the same 'random' values repeat."},
-        {"id": "12.pool.5", "question": "After from math import pi, sqrt, which call is valid?", "choices": ["math.pi", "pi and sqrt(x) directly, without the math prefix", "import.pi", "pi.sqrt()"], "answer": 1, "explanation": "Names imported individually drop the module prefix."},
-        {"id": "12.pool.6", "question": "random.choice([1, 2, 3]) returns:", "choices": ["Always 1", "A random element from the list", "The list's length", "None"], "answer": 1, "explanation": "choice() picks one random element from the given sequence."},
-        {"id": "12.pool.7", "question": "math.pi is best described as:", "choices": ["A function you must call with ()", "A constant value you can use directly", "A random number generator", "A type of loop"], "answer": 1, "explanation": "pi is a constant attribute of the math module, not a function."},
+        {"id": "12.pool.2", "question": "A package, as opposed to a single module, is:", "choices": ["Exactly the same thing as a module", "A collection of related modules bundled together", "Only found in the math library", "A type of variable"], "answer": 1, "explanation": "Packages group multiple related modules together."},
+        {"id": "12.pool.3", "question": "After from math import sqrt, pi, which call is valid?", "choices": ["math.sqrt(x)", "sqrt(x) and pi directly, without the math prefix", "import.sqrt(x)", "pi.sqrt()"], "answer": 1, "explanation": "Names imported individually drop the module prefix."},
+        {"id": "12.pool.4", "question": "Which tool is used to install an external package like numpy?", "choices": ["print()", "pip", "import", "def"], "answer": 1, "explanation": "pip installs Python packages from the terminal."},
+        {"id": "12.pool.5", "question": "from math import sqrt as sr allows you to call:", "choices": ["math.sqrt(x)", "sr(x)", "sqrt.sr(x)", "as(x)"], "answer": 1, "explanation": "The as keyword renames the imported function."},
+        {"id": "12.pool.6", "question": "random is:", "choices": ["An external package requiring pip install", "A built-in Python module, ready to import with no extra install", "The same as the math module", "Not usable in this course"], "answer": 1, "explanation": "random ships with Python by default."},
+        {"id": "12.pool.7", "question": "matplotlib.pyplot.plot(...) refers to a function inside:", "choices": ["A variable named pyplot", "The pyplot module, inside the matplotlib package", "An error", "The math module"], "answer": 1, "explanation": "This is a submodule access: package.module.function()."},
         {"id": "12.pool.8", "question": "Why might a program import only specific names instead of the whole module?", "choices": ["It's the only way Python allows imports", "To use shorter names without the module prefix", "It disables the module", "It's required for math but not random"], "answer": 1, "explanation": "from module import name lets you skip the module prefix when calling it."},
     ],
     "13": [
-        {"id": "13.pool.1", "question": "In top-down design, main() usually:", "choices": ["Does all the detailed work itself", "Calls helper functions in the right sequence", "Is never necessary", "Replaces all variables"], "answer": 1, "explanation": "main() typically outlines the program by calling other functions in order."},
-        {"id": "13.pool.2", "question": "Bottom-up design emphasizes:", "choices": ["Writing the entire program before running any of it", "Testing individual functions before combining them", "Never using functions", "Skipping the planning stage"], "answer": 1, "explanation": "Each function is verified in isolation first."},
-        {"id": "13.pool.3", "question": "Testing a function like celsius_to_fahrenheit(100) and expecting 212.0 is useful because:", "choices": ["100 is a random number", "It's a known correct answer, so wrong output is obvious", "It avoids using return", "Python requires this specific test"], "answer": 1, "explanation": "A known expected result makes bugs immediately visible."},
+        {"id": "13.pool.1", "question": "In top-down design, main() usually:", "choices": ["Does all the detailed work itself", "Calls helper functions in the right sequence", "Is never used", "Only holds variables"], "answer": 1, "explanation": "main() typically outlines the program by calling other functions in order."},
+        {"id": "13.pool.2", "question": "Bottom-up design emphasizes:", "choices": ["Writing the entire program before running any of it", "Building and testing small functions, then combining them", "Never using functions", "Skipping the planning stage"], "answer": 1, "explanation": "Each function is verified in isolation first, then combined."},
+        {"id": "13.pool.3", "question": "help(my_function) reads information from a function's:", "choices": ["Variable names", "Docstring", "Return value only", "File size"], "answer": 1, "explanation": "help() displays the function's docstring."},
         {"id": "13.pool.4", "question": "Combining top-down and bottom-up approaches means:", "choices": ["Choosing one and ignoring the other", "Planning overall structure while testing pieces individually", "Never testing until the very end", "Avoiding functions entirely"], "answer": 1, "explanation": "The two approaches complement each other: structure from the top, verified pieces from the bottom."},
-        {"id": "13.pool.5", "question": "A key reason to split a program into small functions is:", "choices": ["Python requires at least 3 functions", "Bugs are far easier to isolate in small, focused pieces", "It disables error messages", "It removes the need for a main() function"], "answer": 1, "explanation": "Smaller functions are simpler to test and debug individually."},
+        {"id": "13.pool.5", "question": "Abstraction, as used throughout this course, refers to:", "choices": ["Making programs deliberately vague", "Using code by what it does, without needing its internal details", "Writing only mathematical code", "Removing all functions"], "answer": 1, "explanation": "Abstraction hides implementation details behind a clear interface."},
         {"id": "13.pool.6", "question": "Which function structure best reflects top-down thinking?", "choices": ["One giant function with everything inline", "main() calling get_data(), process(), and display()", "No functions at all", "A single while loop with no functions"], "answer": 1, "explanation": "Splitting responsibilities into named functions mirrors the top-down breakdown."},
-        {"id": "13.pool.7", "question": "Why test find_largest([3, 7, 2]) and expect 7 before using it elsewhere?", "choices": ["It's not useful", "It confirms the function works correctly in isolation first", "Testing is only needed for main()", "It changes the function's return type"], "answer": 1, "explanation": "Isolated testing catches bugs before they're buried inside a larger program."},
+        {"id": "13.pool.7", "question": "A docstring is typically written as:", "choices": ["A # comment above the function", "A triple-quoted string as the first line inside the function", "The function's name", "A separate text file"], "answer": 1, "explanation": "Docstrings are string literals placed as the first statement in the function body."},
         {"id": "13.pool.8", "question": "A complete program built from top-down and bottom-up design typically ends with:", "choices": ["No functions at all", "Tested functions combined under a main() that runs them in order", "A single print() statement", "Removing all functions before submission"], "answer": 1, "explanation": "The final program assembles verified functions into a coherent whole."},
     ],
 }
@@ -1797,18 +2097,18 @@ SANDBOX_PROMPTS = [
     {
         "id": "1.sb.1",
         "module_id": "1",
-        "title": "Print a greeting",
-        "prompt": "Write code that prints exactly: Hello, PyQuest!",
+        "title": "Howdy, World!",
+        "prompt": "Write code that prints exactly: Howdy, World!",
         "starter_code": "",
-        "expected_output": "Hello, PyQuest!",
+        "expected_output": "Howdy, World!",
         "mode": "match_output",
     },
     {
         "id": "1.sb.2",
         "module_id": "1",
-        "title": "Free play: print() practice",
-        "prompt": "Use print() however you like — try multiple arguments, sep, and end.",
-        "starter_code": 'print("edit", "me")',
+        "title": "Free play: math and print()",
+        "prompt": "Try out +, -, *, /, **, //, %, and from math import * for extra functions.",
+        "starter_code": 'from math import *\nprint(sqrt(16))',
         "expected_output": None,
         "mode": "freeform",
     },
@@ -1833,19 +2133,18 @@ SANDBOX_PROMPTS = [
     {
         "id": "3.sb.1",
         "module_id": "3",
-        "title": "Convert and greet",
-        "prompt": 'Create name = "Sam" and age = "19" (as a string). Convert age to an int and print: '
-                   'Sam will turn 20 next year',
+        "title": "Format pi with an f-string",
+        "prompt": "Using from math import pi, print pi rounded to exactly 3 decimal places using an f-string.",
         "starter_code": "",
-        "expected_output": "Sam will turn 20 next year",
+        "expected_output": "3.142",
         "mode": "match_output",
     },
     {
         "id": "3.sb.2",
         "module_id": "3",
-        "title": "Free play: built-ins",
-        "prompt": "Experiment with len(), round(), abs(), max(), and min().",
-        "starter_code": 'print(len("engineering"))',
+        "title": "Free play: types and f-strings",
+        "prompt": "Experiment with type(), int(), float(), bool(), and f-string formatting.",
+        "starter_code": 'x = "42"\nprint(type(x))\nprint(int(x) + 1)',
         "expected_output": None,
         "mode": "freeform",
     },
@@ -1916,8 +2215,8 @@ SANDBOX_PROMPTS = [
         "id": "7.sb.2",
         "module_id": "7",
         "title": "Free play: lists",
-        "prompt": "Experiment with append(), slicing, in, and looping over a list.",
-        "starter_code": 'fruits = ["apple", "banana", "cherry"]\nprint(fruits)',
+        "prompt": "Experiment with append(), slicing, negative indices, and enumerate().",
+        "starter_code": 'fruits = ["apple", "banana", "cherry"]\nfor i, f in enumerate(fruits):\n    print(i, f)',
         "expected_output": None,
         "mode": "freeform",
     },
@@ -1934,25 +2233,25 @@ SANDBOX_PROMPTS = [
         "id": "8.sb.2",
         "module_id": "8",
         "title": "Free play: dictionaries",
-        "prompt": "Experiment with creating, updating, and looping over a dictionary.",
-        "starter_code": 'car = {"make": "Toyota", "year": 2020}\nprint(car)',
+        "prompt": "Experiment with creating, updating, and looping over a dictionary's keys.",
+        "starter_code": 'car = {"make": "Toyota", "year": 2020}\nfor k in car:\n    print(k, car[k])',
         "expected_output": None,
         "mode": "freeform",
     },
     {
         "id": "9.sb.1",
         "module_id": "9",
-        "title": "Write a double() function",
-        "prompt": "Write a function double(n) that returns n * 2, then print double(21).",
+        "title": "Return a tuple",
+        "prompt": "Write a function min_max(numbers) that returns both the min and max, then print min_max([4, 9, 2, 7]).",
         "starter_code": "",
-        "expected_output": "42",
+        "expected_output": "2 9",
         "mode": "match_output",
     },
     {
         "id": "9.sb.2",
         "module_id": "9",
-        "title": "Free play: functions",
-        "prompt": "Experiment with parameters, return values, and default arguments.",
+        "title": "Free play: functions and scope",
+        "prompt": "Experiment with parameters, return values, tuples, and local vs. global variables.",
         "starter_code": 'def greet(name):\n    return "Hi, " + name\n\nprint(greet("Sam"))',
         "expected_output": None,
         "mode": "freeform",
@@ -1960,17 +2259,17 @@ SANDBOX_PROMPTS = [
     {
         "id": "10.sb.1",
         "module_id": "10",
-        "title": "Fix the bug: sum a list",
-        "prompt": "This should print 15 (3+5+7), but it has a bug — find and fix it.",
-        "starter_code": "total = 0\nfor n in [3, 5, 7]:\n    total = n\nprint(total)",
-        "expected_output": "15",
+        "title": "Catch a division by zero",
+        "prompt": "Use try/except to catch a ZeroDivisionError from 10/0, and print Caught it! instead of crashing.",
+        "starter_code": "",
+        "expected_output": "Caught it!",
         "mode": "match_output",
     },
     {
         "id": "10.sb.2",
         "module_id": "10",
         "title": "Free play: debugging",
-        "prompt": "Practice tracing values and spotting off-by-one mistakes.",
+        "prompt": "Practice tracing values, try/except, and spotting off-by-one mistakes.",
         "starter_code": "values = [4, 8, 15]\nprint(values[1])",
         "expected_output": None,
         "mode": "freeform",
@@ -1987,9 +2286,9 @@ SANDBOX_PROMPTS = [
     {
         "id": "11.sb.2",
         "module_id": "11",
-        "title": "Free play: file I/O",
-        "prompt": "Experiment with open(), write(), read(), and looping over a file's lines.",
-        "starter_code": 'with open("notes.txt", "w") as f:\n    f.write("hello file\\n")\nwith open("notes.txt") as f:\n    print(f.read())',
+        "title": "Free play: file I/O and strings",
+        "prompt": "Experiment with open(), write(), read(), and string methods like split() and strip().",
+        "starter_code": 'with open("notes.txt", "w") as f:\n    f.write("hello file\\n")\nwith open("notes.txt") as f:\n    print(f.read().strip())',
         "expected_output": None,
         "mode": "freeform",
     },
@@ -2005,9 +2304,9 @@ SANDBOX_PROMPTS = [
     {
         "id": "12.sb.2",
         "module_id": "12",
-        "title": "Free play: math and random",
-        "prompt": "Experiment with math and random — try seeding random for reproducible results.",
-        "starter_code": "import random\nrandom.seed(1)\nprint(random.randint(1, 100))",
+        "title": "Free play: imports",
+        "prompt": "Experiment with import, from...import, and renaming with as.",
+        "starter_code": "from math import sqrt as sr\nprint(sr(9))",
         "expected_output": None,
         "mode": "freeform",
     },
@@ -2023,9 +2322,9 @@ SANDBOX_PROMPTS = [
     {
         "id": "13.sb.2",
         "module_id": "13",
-        "title": "Free play: combining functions",
-        "prompt": "Experiment with writing and combining several small, tested functions.",
-        "starter_code": "def square(n):\n    return n * n\n\nfor i in range(1, 5):\n    print(square(i))",
+        "title": "Free play: docstrings and design",
+        "prompt": "Write a small function with a docstring, then call help() on it.",
+        "starter_code": 'def square(n):\n    """Return n squared."""\n    return n * n\n\nhelp(square)\nprint(square(5))',
         "expected_output": None,
         "mode": "freeform",
     },
