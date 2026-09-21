@@ -35,6 +35,11 @@ export default function Sandbox() {
     return map
   }, [modules])
 
+  const nextInSeries = useMemo(() => {
+    if (!active?.series || active.part == null) return null
+    return prompts.find((p) => p.series === active.series && p.part === active.part! + 1) || null
+  }, [active, prompts])
+
   function selectPrompt(p: SandboxPrompt) {
     setActive(p)
     setCode(p.starter_code || '')
@@ -97,7 +102,14 @@ export default function Sandbox() {
                   active?.id === p.id ? 'border-[#39ff14] bg-[#0f2408]' : 'border-[#2a2c2f] bg-[#0c0d0f] hover:border-[#500000]'
                 }`}
               >
-                <span className="block text-[#eafff0]">{p.title}</span>
+                <span className="flex items-center gap-2 min-w-0">
+                  <span className="text-[#eafff0] truncate min-w-0">{p.title}</span>
+                  {p.series && (
+                    <span className="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#500000] text-[#eafff0]">
+                      Part {p.part}/{p.series_total}
+                    </span>
+                  )}
+                </span>
                 <span className="block text-xs text-[#7d8a80] font-normal">{moduleTitle[p.module_id] || ''}</span>
               </button>
             ))}
@@ -109,7 +121,14 @@ export default function Sandbox() {
           {active ? (
             <div className="mb-3">
               <div className="flex items-start justify-between gap-2">
-                <p className="font-bold text-[#eafff0]">{active.title}</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-bold text-[#eafff0]">{active.title}</p>
+                  {active.series && (
+                    <span className="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#500000] text-[#eafff0]">
+                      Part {active.part}/{active.series_total}
+                    </span>
+                  )}
+                </div>
                 <button onClick={clearPrompt} className="text-xs text-[#7d8a80] font-semibold shrink-0">
                   Clear X
                 </button>
@@ -118,6 +137,14 @@ export default function Sandbox() {
               {active.mode === 'match_output' && (
                 <p className="text-xs text-[#7d8a80] mt-1">
                   Write code so the output matches exactly, then hit Run.
+                </p>
+              )}
+              {active.series && nextInSeries && (
+                <p className="text-xs text-[#7d8a80] mt-2">
+                  This builds toward a combined final program.{' '}
+                  <button onClick={() => selectPrompt(nextInSeries)} className="text-[#39ff14] font-bold underline">
+                    Next: {nextInSeries.title.split(': ').slice(1).join(': ') || nextInSeries.title}
+                  </button>
                 </p>
               )}
             </div>

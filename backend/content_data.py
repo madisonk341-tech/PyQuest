@@ -2328,6 +2328,362 @@ SANDBOX_PROMPTS = [
         "expected_output": None,
         "mode": "freeform",
     },
+
+    # -- Lab-inspired prompts below: same concepts/tools as the real ENGR 102
+    # -- labs, but original numbers and data so nothing is copied verbatim.
+
+    {
+        "id": "1.sb.3",
+        "module_id": "1",
+        "title": "Trig check",
+        "prompt": "Using from math import *, print cos(0) then sin(0) on separate lines.",
+        "starter_code": "",
+        "expected_output": "1.0\n0.0",
+        "mode": "match_output",
+    },
+    {
+        "id": "2.sb.3",
+        "module_id": "2",
+        "title": "Interpolate a position",
+        "prompt": "A car is at position 10 at time 0, and at position 35 at time 5. Using linear "
+                  "interpolation (pos = pos1 + (pos2-pos1)*(t-t1)/(t2-t1)), compute and print its "
+                  "position at time 2.",
+        "starter_code": "",
+        "expected_output": "20.0",
+        "mode": "match_output",
+    },
+    {
+        "id": "2.sb.4",
+        "module_id": "2",
+        "title": "Variable mutation puzzle",
+        "prompt": "Trace this by hand first, then run it to check yourself: x=2, y=5, then x=y, then "
+                  "y=x+1, then x=y-x. Print x and y at the end.",
+        "starter_code": "x = 2\ny = 5\nx = y\ny = x + 1\nx = y - x\nprint(x, y)",
+        "expected_output": "1 6",
+        "mode": "match_output",
+    },
+    {
+        "id": "3.sb.3",
+        "module_id": "3",
+        "title": "Unit conversion: Newtons to lbf",
+        "prompt": "Convert 100 Newtons to pounds-force (divide by 4.44822) and print the result to "
+                  "exactly 4 decimal places using an f-string.",
+        "starter_code": "",
+        "expected_output": "22.4809",
+        "mode": "match_output",
+    },
+    {
+        "id": "3.sb.4",
+        "module_id": "3",
+        "title": "3D vector magnitude",
+        "prompt": "For a vector with components x=3, y=4, z=12, compute and print its magnitude "
+                  "(sqrt(x**2 + y**2 + z**2)).",
+        "starter_code": "",
+        "expected_output": "13.0",
+        "mode": "match_output",
+    },
+    {
+        "id": "3.sb.5",
+        "module_id": "3",
+        "title": "Free play: mad-lib formatting",
+        "prompt": "Write a 2-sentence mini mad-lib using at least one \\n escape and one f-string "
+                  "placeholder holding a number.",
+        "starter_code": 'name = "Reveille"\nnum = 12\nprint(f"{name} found {num} treats.\\nWhat a good dog!")',
+        "expected_output": None,
+        "mode": "freeform",
+    },
+    {
+        "id": "4.sb.3",
+        "module_id": "4",
+        "title": "Floating point surprise",
+        "prompt": "Print 0.1 + 0.2 == 0.3, then print whether abs(0.1 + 0.2 - 0.3) < 1e-9 — a "
+                  "tolerance-based comparison instead of exact equality.",
+        "starter_code": "",
+        "expected_output": "False\nTrue",
+        "mode": "match_output",
+    },
+    {
+        "id": "4.sb.4",
+        "module_id": "4",
+        "title": "Compound Boolean expressions",
+        "prompt": "Set p=True, q=False, r=True. Print (p and q) or (not r), then print "
+                  "(p or q) and (not q or r).",
+        "starter_code": "",
+        "expected_output": "False\nTrue",
+        "mode": "match_output",
+    },
+    {
+        "id": "5.sb.3",
+        "module_id": "5",
+        "title": "Tiered pricing calculator",
+        "prompt": "A shipping cost is $4.99 for packages up to 5 lbs, $8.99 up to 10 lbs, and $8.99 "
+                  "plus $0.75 per pound over 10 for anything heavier. Print the cost for a 12 lb "
+                  "package, to 2 decimal places.",
+        "starter_code": "weight = 12\n",
+        "expected_output": "10.49",
+        "mode": "match_output",
+    },
+    {
+        "id": "6.sb.3",
+        "module_id": "6",
+        "title": "Bisection root finder — Part 1: check the bracket",
+        "prompt": "Define f(x) = x**3 - x - 2. Set x1=1 and x2=2. Print f(x1) then f(x2) to confirm "
+                  "they have opposite signs — that's what guarantees a root lies between them.",
+        "starter_code": "def f(x):\n    return x**3 - x - 2\n\nx1 = 1\nx2 = 2\n",
+        "expected_output": "-2\n4",
+        "mode": "match_output",
+        "series": "bisection",
+        "part": 1,
+        "series_total": 3,
+    },
+    {
+        "id": "6.sb.4",
+        "module_id": "6",
+        "title": "Bisection root finder — Part 2: one halving step",
+        "prompt": "Using the same f, x1, and x2, compute the midpoint mid = (x1+x2)/2 and print f(mid). "
+                  "This is the core step you'll repeat in a loop next.",
+        "starter_code": "def f(x):\n    return x**3 - x - 2\n\nx1 = 1\nx2 = 2\n",
+        "expected_output": "-0.125",
+        "mode": "match_output",
+        "series": "bisection",
+        "part": 2,
+        "series_total": 3,
+    },
+    {
+        "id": "6.sb.5",
+        "module_id": "6",
+        "title": "Bisection root finder — Part 3: combine into a loop",
+        "prompt": "Combine Parts 1 and 2 into a while loop: repeatedly halve [x1, x2] — keeping "
+                  "whichever half still brackets the root — until x2 - x1 < 0.0001. Print the "
+                  "midpoint rounded to 4 decimal places.",
+        "starter_code": "def f(x):\n    return x**3 - x - 2\n\nx1 = 1\nx2 = 2\n",
+        "expected_output": "1.5214",
+        "mode": "match_output",
+        "series": "bisection",
+        "part": 3,
+        "series_total": 3,
+    },
+    {
+        "id": "6.sb.6",
+        "module_id": "6",
+        "title": "Collatz sequence length",
+        "prompt": "Starting from n=19, repeatedly apply: if n is even, n = n // 2; if odd, "
+                  "n = 3*n + 1. Count the steps until n reaches 1, and print the count.",
+        "starter_code": "n = 19\nsteps = 0\n",
+        "expected_output": "20",
+        "mode": "match_output",
+    },
+    {
+        "id": "6.sb.7",
+        "module_id": "6",
+        "title": "Count primes with a nested loop",
+        "prompt": "Using a nested loop (no shortcuts), count how many prime numbers exist from 2 up "
+                  "to and including 50, and print the count.",
+        "starter_code": "",
+        "expected_output": "15",
+        "mode": "match_output",
+    },
+    {
+        "id": "7.sb.3",
+        "module_id": "7",
+        "title": "Vector calculator — Part 1: magnitude",
+        "prompt": "For vector a = [2, 3, 6] (stored as a list), compute its magnitude by summing the "
+                  "squares of its components in a loop, then taking the square root. Print the result.",
+        "starter_code": "from math import sqrt\na = [2, 3, 6]\n",
+        "expected_output": "7.0",
+        "mode": "match_output",
+        "series": "vectors",
+        "part": 1,
+        "series_total": 3,
+    },
+    {
+        "id": "7.sb.4",
+        "module_id": "7",
+        "title": "Vector calculator — Part 2: dot product",
+        "prompt": "For a = [2, 3, 6] and b = [1, 0, 2], compute their dot product by looping over "
+                  "matching indices and summing a[i]*b[i]. Print the result.",
+        "starter_code": "a = [2, 3, 6]\nb = [1, 0, 2]\n",
+        "expected_output": "14",
+        "mode": "match_output",
+        "series": "vectors",
+        "part": 2,
+        "series_total": 3,
+    },
+    {
+        "id": "7.sb.5",
+        "module_id": "7",
+        "title": "Vector calculator — Part 3: angle between vectors",
+        "prompt": "Combine Parts 1 and 2: using the magnitudes and dot product of a=[2,3,6] and "
+                  "b=[1,0,2], compute the angle between them in degrees with "
+                  "degrees(acos(dot / (mag_a * mag_b))). Print it rounded to 2 decimal places.",
+        "starter_code": "from math import sqrt, acos, degrees\na = [2, 3, 6]\nb = [1, 0, 2]\n",
+        "expected_output": "26.57",
+        "mode": "match_output",
+        "series": "vectors",
+        "part": 3,
+        "series_total": 3,
+    },
+    {
+        "id": "7.sb.6",
+        "module_id": "7",
+        "title": "Pig Latin (one word)",
+        "prompt": 'Convert the word "python" to Pig Latin: move the first letter to the end and add '
+                  '"ay". Print the result.',
+        "starter_code": 'word = "python"\n',
+        "expected_output": "ythonpay",
+        "mode": "match_output",
+    },
+    {
+        "id": "7.sb.7",
+        "module_id": "7",
+        "title": "Free play: a 2D board",
+        "prompt": "Build a 3x3 board as a list of lists, each cell holding \"-\", then print it row by row.",
+        "starter_code": 'board = [["-" for _ in range(3)] for _ in range(3)]\nfor row in board:\n    print(row)',
+        "expected_output": None,
+        "mode": "freeform",
+    },
+    {
+        "id": "8.sb.3",
+        "module_id": "8",
+        "title": "Build a lookup dictionary from two lists",
+        "prompt": "Given parallel lists ids=[\"A101\",\"A102\",\"A103\"] and "
+                  "names=[\"Priya\",\"Marcus\",\"Elena\"], build a dictionary mapping each id to its "
+                  "name, then print directory[\"A102\"].",
+        "starter_code": 'ids = ["A101", "A102", "A103"]\nnames = ["Priya", "Marcus", "Elena"]\ndirectory = {}\n',
+        "expected_output": "Marcus",
+        "mode": "match_output",
+    },
+    {
+        "id": "8.sb.4",
+        "module_id": "8",
+        "title": "Free play: tally with a dictionary",
+        "prompt": "Count how many times each word appears in a list using a dictionary and .get().",
+        "starter_code": 'words = ["cat", "dog", "cat", "bird", "dog", "cat"]\ntally = {}\nfor w in words:\n    tally[w] = tally.get(w, 0) + 1\nprint(tally)',
+        "expected_output": None,
+        "mode": "freeform",
+    },
+    {
+        "id": "9.sb.3",
+        "module_id": "9",
+        "title": "Return multiple stats as a tuple",
+        "prompt": "Write a function stats(numbers) that returns both the sum and the average as a "
+                  "tuple. Call it on [4, 8, 15, 16, 23] and print both values.",
+        "starter_code": "",
+        "expected_output": "66 13.2",
+        "mode": "match_output",
+    },
+    {
+        "id": "10.sb.3",
+        "module_id": "10",
+        "title": "Debug: the average that's always 0",
+        "prompt": "This function should print the average of the scores (79.0), but a typo inside the "
+                  "loop means the total never actually accumulates. Find it and fix it.",
+        "starter_code": "def average(nums):\n    total = 0\n    for n in nums:\n        toal = total + n\n    return total / len(nums)\n\nscores = [72, 88, 91, 65]\nprint(average(scores))",
+        "expected_output": "79.0",
+        "mode": "match_output",
+    },
+    {
+        "id": "10.sb.4",
+        "module_id": "10",
+        "title": "Debug: the max that misses the last value",
+        "prompt": "This should print 42 (the largest value), but an off-by-one in the range() call "
+                  "skips checking the last element of the list. Find it and fix it.",
+        "starter_code": "def find_max(nums):\n    biggest = nums[0]\n    for i in range(1, len(nums) - 1):\n        if nums[i] > biggest:\n            biggest = nums[i]\n    return biggest\n\nvals = [3, 17, 9, 8, 42]\nprint(find_max(vals))",
+        "expected_output": "42",
+        "mode": "match_output",
+    },
+    {
+        "id": "11.sb.3",
+        "module_id": "11",
+        "title": "Record parser — Part 1: split one record into fields",
+        "prompt": 'Given the record string "name:Sam role:engineer id:104", split it on '
+                  "whitespace, then split each piece on \":\" to build a dictionary of fields. "
+                  'Print fields["role"].',
+        "starter_code": 'record = "name:Sam role:engineer id:104"\nfields = {}\n',
+        "expected_output": "engineer",
+        "mode": "match_output",
+        "series": "records",
+        "part": 1,
+        "series_total": 3,
+    },
+    {
+        "id": "11.sb.4",
+        "module_id": "11",
+        "title": "Record parser — Part 2: check required fields",
+        "prompt": 'Reuse Part 1\'s parsing. Check whether "name", "role", and "id" are all present as '
+                  "keys in fields (use all(...) with a loop or generator), and print the result.",
+        "starter_code": 'record = "name:Sam role:engineer id:104"\nfields = {}\nfor pair in record.split():\n    key, value = pair.split(":")\n    fields[key] = value\nrequired = ["name", "role", "id"]\n',
+        "expected_output": "True",
+        "mode": "match_output",
+        "series": "records",
+        "part": 2,
+        "series_total": 3,
+    },
+    {
+        "id": "11.sb.5",
+        "module_id": "11",
+        "title": "Record parser — Part 3: process multiple records",
+        "prompt": "Combine Parts 1 and 2 into a full program: data holds 3 records separated by a "
+                  'blank line ("\\n\\n"). Split it into records, parse each one\'s fields, and count '
+                  "how many have all 3 required fields (one is missing \"role\"). Print the count.",
+        "starter_code": 'data = "name:Sam role:engineer id:104\\n\\nname:Ana role:tech id:105\\n\\nname:Lee id:106"\nrequired = ["name", "role", "id"]\n',
+        "expected_output": "2",
+        "mode": "match_output",
+        "series": "records",
+        "part": 3,
+        "series_total": 3,
+    },
+    {
+        "id": "11.sb.6",
+        "module_id": "11",
+        "title": "Product code checksum",
+        "prompt": 'For the 12-digit code "123456789012", compute a weighted checksum digit: sum '
+                  "each digit times 3 if it's at an even index or 1 if odd (0-indexed), then the "
+                  "check digit is (10 - (total % 10)) % 10. Print the check digit.",
+        "starter_code": 'code = "123456789012"\ndigits = [int(d) for d in code]\n',
+        "expected_output": "0",
+        "mode": "match_output",
+    },
+    {
+        "id": "11.sb.7",
+        "module_id": "11",
+        "title": "Free play: mini weather average",
+        "prompt": "Given a week of temperature readings, compute and print the average to 2 decimal places.",
+        "starter_code": 'temps = [61, 64, 70, 68, 72, 75, 66]\navg_temp = sum(temps) / len(temps)\nprint(f"{avg_temp:.2f}")',
+        "expected_output": None,
+        "mode": "freeform",
+    },
+    {
+        "id": "12.sb.3",
+        "module_id": "12",
+        "title": "The statistics module",
+        "prompt": "Import the built-in statistics module and print the mean, then the median, of "
+                  "[88, 92, 79, 95, 84].",
+        "starter_code": "import statistics\nscores = [88, 92, 79, 95, 84]\n",
+        "expected_output": "87.6\n88",
+        "mode": "match_output",
+    },
+    {
+        "id": "13.sb.3",
+        "module_id": "13",
+        "title": "Numerical integration: the trapezoid rule",
+        "prompt": "Write trapezoid_area(f, a, b, n) that estimates the area under f from a to b using "
+                  "n trapezoids. Test it with f(x) = x**2 from 0 to 4 using n=1000 subintervals, "
+                  "printed rounded to 3 decimal places.",
+        "starter_code": "def f(x):\n    return x**2\n",
+        "expected_output": "21.333",
+        "mode": "match_output",
+    },
+    {
+        "id": "13.sb.4",
+        "module_id": "13",
+        "title": "Free play: find a local maximum",
+        "prompt": "Given a list of sampled y-values, loop through to find the index and value of the "
+                  "largest one (a simple stand-in for spotting a curve's local max).",
+        "starter_code": "ys = [3, 5, 9, 6, 4, 8, 2]\nbest_i = 0\nfor i in range(len(ys)):\n    if ys[i] > ys[best_i]:\n        best_i = i\nprint(best_i, ys[best_i])",
+        "expected_output": None,
+        "mode": "freeform",
+    },
 ]
 
 

@@ -99,4 +99,7 @@ export interface SandboxPrompt {
   starter_code: string
   expected_output: string | null
   mode: 'match_output' | 'freeform'
+  series?: string
+  part?: number
+  series_total?: number
 }
